@@ -13,11 +13,12 @@
     <div class="col-md-10 col-sm-9">
       <form class="navbar-form navbar-left full-width" role="search">
         <div class="input-group fl">
-          <button type="submit" ng-click="onsearch()" class="fr btn btn-default">查询</button>
           <span class="">角色名称：</span>
           <div class="form-group mg-rt-1">
             <input type="text" ng-model="criteria.name" class="form-control" placeholder="角色名称" maxlength="10">
           </div>
+          <button type="submit" ng-click="onsearch()" class="btn mg-rt-1 btn-default">查询</button>
+          <span class="text-color-c4" ng-if="lastCritria && lastCritria.name">搜索【{{lastCritria.name}}】结果:</span>
         </div>
         <a class="btn fr btn-default mg-rt-1" ng-click="addRoleDialog()" target="_blank" role="button">新增角色</a>
         <div class="clear"></div>
@@ -42,7 +43,7 @@
               <td ng-bind="d.createDate | date: 'yyyy-MM-dd HH:mm'"></td>
               <td ng-bind="d.lastUpdate | date: 'yyyy-MM-dd HH:mm'"></td>
               <td ng-bind="d.enabled?'':'是'"></td>
-              <td><a ng-href="#/role/{{d.id}}" target="_blank" ng-click="passRoleInfo(d)">详情</a></td>
+              <td><a ng-href="#/role/{{d._id}}" target="_blank" ng-click="passRoleInfo(d)">详情</a></td>
             </tr>
           </tbody>
           <tbody>

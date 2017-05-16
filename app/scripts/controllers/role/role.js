@@ -14,47 +14,48 @@ define(['utils/Constant'], function (Constant) {
     };
 
     $scope.pagination = {
+      // pageSize: 2,
       pageSize: Constant.pageSize,
       curPage: 1,
       totalCount: 0
     };
 
-      $scope.newRole = {
-        enabled: true
-      };
-      $scope.submitText = '创建';
-      $scope.submitDisable = function(){
-        if (!$scope.newRole.name || !$scope.newRole.description) {
-          return true;
-        }
-        if($scope.submiting){
-          return true;
-        }
-        return false;
+    $scope.newRole = {
+      enabled: true
+    };
+    $scope.submitText = '创建';
+    $scope.submitDisable = function(){
+      if (!$scope.newRole.name || !$scope.newRole.description) {
+        return true;
       }
-      $scope.createRole = function () {
-        $scope.submitErrorMsg = '';
-        if (!$scope.newRole.name || !$scope.newRole.description) {
+      if($scope.submiting){
+        return true;
+      }
+      return false;
+    }
+    $scope.createRole = function () {
+      $scope.submitErrorMsg = '';
+      if (!$scope.newRole.name || !$scope.newRole.description) {
+        return;
+      }
+      $scope.submiting = true;
+      RoleSvc.addRole($scope.newRole, function (resp) {
+        $scope.submiting = false;
+        var result = Constant.transformResponse(resp);
+        if (!result) {
+          $scope.submitErrorMsg = resp.errMsg ? resp.errMsg : Constant.createError;
           return;
         }
-        $scope.submiting = true;
-        RoleSvc.addRole($scope.newRole, function (resp) {
-          $scope.submiting = false;
-          var result = Constant.transformResponse(resp);
-          if (!result) {
-            $scope.submitErrorMsg = resp.errMsg ? resp.errMsg : Constant.createError;
-            return;
-          }
-          $scope.submitErrorMsg = '';
-          // console.log($scope);
-          $scope.roles.unshift(result);
-          $scope.addRoleInstanceDialog.close();
-          // $location.url('/role/' + result);
-        }, function (resp) {
-          $scope.submiting = false;
-          $scope.submitErrorMsg = resp.errMsg ? resp.errMsg : Constant.createError;
-        });
-      };
+        $scope.submitErrorMsg = '';
+        // console.log($scope);
+        $scope.roles.unshift(result);
+        $scope.addRoleInstanceDialog.close();
+        // $location.url('/role/' + result);
+      }, function (resp) {
+        $scope.submiting = false;
+        $scope.submitErrorMsg = resp.errMsg ? resp.errMsg : Constant.createError;
+      });
+    };
 
 
     $scope.addRoleDialog = function(){
@@ -64,12 +65,14 @@ define(['utils/Constant'], function (Constant) {
         scope: $scope
       });
     }
+    $scope.lastCritria = null;
     $scope.onsearch = function () {
       var searchCriteria = {
         name: $scope.criteria.name ? $scope.criteria.name : null,
         pageSize: $scope.pagination.pageSize,
         page: $scope.pagination.curPage
       };
+      $scope.lastCritria = searchCriteria;
       $scope.loadingStatus = Constant.loading;
       $scope.roles = [];
       RoleSvc.getRoles(searchCriteria, function (resp) {
