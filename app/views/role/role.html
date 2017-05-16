@@ -28,6 +28,7 @@
         <table class="text-left table table-hover grey-border vertical-middle">
           <thead class="text-color-c4">
             <tr>
+              <th>序号</th>
               <th>角色名称</th>
               <th>角色描述</th>
               <th>创建时间</th>
@@ -38,6 +39,7 @@
           </thead>
           <tbody class="text-color-c6">
             <tr ng-repeat="d in roles">
+              <td>{{$index + 1}}</td>
               <td ng-bind="d.name"></td>
               <td ng-bind="d.description"></td>
               <td ng-bind="d.createDate | date: 'yyyy-MM-dd HH:mm'"></td>

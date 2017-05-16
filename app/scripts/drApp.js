@@ -1,4 +1,4 @@
-"use strict";
+
 /**
  * A module representing a shirt.
  * @exports drApp
@@ -27,7 +27,7 @@ define('drApp', ['angular', 'ngResource', "ngRoute", "ngCookies", "ngDialog",
       app.config(['ngDialogProvider', function (ngDialogProvider) {
           ngDialogProvider.setDefaults({
               // className: 'ngdialog-custom-default',
-              // showClose: false,
+              showClose: false,
               closeByEscape: true
           });
       }]);
@@ -44,144 +44,144 @@ define('drApp', ['angular', 'ngResource', "ngRoute", "ngCookies", "ngDialog",
         $httpProvider.interceptors.push('httpInterceptorSvc');
 
         localStorageServiceProvider.prefix = 'DR-TechOps' + window.location.hostname;
-        $routeProvider.
-        when('/user', {
+        $routeProvider
+        .when('/user', {
           templateUrl: 'views/user/user.html',
           controller: 'UserController',
           helpAlias: '用户管理'
-        }).
-        when('/user/add', {
+        })
+        .when('/user/add', {
           templateUrl: 'views/user/user-add.html',
           controller: 'UserController',
           helpAlias: '新增用户'
-        }).
-        when('/user/:id', {
+        })
+        .when('/user/:id', {
           templateUrl: 'views/user/user-detail.html',
           controller: 'UserDetailController',
           helpAlias: '用户详情'
-        }).
-        when('/user/:id/modify', {
+        })
+        .when('/user/:id/modify', {
           templateUrl: 'views/user/user-modify.html',
           controller: 'UserDetailController',
           helpAlias: '用户修改'
-        }).
-        when('/user/:id/role/add', {
+        })
+        .when('/user/:id/role/add', {
           templateUrl: 'views/user/user-role-management.html',
           controller: 'UserDetailController',
           helpAlias: '用户详情-添加角色'
-        }).
-        when('/group', {
+        })
+        .when('/group', {
           templateUrl: 'views/group/group.html',
           controller: 'GroupController',
           helpAlias: '组管理'
-        }).
-        when('/group/add', {
+        })
+        .when('/group/add', {
           templateUrl: 'views/group/group-add.html',
           controller: 'GroupController',
           helpAlias: '新增组'
-        }).
-        when('/group/:id', {
+        })
+        .when('/group/:id', {
           templateUrl: 'views/group/group-detail.html',
           controller: 'GroupDetailController',
           helpAlias: '组详情'
-        }).
-        when('/group/:id/modify', {
+        })
+        .when('/group/:id/modify', {
           templateUrl: 'views/group/group-modify.html',
           controller: 'GroupDetailController',
           helpAlias: '组修改'
-        }).
-        when('/group/:id/add-sub', {
+        })
+        .when('/group/:id/add-sub', {
           templateUrl: 'views/group/group-add-sub.html',
           controller: 'GroupDetailController',
           helpAlias: '新增子组'
-        }).
-        when('/domain', {
+        })
+        .when('/domain', {
           templateUrl: 'views/domain/domain.html',
           controller: 'DomainController',
           helpAlias: '接入管理'
-        }).
-        when('/domain/add', {
+        })
+        .when('/domain/add', {
           templateUrl: 'views/domain/domain-add.html',
           controller: 'DomainAddController',
           helpAlias: '域管理'
-        }).
-        when('/domain/info/:id', {
+        })
+        .when('/domain/info/:id', {
           templateUrl: 'views/domain/domain-info.html',
           controller: 'DomainInfoController',
           helpAlias: '域管理'
-        }).
-        when('/domain/info/:id/edit', {
+        })
+        .when('/domain/info/:id/edit', {
           templateUrl: 'views/domain/domain-info-edit.html',
           controller: 'DomainInfoEditController',
           helpAlias: '域管理'
-        }).
-        when('/domain/edit/:id', {
+        })
+        .when('/domain/edit/:id', {
           templateUrl: 'views/domain/domain-edit.html',
           controller: 'DomainEditController',
           helpAlias: '域管理'
-        }).
-        when('/domain/my', {
+        })
+        .when('/domain/my', {
           templateUrl: 'views/domain/domain-my.html',
           controller: 'DomainMyController',
           helpAlias: '我的应用'
-        }).
-        when('/domain/my/:domainId', {
+        })
+        .when('/domain/my/:domainId', {
           templateUrl: 'views/domain/domain-details.html',
           controller: 'DomainMyDetailController',
           helpAlias: '我的应用'
-        }).
-        when('/domain/mapping', {
+        })
+        .when('/domain/mapping', {
           templateUrl: 'views/domain/domain-mapping.html',
           controller: 'DomainMappingController',
           helpAlias: '域管理'
-        }).
-        when('/domain/:domainId', {
+        })
+        .when('/domain/:domainId', {
           templateUrl: 'views/domain/domain-details.html',
           controller: 'DomainController',
           helpAlias: '域详情'
-        }).
-        when('/domain/:domainId/management', {
+        })
+        .when('/domain/:domainId/management', {
           templateUrl: 'views/domain/domain-management.html',
           controller: 'UserBindManagementController',
           helpAlias: '域详情-添加用户'
-        }).
-        when('/role', {
+        })
+        .when('/role', {
           templateUrl: 'views/role/role.html',
           controller: 'RoleController',
           helpAlias: '角色管理'
-        }).
-        when('/role/add', {
+        })
+        .when('/role/add', {
           templateUrl: 'views/role/role-add.html',
           controller: 'RoleController',
           helpAlias: '角色添加'
-        }).
-        when('/role/:roleId', {
+        })
+        .when('/role/:roleId', {
           templateUrl: 'views/role/role-details.html',
           controller: 'RoleDetailController',
           helpAlias: '角色详情'
-        }).
-        when('/role/:roleId/modify', {
+        })
+        .when('/role/:roleId/modify', {
           templateUrl: 'views/role/role-modify.html',
           controller: 'RoleDetailController',
           helpAlias: '角色修改'
-        }).
-        when('/role/:roleId/menu-management', {
+        })
+        .when('/role/:roleId/menu-management', {
           templateUrl: 'views/role/role-menu-management.html',
           controller: 'RoleMenuController',
           helpAlias: '角色-添加菜单'
-        }).
-        when('/role/:roleId/url-management', {
+        })
+        .when('/role/:roleId/url-management', {
           templateUrl: 'views/role/role-url-management.html',
           controller: 'RoleURLController',
           helpAlias: '角色-添加URL模式'
-        }).
-        when('/role/:roleId/user-management', {
+        })
+        .when('/role/:roleId/user-management', {
           templateUrl: 'views/role/role-user-management.html',
           controller: 'UserBindManagementController',
           helpAlias: '角色-添加用户'
-        }).
+        })
 
-        when('/login', {
+        .when('/login', {
           templateUrl: 'views/login/login.html',
           controller: 'LoginController',
           helpAlias: '登录'

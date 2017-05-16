@@ -32,7 +32,8 @@
               <th>姓名</th>
               <th>邮箱</th>
               <th>创建时间</th>
-              <th>禁用</th>
+              <th>修改时间</th>
+              <th>已禁用</th>
               <th>操作</th>
             </tr>
           </thead>
@@ -41,10 +42,11 @@
               <td>{{$index + 1}}</td>
               <td ng-bind="d.name"></td>
               <td ng-bind="d.email"></td>
-              <td>{{d.createDate | date:'yyyy-MM-dd HH:mm'}}</td>
-              <td ng-bind="!d.enabled?'是':'否'"></td>
+              <td ng-bind="d.createDate | date: 'yyyy-MM-dd HH:mm'"></td>
+              <td ng-bind="d.lastUpdate | date: 'yyyy-MM-dd HH:mm'"></td>
+              <td ng-bind="d.enabled?'':'否'"></td>
               <td class="text-color-c9">
-                <a ng-href="#/user/{{d.id}}" target="_blank">详情</a>
+                <a ng-href="#/user/{{d._id}}" target="_blank">详情</a>
               </td>
             </tr>
 

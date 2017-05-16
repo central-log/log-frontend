@@ -45,7 +45,8 @@ define(['utils/Constant'], function (Constant) {
         $scope.submitErrorMsg = '';
         // console.log($scope);
         $scope.roles.unshift(result);
-        $scope.addRoleInstanceDialog.close();
+        $scope.loadingStatus = '';
+        $scope.addInstanceDialog.close();
         // $location.url('/role/' + result);
       }, function (resp) {
         $scope.submiting = false;
@@ -59,7 +60,7 @@ define(['utils/Constant'], function (Constant) {
       $scope.newRole = {
         enabled: true
       };
-      $scope.addRoleInstanceDialog = ngDialog.open({
+      $scope.addInstanceDialog = ngDialog.open({
         template: './views/role/role-add.html',
         className: 'ngdialog-custom-default',
         // controller: 'RoleController'

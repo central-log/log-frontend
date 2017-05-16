@@ -52,3 +52,6 @@ input::-ms-clear {
 .ngdialog-custom-default .ngdialog-content {
   background-color: transparent;
 }
+.ngdialog-custom-default button.ngdialog-close {
+  display: none;
+}

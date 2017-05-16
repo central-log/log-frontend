@@ -85,7 +85,7 @@ define(['utils/Constant'], function (Constant) {
         enabled: true
       };
       $scope.submitErrorMsg = '';
-      $scope.addRoleInstanceDialog = ngDialog.open({
+      $scope.addInstanceDialog = ngDialog.open({
         template: './views/user/user-add.html',
         className: 'ngdialog-custom-default',
         scope: $scope
@@ -118,8 +118,9 @@ define(['utils/Constant'], function (Constant) {
           }
           $scope.submitErrorMsg = '';
           // console.log($scope);
-          $scope.roles.unshift(result);
-          $scope.addRoleInstanceDialog.close();
+          $scope.users.unshift(result);
+          $scope.loadingStatus = '';
+          $scope.addInstanceDialog.close();
           // $location.url('/role/' + result);
         }, function (resp) {
           $scope.submiting = false;
