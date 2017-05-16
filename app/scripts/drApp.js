@@ -26,8 +26,8 @@ define('drApp', ['angular', 'ngResource', "ngRoute", "ngCookies", "ngDialog",
 
       app.config(['ngDialogProvider', function (ngDialogProvider) {
           ngDialogProvider.setDefaults({
-              className: 'ngdialog-custom-default',
-              showClose: false,
+              // className: 'ngdialog-custom-default',
+              // showClose: false,
               closeByEscape: true
           });
       }]);

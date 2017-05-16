@@ -62,6 +62,7 @@ define(['utils/Constant'], function (Constant) {
       $scope.addRoleInstanceDialog = ngDialog.open({
         template: './views/role/role-add.html',
         className: 'ngdialog-custom-default',
+        // controller: 'RoleController'
         scope: $scope
       });
     }
@@ -100,10 +101,6 @@ define(['utils/Constant'], function (Constant) {
     };
 
     $scope.onsearch();
-
-    // $scope.passRoleInfo = function (role) {
-    //   localStorageService.set('roleDetail', role);
-    // };
   };
 
   return {
