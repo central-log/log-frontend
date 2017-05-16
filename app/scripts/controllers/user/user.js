@@ -1,4 +1,4 @@
-'use strict';
+
 /**
  * Module representing a shirt.
  * @module controllers/User
@@ -8,7 +8,11 @@ define(['utils/Constant'], function (Constant) {
    * A module representing a User controller.
    * @exports controllers/User
    */
-  var Controller = function ($scope, $location, UserSvc, GroupSvc, CommonSvc, localStorageService) {
+  var Controller = function ($scope, $location, UserSvc, GroupSvc, CommonSvc, localStorageService,ngDialog) {
+    $scope.criteria = {
+      email: ''
+    };
+
     $scope.pagination = {
       pageSize: Constant.pageSize,
       curPage: 1,
@@ -16,124 +20,118 @@ define(['utils/Constant'], function (Constant) {
     };
 
     //Event listeners
+    $scope.lastCritria = null;
     $scope.queryUser = function () {
-      var params = $scope.userQuery;
-
-      var count = 0,
-        total = 0;
-      for (var prop in params) {
-        total++;
-        if (params[prop] === null || typeof params[prop] === 'undefined') {
-          count++;
-        }
-      }
-
-      if (count === total) {
-        //return false;
-      }
-      if (!params) {
-        params = {};
-      }
-      params.page = $scope.pagination.curPage;
-      params.pageSize = $scope.pagination.pageSize;
-
-      $scope.users = [];
-      $scope.usersLoading = Constant.loading;
-
-      UserSvc.getUsers(params, function (res) {
-
-        var result = Constant.transformResponse(res);
-        if (result === undefined) {
-          $scope.usersLoading = Constant.loadError;
-          return;
-        }
-        if (!result || !result.data || !result.data.length) {
-          $scope.usersLoading = Constant.loadEmpty;
-          return;
-        }
-
-        $scope.usersLoading = '';
-        $scope.users = result.data;
-
-        $scope.pagination.curPage = res.result.page;
-        $scope.pagination.totalCount = res.result.totalCount;
-        $scope.pagination.pageSize = res.result.pageSize;
-
-      }, function () {
+        var searchCriteria = {
+          email: $scope.criteria.email ? $scope.criteria.email : null,
+          pageSize: $scope.pagination.pageSize,
+          page: $scope.pagination.curPage
+        };
+        $scope.lastCritria = searchCriteria;
+        $scope.loadingStatus = Constant.loading;
         $scope.users = [];
-        $scope.usersLoading = Constant.loadError;
-      });
+        UserSvc.getUsers(searchCriteria, function (resp) {
+          var result = Constant.transformResponse(resp);
+          if (result === undefined) {
+            $scope.loadingStatus = Constant.loadError;
+            $scope.users = [];
+            return;
+          }
+          // No Pagination
+          if (!result || !result.data || !result.data.length) {
+            $scope.users = [];
+            $scope.loadingStatus = Constant.loadEmpty;
+            return;
+          }
+          $scope.loadingStatus = '';
+          $scope.users = result.data;
+
+          $scope.pagination.curPage = result.page;
+          $scope.pagination.totalCount = result.totalCount;
+          $scope.pagination.pageSize = result.pageSize;
+        }, function () {
+          $scope.loadingStatus = Constant.loadError;
+        });
     };
 
     $scope.queryUser();
 
-    $scope.storeUserDetail = function (detail) {
-      localStorageService.set('userDetail', detail);
-    };
-
-    /*$scope.getUsersByPage = function () {
-      UserSvc.getUsers({
-        page: $scope.pagination.curPage,
-        pageSize: $scope.pagination.pageSize
-      }, function (resp) {
-        $scope.users = resp.result.data;
-        $scope.pagination.curPage = resp.result.page;
-        $scope.pagination.totalCount = resp.result.totalCount;
-      });
-
-    };*/
-
     // dropdown list
-    $scope.disableDropdownList = Constant.disableDropdownList;
+    // $scope.disableDropdownList = Constant.disableDropdownList;
 
-    $scope.roleTypeDropdownList = Constant.roleTypesArr;
+    // $scope.roleTypeDropdownList = Constant.roleTypesArr;
 
-    $scope.getGroups = function () {
-      GroupSvc.getGroups({
-        page: 1,
-        pageSize: Constant.hackMaxPageSize // HACK
-      }, function (res) {
-        if (!res || !res.result || !res.result.data) {
-          $scope.groupList = [];
-        } else {
-          $scope.groupList = res.result.data;
-        }
-        $scope.groupList.unshift({
-          name: '请选择',
-          value: null
-        });
+    // $scope.getGroups = function () {
+    //   GroupSvc.getGroups({
+    //     page: 1,
+    //     pageSize: Constant.hackMaxPageSize // HACK
+    //   }, function (res) {
+    //     if (!res || !res.result || !res.result.data) {
+    //       $scope.groupList = [];
+    //     } else {
+    //       $scope.groupList = res.result.data;
+    //     }
+    //     $scope.groupList.unshift({
+    //       name: '请选择',
+    //       value: null
+    //     });
+    //   });
+    // };
+    // $scope.getGroups();
+
+    $scope.submitText = '添加';
+    $scope.addUserDialog = function(){
+      $scope.newUser = {
+        enabled: true
+      };
+      $scope.submitErrorMsg = '';
+      $scope.addRoleInstanceDialog = ngDialog.open({
+        template: './views/user/user-add.html',
+        className: 'ngdialog-custom-default',
+        scope: $scope
       });
-    };
-    $scope.getGroups();
+    }
+
+    $scope.submitDisable = function(){
+      if (!$scope.newUser.name || !$scope.newUser.email) {
+        return true;
+      }
+      if($scope.submiting){
+        return true;
+      }
+      return false;
+    }
 
     $scope.addNewUser = function () {
-      if (typeof $scope.newUser === 'undefined') {
-        return false;
-      }
 
-      for (var prop in $scope.newUser) {
-        if (typeof $scope.newUser[prop] === 'undefined' || $scope.newUser[prop] === null) {
-          return false;
-        }
-      }
-      $scope.addNewUserErrorMsg = '';
-      UserSvc.addUser($scope.newUser, function (res) {
-        var result = Constant.transformResponse(res);
-        if (result === undefined) {
-          $scope.addNewUserErrorMsg = res.errMsg ? res.errMsg : '添加用户失败，请稍后再试';
+        $scope.submitErrorMsg = '';
+        if (!$scope.newUser.name || !$scope.newUser.email) {
           return;
         }
-        //$scope.addNewUserSuccess = true;
-        $location.path('/user/' + res.result);
-      }, function (errorResp) {
-        $scope.addNewUserErrorMsg = errorResp.errMsg ? errorResp.errMsg : '添加用户失败，请稍后再试';
-      });
+        $scope.submiting = true;
+        UserSvc.addUser($scope.newUser, function (resp) {
+          $scope.submiting = false;
+          var result = Constant.transformResponse(resp);
+          if (!result) {
+            $scope.submitErrorMsg = resp.errMsg ? resp.errMsg : Constant.createError;
+            return;
+          }
+          $scope.submitErrorMsg = '';
+          // console.log($scope);
+          $scope.roles.unshift(result);
+          $scope.addRoleInstanceDialog.close();
+          // $location.url('/role/' + result);
+        }, function (resp) {
+          $scope.submiting = false;
+          $scope.submitErrorMsg = resp.errMsg ? resp.errMsg : Constant.createError;
+        });
+
     };
   };
 
   return {
     name: "UserController",
-    fn: ["$scope", "$location", "UserSvc", "GroupSvc", "CommonSvc", "localStorageService", Controller]
+    fn: ["$scope", "$location", "UserSvc", "GroupSvc", "CommonSvc", "localStorageService", 'ngDialog', Controller]
   };
 
 

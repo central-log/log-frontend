@@ -11,27 +11,18 @@
       </div>
     </div>
     <div class="col-md-10 col-sm-9">
-      <form class="form-horizontal" name="userQueryForm">
-        <div class="form-group">
-          <div class="col-md-4">
-            <span for="" class="col-sm-4 control-label">用户姓名</span>
-            <div class="col-sm-8">
-              <input type="text" class="form-control" id="" placeholder="用户姓名" ng-model="userQuery.name" maxlength="20">
-            </div>
+      <form class="navbar-form navbar-left full-width" role="search">
+        <div class="input-group fl">
+          <span class="">用户邮箱：</span>
+          <div class="form-group mg-rt-1">
+            <input type="text" class="form-control" placeholder="用户邮箱" ng-model="criteria.email" maxlength="40">
           </div>
-          <div class="col-md-4">
-            <span for="" class="col-md-4 control-label">邮箱</span>
-            <div class="col-md-8">
-              <input type="email" class="form-control" id="" placeholder="邮箱" ng-model="userQuery.email" maxlength="40">
-            </div>
-          </div>
+          <button type="submit" ng-click="queryUser()" class="btn mg-rt-1 btn-default">查询</button>
+          <span class="text-color-c4" ng-if="lastCritria && lastCritria.email">搜索【{{lastCritria.email}}】结果:</span>
         </div>
-      </form>
-
-      <div class="panel-body">
-        <button class="float-right btn btn-default" ng-click="queryUser()">查询</button>
-        <a class=" float-left btn btn-default" ng-href="#/user/add" target="_blank" role="button">新增用户</a>
-      </div>
+        <a class="btn fr btn-default mg-rt-1" ng-click="addUserDialog()" role="button">新增角色</a>
+        <div class="clear"></div>
+    </form>
 
       <div>
         <table class="text-left table grey-border table-hover vertical-middle">
@@ -46,11 +37,6 @@
             </tr>
           </thead>
           <tbody class="text-color-c6">
-
-            <tr ng-if="usersLoading!=''">
-              <td colspan="9" class="tc" ng-bind="usersLoading"></td>
-            </tr>
-
             <tr ng-repeat="d in users">
               <td>{{$index + 1}}</td>
               <td ng-bind="d.name"></td>
@@ -58,9 +44,16 @@
               <td>{{d.createDate | date:'yyyy-MM-dd HH:mm'}}</td>
               <td ng-bind="!d.enabled?'是':'否'"></td>
               <td class="text-color-c9">
-                <a ng-href="#/user/{{d.id}}" target="_blank" ng-click="storeUserDetail(d);">详情</a>
+                <a ng-href="#/user/{{d.id}}" target="_blank">详情</a>
               </td>
             </tr>
+
+            <tbody>
+              <tr ng-if="loadingStatus!=''">
+                <td colspan="6" class="tc" ng-bind="loadingStatus"></td>
+              </tr>
+            </tbody>
+
           </tbody>
         </table>
         <pagination ng-if="users && users.length" boundary-link-numbers="true" force-ellipses="true" max-size="10" boundary-links="true" ng-change="queryUser()" items-per-page="pagination.pageSize" total-items="pagination.totalCount" ng-model="pagination.curPage" class="pagination-sm float-right" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>

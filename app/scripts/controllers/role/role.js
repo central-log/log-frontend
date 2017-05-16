@@ -1,4 +1,3 @@
-'use strict';
 /**
  * Module representing a shirt.
  * @module controllers/login
@@ -20,9 +19,6 @@ define(['utils/Constant'], function (Constant) {
       totalCount: 0
     };
 
-    $scope.newRole = {
-      enabled: true
-    };
     $scope.submitText = '创建';
     $scope.submitDisable = function(){
       if (!$scope.newRole.name || !$scope.newRole.description) {
@@ -59,6 +55,10 @@ define(['utils/Constant'], function (Constant) {
 
 
     $scope.addRoleDialog = function(){
+      $scope.submitErrorMsg = '';
+      $scope.newRole = {
+        enabled: true
+      };
       $scope.addRoleInstanceDialog = ngDialog.open({
         template: './views/role/role-add.html',
         className: 'ngdialog-custom-default',
