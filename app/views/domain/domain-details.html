@@ -1,0 +1,88 @@
+<div class="tl panel">
+  <div class="panel-heading">
+    <p class="text-size-s1 text-color-c6">域信息</p>
+    <div class="row" ng-if="loadingStatus!=''">
+      <div class="col-md-12 tc" ng-bind="loadingStatus">正在加载</div>
+    </div>
+    <div class="row text-size-s3" ng-if="!loadingStatus">
+      <div class="col-md-6">
+        <div class="col-md-3 text-color-c4">域名称：</div>
+        <div class="col-md-9 tl text-color-c6">
+          <span ng-bind="domain.displayName"></span>
+          <a ng-bind="domain.name" ng-href="{{domain.name}}"></a>
+        </div>
+      </div>
+    </div>
+    <div class="row text-size-s3" ng-if="!loadingStatus">
+      <div class="col-md-6">
+        <div class="col-md-3 text-color-c4">域ID：</div>
+        <div class="col-md-9 tl text-color-c6" ng-bind="domain.id"></div>
+      </div>
+      <div class="col-md-6">
+        <div class="col-md-3 text-color-c4">域Key：</div>
+        <div class="col-md-9 tl text-color-c6" ng-bind="domain.id"></div>
+      </div>
+    </div>
+    <div class="row text-size-s3" ng-if="!loadingStatus">
+      <div class="col-md-6">
+        <div class="col-md-3 text-color-c4">日志级别：</div>
+        <div class="col-md-9 tl text-color-c6" ng-bind="domain.key"></div>
+      </div>
+      <div class="col-md-6">
+        <div class="col-md-3 text-color-c4">联系邮箱：</div>
+        <div class="col-md-9 tl text-color-c6" ng-bind="domain.key"></div>
+      </div>
+    </div>
+    <div class="row text-size-s3" ng-if="!loadingStatus">
+      <div class="col-md-3 text-color-c4">描述信息：</div>
+      <div class="col-md-9 tl text-color-c6" ng-bind="domain.description"></div>
+    </div>
+    <a class="btn fr btn-default" ng-href="#/domain/{{paramDomainId}}/management" role="button">修改</a>
+  </div>
+
+  <div class="panel-body">
+    <div>
+      <span>节点状态</span>
+      <a class="btn fr btn-default" ng-href="#/domain/{{paramDomainId}}/management" role="button">添加用户</a>
+      <div class="clear"></div>
+    </div>
+    <hr/>
+    <div>
+      <table class="tl table table-striped">
+        <thead class="text-size-s3 text-color-c4">
+          <tr>
+            <th>序号</th>
+            <th>当前环境</th>
+            <th>节点</th>
+            <th>类型</th>
+            <th>状态</th>
+            <th>平均错误量/周</th>
+            <th>平均日志流量/日</th>
+            <th>平均错误量/周</th>
+            <th>平均日志流量/日</th>
+            <th>详情</th>
+          </tr>
+        </thead>
+        <tbody class="text-size-s3 text-color-c6">
+          <tr ng-repeat="u in domainUsers">
+            <td ng-bind="$index+1"></td>
+            <td ng-bind="u.name"></td>
+            <td ng-bind="u.email"></td>
+            <td ng-bind="u.phone"></td>
+            <td ng-bind="u.phone"></td>
+            <td ng-bind="u.phone"></td>
+            <td ng-bind="u.createDate | date: 'yyyy-MM-dd HH:mm'"></td>
+            <td ng-bind="u.groupName"></td>
+            <td ng-bind="roleTypes[u.roleType]"></td>
+            <td><a ng-href="" ng-click="removeDomainUserDialog.open(u.id)">移除</a></td>
+          </tr>
+          <tr ng-if="userLoading!=''">
+            <td colspan="8" class="tc" ng-bind="userLoading"></td>
+          </tr>
+        </tbody>
+      </table>
+      <pagination ng-if="domainUsers && domainUsers.length>0" boundary-link-numbers="true" force-ellipses="true" max-size="10" boundary-links="true" ng-change="getUsersByPage()" items-per-page="pagination.pageSize" total-items="pagination.totalCount" ng-model="pagination.curPage" class="pagination-sm fr" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+    </div>
+  </div>
+
+  <dialog dialog="removeDomainUserDialog"></dialog>

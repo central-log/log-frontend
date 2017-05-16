@@ -1,0 +1,154 @@
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">TechOps 权限管理系统</a>
+    </div>
+</nav>
+重置密码
+<div id="reset-pwd" ng-show="resetPwdStep1">
+  <div class="reset-pwd-progressbar">
+    <div class="reset-pwd-step-on">
+      <div class="font-rotate">1</div>
+    </div>
+    <div class="reset-pwd-step-line-off"></div>
+    <div class="reset-pwd-step-off">
+      <div class="font-rotate">2</div>
+    </div>
+    <div class="reset-pwd-step-line-off"></div>
+    <div class="reset-pwd-step-off">
+      <div class="font-rotate">3</div>
+    </div>
+  </div>
+  <div>
+    <ul class="reset-pwd-desc">
+      <span class="reset-pwd-progress-1 onFocus">输入账户名</span>
+      <span class="reset-pwd-progress-2">获取验证码</span>
+      <span class="reset-pwd-progress-3">设置新密码</span>
+    </ul>
+  </div>
+  <div>
+    <ng-form name="resetPwd" role="form" id="resetPwd1">
+      <div class="form-group">
+        <input id="resetPwdEmail" type="email" name="resetPwdEmail" ng-model="resetPwdEmail" placeholder="请输入邮箱账号" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required class="form-control email-input" maxlength="50">
+      </div>
+      <div class="form-group">
+        <input id="resetPwdCaptcha" type="text" name="resetPwdCaptcha" ng-model="resetPwdCaptcha" placeholder="请输入验证码" required class="form-control captcha-input" maxlength="5">
+        <div>
+          <img class="captcha" id="captcha" ng-src="{{apiBase}}/common/getCaptcha">
+          <img class="refresh" src="images/login/refresh.png" ng-click="refreshCaptcha()">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <button id="submitResetPwd" type="button" ng-click="submitResetPwd()" ng-disabled="isSubmitResetPwdEnable()" class="reset-pwd-button btn">下一步</button>
+      </div>
+      <div ng-show="resetPwdFailed" ng-bind="resetPwdAlertContent" class="alert-content">
+      </div>
+    </ng-form>
+  </div>
+</div>
+<div id="reset-pwd" ng-show="resetPwdStep2">
+  <div class="reset-pwd-progressbar">
+    <div class="reset-pwd-step-on">
+      <div class="correct-symbol">L</div>
+    </div>
+    <div class="reset-pwd-step-line-off"></div>
+    <div class="reset-pwd-step-on">
+      <div class="font-rotate">2</div>
+    </div>
+    <div class="reset-pwd-step-line-off"></div>
+    <div class="reset-pwd-step-off">
+      <div class="font-rotate">3</div>
+    </div>
+  </div>
+  <div>
+    <ul class="reset-pwd-desc">
+      <span class="reset-pwd-progress-1">输入账户名</span>
+      <span class="reset-pwd-progress-2 onFocus">获取验证码</span>
+      <span class="reset-pwd-progress-3">设置新密码</span>
+    </ul>
+  </div>
+  <div>
+    <ng-form name="resetPwd" role="form" id="resetPwd2">
+      <div class="form-group email-show" ng-bind="sendEmailCaptchaMsg"></div>
+      <div class="form-group">
+        <input id="resetPwdCaptcha" type="text" name="resetPwdCaptcha" ng-model="emailCaptcha" placeholder="邮箱验证码" required class="form-control captcha-input" maxlength="6">
+        <div class="captcha">
+          <button type="button" ng-if="emailCaptchaButtonEnable" ng-disabled="buttonTimer" ng-click="sendCaptchaToEmail()" class="send-captcha-email-button btn">获取验证码</button>
+          <button type="button" ng-if="!emailCaptchaButtonEnable" ng-disabled="buttonTimer" class="send-captcha-email-button btn">{{count}}秒后重新发送</button>
+        </div>
+      </div>
+      <div class="form-group">
+        <button type="button" ng-disabled="verifyEmailCaptchaDisabled()" ng-click="verifyEmailCaptcha()" class="reset-pwd-button btn">下一步</button>
+      </div>
+      <div ng-show="resetPwdFailed" ng-bind="resetPwdAlertContent" class="alert-content">
+      </div>
+      <div>{{countdown}}</div>
+    </ng-form>
+  </div>
+</div>
+<div id="reset-pwd" ng-show="resetPwdStep3">
+  <div class="reset-pwd-progressbar">
+    <div class="reset-pwd-step-on">
+      <div class="correct-symbol">L</div>
+    </div>
+    <div class="reset-pwd-step-line-off"></div>
+    <div class="reset-pwd-step-on">
+      <div class="correct-symbol">L</div>
+    </div>
+    <div class="reset-pwd-step-line-off"></div>
+    <div class="reset-pwd-step-on">
+      <div class="font-rotate">3</div>
+    </div>
+  </div>
+  <div>
+    <ul class="reset-pwd-desc">
+      <span class="reset-pwd-progress-1">输入账户名</span>
+      <span class="reset-pwd-progress-2">获取验证码</span>
+      <span class="reset-pwd-progress-3 onFocus">设置新密码</span>
+    </ul>
+  </div>
+  <div>
+    <ng-form name="resetPwd" role="form" id="resetPwd3">
+      <div class="form-group">
+        <input id="" type="password" name="" placeholder="请输入新的密码" ng-model="resetPwd1" required class="form-control email-input" maxlength="50">
+      </div>
+      <div class="form-group">
+        <input id="" type="password" name="" placeholder="请再次输入新的密码" ng-model="resetPwd2" required class="form-control email-input" maxlength="20">
+      </div>
+      <div class="form-group">
+        <button type="button" ng-disabled="finalResetPwdDisabled()" ng-click="finalResetPwd()" class="reset-pwd-button btn">完成</button>
+      </div>
+      <div ng-show="resetPwdFailed" ng-bind="resetPwdAlertContent" class="alert-content">
+      </div>
+    </ng-form>
+  </div>
+</div>
+<div id="reset-pwd" ng-show="resetPwdStep4">
+  <div class="reset-pwd-progressbar">
+    <div class="reset-pwd-step-on">
+      <div class="correct-symbol">L</div>
+    </div>
+    <div class="reset-pwd-step-line-off"></div>
+    <div class="reset-pwd-step-on">
+      <div class="correct-symbol">L</div>
+    </div>
+    <div class="reset-pwd-step-line-off"></div>
+    <div class="reset-pwd-step-on">
+      <div class="correct-symbol">L</div>
+    </div>
+  </div>
+  <div>
+    <ul class="reset-pwd-desc">
+      <span class="reset-pwd-progress-1">输入账户名</span>
+      <span class="reset-pwd-progress-2">获取验证码</span>
+      <span class="reset-pwd-progress-3">设置新密码</span>
+    </ul>
+  </div>
+  <div class="resetPwdSucess">
+    密码重置成功！
+    <br> 请使用新密码登录。
+  </div>
+  <button type="button" ng-click="relogin()" class="reset-pwd-button btn">重新登录</button>
+</div>

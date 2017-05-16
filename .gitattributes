@@ -1,0 +1,64 @@
+* text=auto
+
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.cls text eol=crlf
+*.aspx text eol=crlf
+*.cs text eol=crlf
+
+*.jar binary
+*.war binary
+*.jasper binary
+*.jpg binary
+*.png binary
+*.gif binary
+*.tif binary
+*.ico binary
+*.psd binary
+*.ogg binary
+*.svg binary
+*.mp4 binary
+*.swf binary
+*.woff binary
+
+*.docx binary
+*.xls binary
+*.pdf binary
+*.zip binary
+*.swf binary
+*.gz binary
+*.gzip binary
+*.tgz binary
+
+*.key binary
+*.pem binary
+*.pfx binary
+*.apk binary
+*.class binary
+
+*.java text
+*.htm text
+*.html text
+*.js text
+*.css text
+*.jsp text
+*.as text
+*.htc text
+*.rb text
+*.erb text
+*.sh text
+*.txt text
+*.htc text
+*.json text
+*.less text
+*.properties text
+*.xml text
+*.dtd text
+*.xsd text
+*.tld text
+*.yml text
+
+*.couch binary
+*.eot binary
+*.icns binary
+*.nib binary

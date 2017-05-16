@@ -1,0 +1,41 @@
+<form class="form-horizontal" name="newSubForm">
+  <div class="form-group">
+    <label for="" class="col-sm-3 control-label">所在地域</label>
+    <location class="col-sm-9" province="groupDetail.province" city="groupDetail.city" district="groupDetail.district"></location>
+  </div>
+  <div class="form-group">
+    <label for="" class="col-sm-3 control-label">上级组</label>
+    <div class="col-sm-9">
+      <p>{{groupDetail.name}}</p>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="" class="col-sm-3 control-label">组名称</label>
+    <div class="col-sm-9">
+      <input type="text" class="form-control" ng-model="newSubGroupName" placeholder="组的名称" required name="name" maxlength="30">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="" class="col-sm-3 control-label">描述信息</label>
+    <div class="col-sm-9">
+      <input type="text" class="form-control" ng-model="newSubGroupDesc" placeholder="组的描述" required name="desc" maxlength="50">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="" class="col-sm-3 control-label">组类型</label>
+    <dropdown options="groupTypeList" pattern="name for value" selected-option="newGroupType" selected-option-text="{{groupTypeObj[groupDetail.groupType]}}"></dropdown>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-3 col-sm-9">
+      <button class="btn btn-default" ng-click="addSubGroup()" ng-disabled="addSubGroupDisable()">保存</button>
+    </div>
+  </div>
+  <div class="clear">
+    <span ng-if="addSubGroupSuccess === false" class="alert alert-danger">创建子组失败，请稍后再试</span>
+    <span ng-if="addSubGroupSuccess === true" class="alert alert-success">创建子组成功</span>
+  </div>
+</form>

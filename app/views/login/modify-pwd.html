@@ -1,0 +1,21 @@
+修改密码
+<div id="reset-pwd">
+  <div class="modifyPwdForm">
+    <ng-form name="modifyPwd" role="form" id="modifyPwd">
+      <div class="form-group">
+        <input id="resetPwdEmail" type="password" name="oldPassword" ng-model="oldPassword" placeholder="现有密码" required class="form-control email-input" maxlength="20">
+      </div>
+      <div class="form-group">
+        <input id="resetPwdEmail" type="password" name="newPassword1" ng-model="newPassword1" placeholder="新密码" required class="form-control email-input" maxlength="20">
+      </div>
+      <div class="form-group">
+        <input id="resetPwdEmail" type="password" name="newPassword2" ng-model="newPassword2" placeholder="确认密码" required class="form-control email-input" maxlength="20">
+      </div>
+      <div class="form-group">
+        <button type="button" ng-disabled="submitModifyPwdDisabled()" ng-click="submitModifyPwd()" class="reset-pwd-button btn">完成</button>
+      </div>
+    </ng-form>
+    <div ng-show="resetPwdFailed" ng-bind="resetPwdAlertContent" class="alert-content">
+    </div>
+  </div>
+</div>

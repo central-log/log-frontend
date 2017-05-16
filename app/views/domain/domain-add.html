@@ -1,0 +1,39 @@
+<p class="tl">为相应的目标系统开通接收日志服务权限。开通成功后，用户将收到一封邮件通知。</p>
+<form class="form-horizontal" name="newUserForm">
+  <div class="form-group">
+    <label for="" class="col-sm-3 control-label">接入目标系统</label>
+    <div class="col-sm-9">
+      <input type="text" class="form-control" ng-model="newUser.name" placeholder="需要接入日志服务的Application名称" required name="name" maxlength="20">
+    </div>
+  </div>
+
+
+  <div class="form-group">
+    <label for="" class="col-sm-3 control-label">联系人邮箱</label>
+    <div class="col-sm-9" ng-class="{'has-error': newUserForm.email.$error.pattern}">
+      <input type="text" class="form-control" ng-model="newUser.email" placeholder="此邮箱将默认为管理员邮箱" required name="email" maxlength="40" />
+    </div>
+  </div>
+
+
+  <div class="form-group">
+    <label for="" class="col-sm-3 control-label">有效期</label>
+    <div class="col-sm-9" ng-class="{'has-error': newUserForm.email.$error.pattern}">
+      <input type="text" class="form-control" ng-model="newUser.email" placeholder="系统接入截止日期" required name="email" maxlength="40" />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="" class="col-sm-3 control-label">描述信息</label>
+    <div class="col-sm-9" ng-class="{'has-error': newUserForm.email.$error.pattern}">
+      <input type="text" class="form-control" ng-model="newUser.email" placeholder="备注信息等" required name="email" maxlength="40" />
+    </div>
+  </div>
+  <div class="form-group">
+
+    <button class="btn btn-default" ng-click="addNewUser()" ng-disabled="newUserForm.$invalid">确认开通</button>
+  </div>
+  <div class="clear">
+    <span ng-if="addNewUserErrorMsg" ng-bind="addNewUserErrorMsg" class="alert alert-danger"></span>
+  </div>
+</form>

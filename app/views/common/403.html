@@ -1,0 +1,20 @@
+<div class="content logout">
+  <div class="container text-center">
+    <div class="text-center">
+      <img ng-if='org' ng-src="{{org.iconUrl}}" alt="" />
+      <div ng-if='!org' class="col-xs-12" style="font-size:6em;">
+        <i class="icon-hp text-primary"></i>
+      </div>
+    </div>
+    <h2 class="text-danger" translate='403.title'></h2>
+    <h4 translate='403.message'></h4>
+    403 暂无权限!!!
+    <div class="row">
+      <div class="col-xs-2"></div>
+      <div class="col-xs-8">
+        <p translate='403.footer'></p>
+      </div>
+      <div class="col-xs-2"></div>
+    </div>
+  </div>
+</div>

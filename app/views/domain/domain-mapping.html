@@ -1,0 +1,67 @@
+<form class="form-horizontal" name="newUserForm">
+  <p>
+    <label for="" class="col-sm-3 control-label">域名称</label>
+  </p>
+  <p>
+    <label for="" class="col-sm-3 control-label">有效期</label>
+  </p>
+  <div>
+    <button>接入环境</button>
+  </div>
+  <div class="form-group">
+    <label for="" class="col-sm-3 control-label">URL</label>
+    <div class="col-sm-9" ng-class="{'has-error': newUserForm.email.$error.pattern}">
+      <input type="text" class="form-control" ng-model="newUser.email" placeholder="" required name="email" maxlength="40" />
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="" class="col-sm-3 control-label">日志级别</label>
+    <div class="col-sm-9" ng-class="{'has-error': newUserForm.email.$error.pattern}">
+      <input type="text" class="form-control" ng-model="newUser.email" placeholder="邮箱" required name="email" maxlength="40" />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="" class="col-sm-3 control-label">日志处理邮箱</label>
+    <div class="col-sm-9" ng-class="{'has-error': newUserForm.email.$error.pattern}">
+      <input type="text" class="form-control" ng-model="newUser.email" placeholder="邮箱" required name="email" maxlength="40" />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="" class="col-sm-3 control-label">描述信息</label>
+    <div class="col-sm-9" ng-class="{'has-error': newUserForm.email.$error.pattern}">
+      <input type="text" class="form-control" ng-model="newUser.email" placeholder="邮箱" required name="email" maxlength="40" />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="" class="col-sm-3 control-label">联系人邮箱</label>
+    <div class="col-sm-9" ng-class="{'has-error': newUserForm.email.$error.pattern}">
+      <input type="text" class="form-control" ng-model="newUser.email" placeholder="邮箱" required name="email" maxlength="40" />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="" class="col-sm-3 control-label">日志级别</label>
+    <div class="col-sm-9" ng-class="{'has-error': newUserForm.email.$error.pattern}">
+      <input type="text" class="form-control" ng-model="newUser.email" placeholder="邮箱" required name="email" maxlength="40" />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="" class="col-sm-3 control-label">日志处理邮箱</label>
+    <div class="col-sm-9" ng-class="{'has-error': newUserForm.email.$error.pattern}">
+      <input type="text" class="form-control" ng-model="newUser.email" placeholder="邮箱" required name="email" maxlength="40" />
+    </div>
+  </div>
+
+
+  <div class="form-group">
+
+    <button class="btn btn-default" ng-click="addNewUser()" ng-disabled="newUserForm.$invalid">保存</button>
+  </div>
+  <div class="clear">
+    <span ng-if="addNewUserErrorMsg" ng-bind="addNewUserErrorMsg" class="alert alert-danger"></span>
+  </div>
+</form>

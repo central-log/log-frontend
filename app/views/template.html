@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="zh-CN" xml:lang="zh-CN">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="renderer" content="webkit" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <title ng-bind="pageTitle">{--title--}</title>
+
+  <link rel="stylesheet" href="scripts/lib/bootstrap/dist/css/bootstrap.min.css">
+  <!-- build:css styles/app.css -->
+  {--styles--}
+  <!-- endbuild -->
+</head>
+
+<body ng-controller="MainController" class="container">
+  <script src="scripts/lib/requirejs/require.js"></script>
+  <!-- build:js scripts/modules/app.js -->
+  <script src="scripts/config.js"></script>
+  <script src="scripts/{--module--}.js"></script>
+  <!-- endbuild -->
+  {--scripts--}
+  <div ng-show="!pageLoaded" style="padding-top: 1em;text-align: left;">正在加载...</div>
+  <div ng-show="pageLoaded">
+    <div ng-include="'views/common/header.html'"></div>
+    <div ng-view></div>
+  </div>
+</body>
+
+</html>

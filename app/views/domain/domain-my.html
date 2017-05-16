@@ -1,0 +1,44 @@
+<div>
+  <div class="row">
+    <div class="col-md-2 col-sm-3">
+      <div>
+        <ul class="nav nav-pills nav-stacked">
+          <li role="presentation" class="tl"><a href="#/domain">接入应用</a></li>
+          <li role="presentation" class="active tl"><a href="#/domain/my">我的应用</a></li>
+          <li role="presentation" class="tl"><a href="#/role">角色管理</a></li>
+          <li role="presentation" class="tl"><a href="#/user">用户管理</a></li>
+          <li role="presentation" class="tl"><a href="#/group">组管理</a></li>
+          <li>
+            <label></label>
+            <li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-md-10 col-sm-9">
+      <div>
+        <!-- <p class="tl"><a class=" float-right btn btn-default" ng-href="#/domain/add" target="_blank" role="button">接入新系统</a></p> -->
+        <table class="text-left table table-hover grey-border vertical-middle">
+          <thead class="text-color-c4">
+            <tr>
+              <th>应用名称</th>
+              <th>有效期</th>
+              <th>描述信息</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody class="text-color-c6">
+            <tr ng-repeat="d in domains | filter:criteria.name">
+              <td ng-bind="d.name"></td>
+              <td ng-bind="d.licenceTime"></td>
+              <td ng-bind="d.desc"></td>
+              <td><a ng-href="#/domain/{{d.id}}" target="_blank">详情</a></td>
+            </tr>
+            <tr ng-if="loadingStatus!=''">
+              <td colspan="5" class="tc" ng-bind="loadingStatus"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

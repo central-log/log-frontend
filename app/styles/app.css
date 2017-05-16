@@ -1,0 +1,136 @@
+.nav-pills> li a {
+  color: #000;
+}
+
+.nav-pills> li.active> a,
+.nav-pills> li.active> a:hover {
+  background-color: transparent;
+  color: #337ab7;
+}
+
+.nav-pills> li.active> a:before {
+  content: " ";
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: #337ab7;
+  width: 3px;
+  height: 100%;
+  visibility: visible;
+}
+
+a.btn[role="disableBtn"] {
+  color: #fff;
+  border-color: #1E8CEE;
+  background-color: #1E8CEE;
+}
+
+
+/* Text Size */
+
+
+/*.text-size-s0 {
+  font-size: 36px;
+}
+
+.text-size-s1 {
+  font-size: 1.1em;
+}
+
+.text-size-s2 {
+  font-size: 20px;
+}*/
+
+
+/*.text-size-s3 {
+  font-size: 16px;
+}*/
+
+.row.text-size-s3 {
+  margin-bottom: 1em;
+}
+
+
+/*.text-size-s4 {
+  font-size: 14px;
+}
+
+.text-size-s5 {
+  font-size: 13px;
+}*/
+
+
+/* Text Color */
+
+.text-color-c4 {
+  color: #b3b3b3;
+}
+
+.text-color-c6 {
+  color: #444;
+}
+
+.text-color-c9 a,
+a.text-color-c9 {
+  color: #1e8cee;
+}
+
+.text-color-c9 a:hover,
+a.text-color-c9:hover {
+  color: #8fc6ft;
+}
+
+.text-color-c9 a:active,
+a.text-color-c9:active {
+  color: #187dda;
+}
+
+
+/* Button Size */
+
+.btn.btn-size-s3 {
+  padding: 0.5em;
+  width: 5em;
+  margin-left: 10px;
+  margin-bottom: 32px;
+}
+
+
+/* Button Color */
+
+
+/*
+.btn.btn-color-c9 {
+  border-color: #1e8cee;
+  color: #1e8cee;
+}
+
+.btn.btn-color-c9:hover {
+  border-color: #8fc6f7;
+}
+
+.btn.btn-color-c9:active {
+  border-color: #187dda;
+}*/
+
+
+/* Table */
+
+.table.vertical-middle>tbody>tr>td,
+.table.vertical-middle>tbody>tr>th,
+.table.vertical-middle>tfoot>tr>td,
+.table.vertical-middle>tfoot>tr>th,
+.table.vertical-middle>thead>tr>td,
+.table.vertical-middle>thead>tr>th {
+  vertical-align: middle;
+}
+
+.table.grey-border {
+  border: 2px solid #f1f1f1;
+}
+
+.open>.dropdown-menu {
+  max-height: 500px;
+  overflow: scroll;
+}

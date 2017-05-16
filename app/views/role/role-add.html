@@ -1,0 +1,33 @@
+  <div>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" ng-click="closeThisDialog()" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title">添加角色</h4>
+        </div>
+        <div class="modal-body">
+          <form class="form-horizontal">
+            <div class="form-group">
+              <label for="inputEmail3" class="col-sm-2 control-label">角色名称</label>
+              <div class="col-sm-10">
+                <input type="text" required ng-model="newRole.name" class="form-control" placeholder="角色名称" maxlength="10">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="inputPassword3" class="col-sm-2 control-label">角色描述</label>
+              <div class="col-sm-10">
+                <input type="text" required ng-model="newRole.description" class="form-control" placeholder="角色描述" maxlength="30">
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <span ng-if="submitErrorMsg" ng-bind="submitErrorMsg" class="fl red"></span>
+          <button type="button" ng-click="createRole()" ng-disabled="submitDisable()" ng-bind="submiting?'提交中':submitText" class="btn btn-primary"></button>
+          <button type="button" ng-click="closeThisDialog()" class="btn btn-default" data-dismiss="modal">取消</button>
+        </div>
+      </div>
+    </div>
+  </div>

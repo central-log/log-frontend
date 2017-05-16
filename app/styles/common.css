@@ -1,0 +1,57 @@
+.tl {
+  text-align: left;
+}
+
+.tlr {
+  text-align: right;
+}
+
+.tc {
+  text-align: center;
+}
+
+.float-left,
+.fl {
+  float: left;
+}
+
+.float-right,
+.fr {
+  float: right;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.clear {
+  clear: both;
+}
+
+.red {
+  color: red;
+}
+
+.mg-rt-1 {
+  margin-right: 1em;
+}
+
+dialog {
+  display: block;
+  border: 0;
+  margin-top: 3em;
+}
+
+input::-ms-clear {
+  display: none;
+}
+.ngdialog-custom-default h4{
+  color: #000;
+  text-align: left;
+}
+.ngdialog-custom-default .ngdialog-content {
+  background-color: transparent;
+}
+.ngdialog-custom-default button.ngdialog-close {
+  display: none;
+}

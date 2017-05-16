@@ -1,0 +1,59 @@
+<div>
+  <div class="row">
+    <div class="col-md-2 col-sm-3">
+      <div>
+        <ul class="nav nav-pills nav-stacked">
+          <li role="presentation" class="tl"><a href="#/domain">域管理</a></li>
+          <li role="presentation" class="active tl"><a href="#/role">角色管理</a></li>
+          <li role="presentation" class="tl"><a href="#/user">用户管理</a></li>
+          <li role="presentation" class="tl"><a href="#/group">组管理</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-md-10 col-sm-9">
+      <form class="navbar-form navbar-left full-width" role="search">
+        <div class="input-group fl">
+          <button type="submit" ng-click="onsearch()" class="fr btn btn-default">查询</button>
+          <span class="">角色名称：</span>
+          <div class="form-group mg-rt-1">
+            <input type="text" ng-model="criteria.name" class="form-control" placeholder="角色名称" maxlength="10">
+          </div>
+        </div>
+        <a class="btn fr btn-default mg-rt-1" ng-click="addRoleDialog()" target="_blank" role="button">新增角色</a>
+        <div class="clear"></div>
+
+      </form>
+      <div>
+        <table class="text-left table table-hover grey-border vertical-middle">
+          <thead class="text-color-c4">
+            <tr>
+              <th>角色名称</th>
+              <th>角色描述</th>
+              <th>创建时间</th>
+              <th>修改时间</th>
+              <th>已禁用</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody class="text-color-c6">
+            <tr ng-repeat="d in roles">
+              <td ng-bind="d.name"></td>
+              <td ng-bind="d.description"></td>
+              <td ng-bind="d.createDate | date: 'yyyy-MM-dd HH:mm'"></td>
+              <td ng-bind="d.lastUpdate | date: 'yyyy-MM-dd HH:mm'"></td>
+              <td ng-bind="d.enabled?'':'是'"></td>
+              <td><a ng-href="#/role/{{d.id}}" target="_blank" ng-click="passRoleInfo(d)">详情</a></td>
+            </tr>
+          </tbody>
+          <tbody>
+            <tr ng-if="loadingStatus!=''">
+              <td colspan="6" class="tc" ng-bind="loadingStatus"></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <pagination ng-if="roles && roles.length>0" boundary-link-numbers="true" force-ellipses="true" max-size="10" boundary-links="true" ng-change="onsearch()" items-per-page="pagination.pageSize" total-items="pagination.totalCount" ng-model="pagination.curPage" class="pagination-sm fr" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+      </div>
+    </div>
+  </div>
+</div>

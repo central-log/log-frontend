@@ -1,0 +1,30 @@
+/dist/
+/node_modules/
+./coverage/
+./tmp/
+./doc/
+
+#Project Related
+./build.rs.js
+./app/views/html/generated/
+app/lib/
+/reporters/
+#Ignore the generated index page
+/app/index.html
+
+# Editor
+.idea/
+npm-debug.log
+.project
+.settings
+.DS_Store
+.sass-cache
+*.sublime-*
+
+.bower-cache
+.bower-registry
+.bower-tmp
+
+
+
+

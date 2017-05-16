@@ -1,0 +1,80 @@
+<div class="text-left panel">
+  <div class="panel-heading">
+    <p class="text-size-s1 text-color-c6">组信息</p>
+    <div class="row text-size-s3">
+      <div class="col-md-4">
+        <div class="row">
+          <div class="col-md-4 text-color-c4">组名称：</div>
+          <div class="col-md-8 text-color-c6" ng-bind="groupDetail.name"></div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="row">
+          <div class="col-md-4 text-color-c4">修改时间：</div>
+          <div class="col-md-8 text-color-c6" ng-bind="groupDetail.lastUpdate | date: 'yyyy-MM-dd HH:mm'"></div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="row">
+          <div class="col-md-4 text-color-c4">创建时间：</div>
+          <div class="col-md-8 text-color-c6" ng-bind="groupDetail.createDate | date: 'yyyy-MM-dd HH:mm'"></div>
+        </div>
+      </div>
+    </div>
+    <div class="clear-fix"></div>
+
+    <div class="row text-size-s3">
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <span class="text-color-c4 text-size-s3">描述信息：&nbsp;&nbsp;</span>
+        <span class="text-color-c6 text-size-s3" ng-bind="groupDetail.description"></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel-body">
+    <div>
+      <a class="btn float-right btn-default btn-size-s3 btn-color-c9" ng-click="disableDialog.open()" role="disableBtn">
+        {{groupDetail.enabled?'禁用':'启用'}}
+      </a>
+      <a class="btn float-right btn-default btn-size-s3 btn-color-c9" ng-href="#/group/{{paramGroupId}}/modify" role="button">修改</a>
+    </div>
+
+    <div class="clearfix"></div>
+    <hr/>
+    <div>
+      <div class="panel-body">
+        <p class="float-left">角色列表</p>
+        <a class="btn btn-default float-right" ng-href="#/user/{{paraUserId}}/role/add">
+          添加角色
+        </a>
+      </div>
+      <table class=" table table-striped">
+        <thead class="text-size-s3 text-color-c4">
+          <tr>
+            <th>序号</th>
+            <th>角色名称</th>
+            <th>描述信息</th>
+            <th>&nbsp;</th>
+          </tr>
+        </thead>
+        <tbody class="text-size-s3 text-color-c6">
+          <tr ng-repeat="d in groupUsers">
+            <td>{{$index + 1}}</td>
+            <td ng-bind="d.name"></td>
+            <td ng-bind="d.email"></td>
+            <td><a ng-href="" ng-click="menuDialog.open(r.id)">移除</a></td>
+          </tr>
+        </tbody>
+        <tbody ng-if="loadingGroupUser!=''">
+          <tr>
+            <td colspan="3" class="tc" ng-bind="loadingGroupUser"></td>
+          </tr>
+        </tbody>
+      </table>
+      <pagination ng-if="groupUsers && groupUsers.length" boundary-link-numbers="true" force-ellipses="true" max-size="10" boundary-links="true" ng-change="getUserOfGroupByPage()" items-per-page="pagination.pageSize" total-items="pagination.totalCount" ng-model="pagination.curPage" class="pagination-sm fr" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+    </div>
+  </div>
+  <dialog dialog="disableDialog"></dialog>
+</div>

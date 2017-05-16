@@ -1,0 +1,41 @@
+<form class="form-horizontal">
+  <!--   <div class="form-group">
+    <label for="" class="col-sm-3 control-label">所在地域</label>
+    <location class="col-sm-9" province="groupDetail.province" city="groupDetail.city" district="groupDetail.district">
+    </location>
+  </div> -->
+
+  <!--   <div class="form-group">
+    <label for="" class="col-sm-3 control-label">上级组</label>
+    <dropdown options="groupList" pattern="name for id" selected-option="groupDetail.parentGroupId" selected-option-text="{{groupDetail.parentGroupName}}"></dropdown>
+  </div> -->
+
+  <div class="form-group">
+    <label for="" class="col-sm-3 control-label">组名称</label>
+    <div class="col-sm-9">
+      <input type="text" class="form-control" ng-model="groupDetail.name" placeholder="组的名称" maxlength="30">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="" class="col-sm-3 control-label">描述信息</label>
+    <div class="col-sm-9">
+      <input type="text" class="form-control" ng-model="groupDetail.description" placeholder="组的描述" maxlength="50">
+    </div>
+  </div>
+  <!-- 
+  <div class="form-group">
+    <label for="" class="col-sm-3 control-label">组类型</label>
+    <dropdown options="groupTypeList" pattern="name for value" selected-option="groupDetail.groupType" selected-option-text="{{groupTypeObj[groupDetail.groupType]}}"></dropdown>
+  </div> -->
+
+  <div class="form-group">
+    <div class="col-sm-offset-3 col-sm-9">
+      <button type="submit" class="btn btn-default" ng-click="modifyGroupDetail()">保存</button>
+    </div>
+  </div>
+  <div class="clear">
+    <span ng-if="modifyGroupDetailSuccess === false" class="alert alert-danger">修改失败，请稍后再试</span>
+    <span ng-if="modifyGroupDetailSuccess === true" class="alert alert-success">修改成功</span>
+  </div>
+</form>

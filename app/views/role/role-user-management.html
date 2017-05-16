@@ -1,0 +1,141 @@
+<div class="tl panel panel-default">
+  <div class="panel-heading">
+    <form class="navbar-form navbar-left full-width" role="search">
+      <div class="fl">
+        <span class="">用户姓名：</span>
+        <div class="form-group">
+          <input type="text" ng-model="criteria.name" class="form-control" placeholder="用户姓名" maxlength="20">
+        </div>
+      </div>
+      <div class="fl">
+        <span class="">邮箱：</span>
+        <div class="form-group">
+          <input type="text" ng-model="criteria.email" class="form-control" placeholder="邮箱" maxlength="40">
+        </div>
+      </div>
+      <div class="fl">
+        <span class="">手机号：</span>
+        <div class="form-group">
+          <input type="text" ng-model="criteria.phone" class="form-control" placeholder="手机号" maxlength="11">
+        </div>
+      </div>
+      <div class="fl">
+        <div>
+          <span>地域</span>
+          <location province="userQuery.province" city="userQuery.city" district="userQuery.district"></location>
+
+          <span>组</span>
+          <div class="btn-group" dropdown is-open="groupDropdown.isOpen">
+            <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle ng-disabled="disabled">
+              <span ng-bind="groupDropdown.option.name"></span>
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+              <li ng-repeat="it in groupDropdown.items">
+                <a ng-click="groupDropdown.selectOption(it)" ng-bind="it.name"></a>
+              </li>
+            </ul>
+          </div>
+          <div class="btn-group" dropdown is-open="roleTypeDropdown.isOpen">
+            <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle ng-disabled="disabled">
+              <span ng-bind="roleTypeDropdown.option.name"></span>
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+              <li ng-repeat="it in roleTypeDropdown.items">
+                <a ng-click="roleTypeDropdown.selectOption(it)" ng-bind="it.name"></a>
+              </li>
+            </ul>
+          </div>
+          <span class="">禁用：</span>
+          <div class="btn-group" dropdown is-open="statusDropdown.isOpen">
+            <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle ng-disabled="disabled">
+              <span ng-bind="statusDropdown.option.name"></span>
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+              <li ng-repeat="it in statusDropdown.items">
+                <a ng-click="statusDropdown.selectOption(it)" ng-bind="it.name"></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="clear"></div>
+  </div>
+
+  <div class="panel-body">
+    <div class="tlr">
+      <a class="btn btn-default" ng-click="searchUsers()" role="button">查询用户</a>
+    </div>
+    <div>
+      <table class="tl table table-striped">
+        <thead>
+          <tr>
+            <th>序号</th>
+            <th>选择</th>
+            <th>姓名</th>
+            <th>邮箱</th>
+            <th>手机号</th>
+            <th>创建时间</th>
+            <th>地域</th>
+            <th>组</th>
+            <th>禁用</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="u in searchRslt">
+            <td ng-bind="$index+1"></td>
+            <td>
+              <div class="checkbox">
+                <label>
+                  <input ng-model="u.selected" ng-click="toggleUser(u)" type="checkbox">
+                </label>
+              </div>
+            </td>
+            <td ng-bind="u.name"></td>
+            <td ng-bind="u.email"></td>
+            <td ng-bind="u.phone"></td>
+            <td ng-bind="u.createDate | date: 'yyyy-MM-dd HH:mm'"></td>
+            <td ng-bind="u.province+'-'+u.city+'-'+u.district"></td>
+            <td ng-bind="u.groupName + roleTypes[u.roleType]"></td>
+            <td ng-bind="u.enabled?'否':'是'">&nbsp;</td>
+          </tr>
+          <tr ng-if="searchRslt.length>0">
+            <td></td>
+            <td>
+              <div class="checkbox">
+                <label>
+                  <input ng-model="selectAll" ng-click="toggleSelectAll(selectAll)" type="checkbox">全选
+                </label>
+              </div>
+            </td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr ng-if="loadingStatus!=''">
+            <td colspan="9" class="tc" ng-bind="loadingStatus"></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <pagination ng-if="searchRslt && searchRslt.length" boundary-link-numbers="true" force-ellipses="true" max-size="10" boundary-links="true" ng-change="searchUsers()" items-per-page="pagination.pageSize" total-items="pagination.totalCount" ng-model="pagination.curPage" class="pagination-sm fr" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+
+      <div class="clear tc">
+        <button ng-show="searchRslt.length>0" type="button" ng-disabled="bindList.length<1" ng-click="bindRole()" class="btn btn-success">保存</button>
+        <a class="btn btn-default" ng-href="#/role/{{paramRoleId}}" role="button">返回</a>
+      </div>
+    </div>
+  </div>
+  <div class="tc" style="margin-top: 1.5em;">
+    <span ng-if="bindResult=='failed'" class="alert alert-danger">添加失败，请稍后再试</span>
+    <span ng-if="bindResult=='success'" class="alert alert-success">您已成功保存{{bindList.length}}条数据</span>
+  </div>
+</div>

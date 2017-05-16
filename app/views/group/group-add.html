@@ -1,0 +1,47 @@
+<form class="form-horizontal" name="newGroupForm">
+  <div class="form-group">
+    <!--     <label for="" class="col-md-3 control-label">所在地域</label>
+    <location class="col-md-9" province="newGroup.province" city="newGroup.city" district="newGroup.district"></location> -->
+  </div>
+  <div class="form-group">
+    <label for="" class="col-sm-3 control-label">组名称</label>
+    <div class="col-sm-9">
+      <input type="text" class="form-control" ng-model="newGroup.name" placeholder="组的名称" required name="name" maxlength="30">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="" class="col-sm-3 control-label">描述信息</label>
+    <div class="col-sm-9">
+      <input type="text" class="form-control" ng-model="newGroup.description" placeholder="组的描述" required name="desc" maxlength="50">
+    </div>
+  </div>
+
+  <!--   <div class="form-group">
+    <label for="" class="col-sm-3 control-label">组类型</label>
+    <div class="col-sm-9">
+      <div class="btn-group" dropdown is-open="groupTypeDropdown.isOpen">
+        <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle ng-disabled="disabled">
+          <span ng-bind="groupTypeDropdown.option.name"></span>
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+          <li ng-repeat="it in groupTypeDropdown.items">
+            <a ng-click="groupTypeDropdown.selectOption(it)" ng-bind="it.name"></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div> -->
+
+  <div class="form-group">
+    <div class="col-sm-offset-3 col-sm-9">
+
+      <button type="submit" class="btn btn-default" ng-click="addNewGroup()" ng-disabled="addGroupDisable()">保存</button>
+    </div>
+  </div>
+  <div class="clear">
+    <span ng-if="createSuccess === false" class="alert alert-danger">创建组失败，请稍后再试</span>
+    <span ng-if="createSuccess === true" class="alert alert-success">创建组成功</span>
+  </div>
+</form>

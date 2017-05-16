@@ -1,0 +1,36 @@
+<div class="btn-group" dropdown>
+  <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle>
+    <span ng-if="!province">请选择</span>
+    <span ng-if="province" ng-bind="province"></span>
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu">
+    <li ng-repeat="p in provinceList">
+      <a ng-click="selectOption('province',p)" ng-bind="p"></a>
+    </li>
+  </ul>
+</div>
+<div class="btn-group" dropdown>
+  <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle ng-disabled="!province">
+    <span ng-if="!city">请选择</span>
+    <span ng-if="city" ng-bind="city"></span>
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu">
+    <li ng-repeat="c in cityList">
+      <a ng-click="selectOption('city', c)" ng-bind="c"></a>
+    </li>
+  </ul>
+</div>
+<div class="btn-group" dropdown>
+  <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle ng-disabled="!city">
+    <span ng-if="!district">请选择</span>
+    <span ng-if="district" ng-bind="district"></span>
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu">
+    <li ng-repeat="d in districtList">
+      <a ng-click="selectOption('district', d)" ng-bind="d"></a>
+    </li>
+  </ul>
+</div>
