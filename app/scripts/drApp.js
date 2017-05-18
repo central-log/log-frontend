@@ -3,12 +3,12 @@
  * A module representing a shirt.
  * @exports drApp
  */
-define('drApp', ['angular', 'ngResource', "ngRoute", "ngCookies", "ngDialog",
+define('drApp', ['angular', 'ngResource', "ngRoute", "ngCookies", "ngDialog", 'ngDatePicker',
     "controllers/MainController", "directive/directive", "angular.ui.bootstrap", "ngLocalStorage"
   ],
-  function (angular, ngResource, ngRoute, ngCookies, ngDialog, mainController, directive) {
+  function (angular, ngResource, ngRoute, ngCookies, ngDialog,ngDatePicker, mainController, directive) {
     var appName = "DRApp";
-    var app = angular.module(appName, ['ngResource', 'ngRoute', 'ngCookies','ngDialog', 'ui.bootstrap', 'LocalStorageModule']);
+    var app = angular.module(appName, ['ngResource', 'ngRoute', 'ngCookies','ngDialog', 'ui.bootstrap', 'LocalStorageModule', '720kb.datepicker']);
     app.controller(mainController.name, mainController.fn);
     app.directive(directive.name, directive.fn);
     app.bootstrap = function () {

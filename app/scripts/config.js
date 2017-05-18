@@ -9,16 +9,20 @@ require.config({
   paths: {
     'angular': 'lib/angular/angular.min',
     'angular.ui.bootstrap': 'lib/angular-bootstrap/ui-bootstrap-tpls.min',
-    'ngResource': 'lib/angular-resource/angular-resource.min',
+    'ngResource': 'lib/angular-resource/angular-resource',
     'ngDialog': 'lib/ng-dialog/js/ngDialog.min',
     'ngLocalStorage': 'lib/angular-local-storage/dist/angular-local-storage.min',
     'ngRoute': 'lib/angular-route/angular-route.min',
-    'ngCookies': 'lib/angular-cookies/angular-cookies.min'
+    'ngDatePicker': 'lib/angularjs-datepicker/dist/angular-datepicker.min',
+    'ngCookies': 'lib/angular-cookies/angular-cookies'
   },
 
   // Angular does not support AMD out of the box, put it in a shim
   shim: {
     ngResource: {
+      deps: ['angular']
+    },
+    ngDatePicker: {
       deps: ['angular']
     },
     ngDialog: {

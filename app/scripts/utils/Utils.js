@@ -1,4 +1,4 @@
-'use strict';
+
 define(function () {
   return {
     generatorDropdown: function ($scope, name, items, defaultOpt) {
@@ -13,6 +13,15 @@ define(function () {
       } else {
         $scope[name].option = defaultOpt;
       }
+    },
+    // yyyy-MM-dd
+    convertDateStr2Long: function(dateStr){
+      var isValidStr = /^\d{4}\-\d{1,2}\-\d{1,2}$/.test(dateStr);
+      if(!isValidStr){
+        throw new Error('invalid date');
+      }
+      var dates = dateStr.split('-');
+      return new Date(dates[0], parseInt(dates[1])-1, dates[2]).getTime();
     },
     convertToArr: function (obj) {
       var result = [];

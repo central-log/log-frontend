@@ -74,3 +74,11 @@ body{
 .ngdialog-custom-default button.ngdialog-close {
   display: none;
 }
+._720kb-datepicker-calendar-day._720kb-datepicker-today {
+  background:#337ab7;
+  color:white;
+}
+
+input.domain-input-search{
+  width: 250px !important;
+}

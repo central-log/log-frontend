@@ -16,9 +16,9 @@
     <div class="col-md-10 col-sm-9">
       <form class="navbar-form navbar-left pd-lt-0 pd-rt-0 full-width" role="search">
         <div class="input-group fl">
-          <span class="">目标系统：</span>
+          <span class="">搜索目标系统：</span>
           <div class="form-group mg-rt-1">
-            <input type="text" class="form-control" placeholder="目标系统" ng-model="criteria.name" maxlength="40">
+            <input type="text" class="form-control domain-input-search" placeholder="输入目标系统，邮箱地址，描述信息" ng-model="criteria.name" maxlength="40">
           </div>
           <button type="submit" ng-click="onsearch()" class="btn mg-rt-1 btn-default">查询</button>
           <span class="text-color-c4" ng-if="lastCritria && lastCritria.name">以下列表为搜索【{{lastCritria.name}}】结果</span>
@@ -34,7 +34,7 @@
               <th>目标系统</th>
               <th>管理员邮箱</th>
               <th>描述信息</th>
-              <th>有效期</th>
+              <th>有效期(年-月-日)</th>
               <th>操作</th>
             </tr>
           </thead>
@@ -45,7 +45,7 @@
                 <a ng-href="{{d.email}}" target="_blank" ng-bind="d.email"></a>
               </td>
               <td ng-bind="d.description"></td>
-              <td ng-bind="'2017-10-21 02:00:00'"></td>
+              <td ng-bind="(d.starDateTime | date:'yyyy-MM-dd') +'至'+ (d.endDateTime | date:'yyyy-MM-dd')"></td>
               <td><a ng-href="#/domain/info/{{d._id}}" target="_blank">详情</a></td>
             </tr>
             <tr ng-if="loadingStatus!=''">
