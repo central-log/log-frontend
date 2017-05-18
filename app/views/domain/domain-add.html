@@ -1,45 +1,71 @@
-<div class="domain-add-container">
-<p class="tl">为相应的目标系统开通接收日志服务权限。开通成功后，用户将收到一封邮件通知。</p>
-<form class="form-horizontal" name="addDomainForm">
-  <div class="form-group">
-    <label for="" class="col-sm-2 control-label">接入目标系统</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" ng-model="domainEntity.name" placeholder="需要接入日志服务的Application名称" required maxlength="40">
-    </div>
-  </div>
+<div>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button"
+        ng-click="closeThisDialog()"
+        class="close"
+        data-dismiss="modal"
+        aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">接入系统</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" name="addForm">
+          <div class="form-group">
+            <label for="" class="col-sm-3 control-label">接入目标系统</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control"
+              ng-model="domainEntity.name"
+              placeholder="需要接入日志服务的Application名称"
+              required maxlength="40">
+            </div>
+          </div>
 
-  <div class="form-group">
-    <label for="" class="col-sm-2 control-label">联系人邮箱</label>
-    <div class="col-sm-10">
-      <input type="email" class="form-control" ng-model="domainEntity.email" placeholder="此邮箱将默认为管理员邮箱" required maxlength="40" />
-    </div>
-  </div>
+          <div class="form-group">
+            <label for="" class="col-sm-3 control-label">联系人邮箱</label>
+            <div class="col-sm-9">
+              <input type="email" class="form-control"
+              ng-model="domainEntity.email"
+              placeholder="此邮箱将默认为管理员邮箱"
+              required maxlength="40" />
+            </div>
+          </div>
 
-  <div class="form-group">
-    <label for="" class="col-sm-2 control-label">有效期</label>
-    <div class="col-sm-10">
-      <div class="row">
-        <div class="col-sm-6">
-          <input type="text" class="form-control" ng-model="domainEntity.starDateTime" placeholder="系统接入截止日期" required maxlength="40" />
-        </div>
-        <div class="col-sm-6">
-          <input type="text" class="form-control" ng-model="domainEntity.endDateTime" placeholder="系统接入截止日期" required maxlength="40" />
-        </div>
+          <div class="form-group">
+            <label for="" class="col-sm-3 control-label">接入有效期</label>
+            <div class="col-sm-9">
+              <div class="row">
+                <div class="col-sm-6">
+                  <input type="text" class="form-control"
+                  ng-model="domainEntity.starDateTime"
+                  placeholder="开始日期"
+                  required maxlength="40" />
+                </div>
+                <div class="col-sm-6">
+                  <input type="text" class="form-control"
+                  ng-model="domainEntity.endDateTime"
+                  placeholder="截止日期"
+                  required maxlength="40" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="" class="col-sm-3 control-label">描述信息</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" ng-model="domainEntity.description" placeholder="备注信息等" required maxlength="200" />
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <span ng-if="submitErrorMsg" ng-bind="submitErrorMsg" class="fl red"></span>
+        <button type="button" ng-click="confirmAdd()" ng-disabled="addForm.$invalid || submiting" ng-bind="submiting?'提交中':'添加'" class="btn btn-primary"></button>
+        <button type="button" ng-click="closeThisDialog()" class="btn btn-default" data-dismiss="modal">取消</button>
       </div>
     </div>
   </div>
-
-  <div class="form-group">
-    <label for="" class="col-sm-2 control-label">描述信息</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" ng-model="domainEntity.description" placeholder="备注信息等" required maxlength="200" />
-    </div>
-  </div>
-  <div class="form-group">
-    <button class="btn btn-default" ng-click="showConfirmDialog()" ng-disabled="addDomainForm.$invalid">确认开通</button>
-  </div>
-  <div ng-if="addDomainErrorMsg" class="clear">
-    <span ng-bind="addDomainErrorMsg" class="alert alert-danger"></span>
-  </div>
-</form>
 </div>

@@ -35,7 +35,18 @@
 .mg-rt-1 {
   margin-right: 1em;
 }
-
+.mg-lt-0 {
+  margin-left: 0;
+}
+.mg-rt-0 {
+  margin-right: 0;
+}
+.pd-lt-0{
+  padding-left: 0;
+}
+.pd-rt-0{
+  padding-right: 0;
+}
 dialog {
   display: block;
   border: 0;

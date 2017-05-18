@@ -18,8 +18,13 @@ define(['utils/Constant'], function (Constant) {
      */
     var svc = $resource(Constant.apiBase + '/domain/:domainId/:catalog/:catalogId', null, {
 
+      queryDomain: {
+        method: 'GET',
+        isArray: false,
+        timeout: Constant.reqTimeout
+      },
       addDomain: {
-        method: 'POST',
+        method: 'PUT',
         isArray: false,
         timeout: Constant.reqTimeout
       },
