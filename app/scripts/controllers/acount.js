@@ -1,4 +1,3 @@
-'use strict';
 /**
  * Module representing a shirt.
  * @module controllers/login

@@ -3,8 +3,7 @@
     <div class="col-md-2 col-sm-3">
       <div>
         <ul class="nav nav-pills nav-stacked">
-          <li role="presentation" class="active tl"><a href="#/domain">接入管理</a></li>
-          <li role="presentation" class="tl"><a href="#/domain/my">我的应用</a></li>
+          <li role="presentation" class="active tl"><a href="#/domain">我的应用</a></li>
           <li role="presentation" class="tl"><a href="#/role">角色管理</a></li>
           <li role="presentation" class="tl"><a href="#/user">用户管理</a></li>
           <li role="presentation" class="tl"><a href="#/group">组管理</a></li>
@@ -16,8 +15,7 @@
     </div>
     <div class="col-md-10 col-sm-9">
       <div>
-        <p class="tl">
-          <span class="text-color-c4">当前所有已接入应用系统列表：</span><a class=" float-right btn btn-default" ng-href="#/domain/add" target="_blank" role="button">接入新系统</a></p>
+        <p class="tl"><span class="text-color-c4">当前所有已接入应用系统列表：</span><a class="btn fr btn-default mg-rt-1" ng-click="addUserDialog()" role="button">接入应用</a></p>
         <table class="text-left table table-hover grey-border vertical-middle">
           <thead class="text-color-c4">
             <tr>

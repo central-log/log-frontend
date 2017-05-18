@@ -1,4 +1,4 @@
-'use strict';
+
 /**
  * Module representing a shirt.
  * @module controllers/login
@@ -9,7 +9,7 @@ define(['utils/Constant'], function (Constant) {
    * @exports controllers/login
    */
   var Service = function ($resource) {
-    /* 
+    /*
       Get     /domain/:domainId
       Put     /domain/:domainId/user/:userIds
       delete  /domain/:domainId/user/:userId
@@ -18,6 +18,11 @@ define(['utils/Constant'], function (Constant) {
      */
     var svc = $resource(Constant.apiBase + '/domain/:domainId/:catalog/:catalogId', null, {
 
+      addDomain: {
+        method: 'POST',
+        isArray: false,
+        timeout: Constant.reqTimeout
+      },
       /*
          /domain/:domainId
       */
@@ -26,7 +31,7 @@ define(['utils/Constant'], function (Constant) {
         params: {
           domainId: '@domainId'
         },
-        isArray: false,
+
         timeout: Constant.reqTimeout
       },
       /*
