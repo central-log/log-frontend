@@ -1,4 +1,4 @@
-'use strict';
+
 require(['drApp',
     'services/domain/domainSvc',
     'services/user/userSvc',
@@ -16,9 +16,8 @@ require(['drApp',
     'controllers/role/role-url',
     'controllers/role/role-user',
     'controllers/domain/domain',
-    'controllers/domain/domain-add',
     'controllers/domain/domain-my',
-    'controllers/domain/domain-my-detail',
+    'controllers/domain/domain-detail',
     'controllers/domain/domain-info',
     'controllers/domain/domain-info-edit',
     'controllers/domain/domain-edit',

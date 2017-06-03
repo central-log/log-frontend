@@ -1,49 +1,50 @@
+<div class="row">
+  <div class="col-md-12" ng-bind="loadingStatus">正在加载</div>
+</div>
+<div ng-if="!loadingStatus">
 <div class="tl panel">
   <div class="panel-heading">
     <p class="text-size-s1 text-color-c6">域信息</p>
-    <div class="row" ng-if="loadingStatus!=''">
-      <div class="col-md-12 tc" ng-bind="loadingStatus">正在加载</div>
-    </div>
-    <div class="row text-size-s3" ng-if="!loadingStatus">
+    <div class="row text-size-s3">
       <div class="col-md-6">
-        <div class="col-md-3 text-color-c4">域名称：</div>
+        <div class="col-md-3 text-color-c4">应用名称：</div>
         <div class="col-md-9 tl text-color-c6">
-          <span ng-bind="domain.displayName"></span>
-          <a ng-bind="domain.name" ng-href="{{domain.name}}"></a>
+          <span ng-bind="domainDetail.displayName"></span>
+          <a ng-bind="domainDetail.name" ng-href="{{domainDetail.name}}"></a>
         </div>
       </div>
     </div>
-    <div class="row text-size-s3" ng-if="!loadingStatus">
+    <div class="row text-size-s3">
       <div class="col-md-6">
         <div class="col-md-3 text-color-c4">域ID：</div>
-        <div class="col-md-9 tl text-color-c6" ng-bind="domain.id"></div>
+        <div class="col-md-9 tl text-color-c6" ng-bind="domainDetail.id"></div>
       </div>
       <div class="col-md-6">
         <div class="col-md-3 text-color-c4">域Key：</div>
-        <div class="col-md-9 tl text-color-c6" ng-bind="domain.id"></div>
+        <div class="col-md-9 tl text-color-c6" ng-bind="domainDetail.id"></div>
       </div>
     </div>
-    <div class="row text-size-s3" ng-if="!loadingStatus">
+    <div class="row text-size-s3">
       <div class="col-md-6">
         <div class="col-md-3 text-color-c4">日志级别：</div>
-        <div class="col-md-9 tl text-color-c6" ng-bind="domain.key"></div>
+        <div class="col-md-9 tl text-color-c6" ng-bind="domainDetail.key"></div>
       </div>
       <div class="col-md-6">
         <div class="col-md-3 text-color-c4">联系邮箱：</div>
-        <div class="col-md-9 tl text-color-c6" ng-bind="domain.key"></div>
+        <div class="col-md-9 tl text-color-c6" ng-bind="domainDetail.key"></div>
       </div>
     </div>
-    <div class="row text-size-s3" ng-if="!loadingStatus">
+    <div class="row text-size-s3">
       <div class="col-md-3 text-color-c4">描述信息：</div>
-      <div class="col-md-9 tl text-color-c6" ng-bind="domain.description"></div>
+      <div class="col-md-9 tl text-color-c6" ng-bind="domainDetail.description"></div>
     </div>
-    <a class="btn fr btn-default" ng-href="#/domain/{{paramDomainId}}/management" role="button">修改</a>
+    <a class="btn fr btn-default" ng-href="#/domainDetail/{{paramDomainId}}/management" role="button">修改</a>
   </div>
 
   <div class="panel-body">
     <div>
       <span>节点状态</span>
-      <a class="btn fr btn-default" ng-href="#/domain/{{paramDomainId}}/management" role="button">添加用户</a>
+      <a class="btn fr btn-default" ng-href="#/domainDetail/{{paramDomainId}}/management" role="button">添加用户</a>
       <div class="clear"></div>
     </div>
     <hr/>
@@ -86,3 +87,4 @@
   </div>
 
   <dialog dialog="removeDomainUserDialog"></dialog>
+</div>

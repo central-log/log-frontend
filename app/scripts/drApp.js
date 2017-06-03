@@ -100,11 +100,6 @@ define('drApp', ['angular', 'ngResource', "ngRoute", "ngCookies", "ngDialog", 'n
           controller: 'DomainController',
           helpAlias: '接入管理'
         })
-        .when('/domain/add', {
-          templateUrl: 'views/domain/domain-add.html',
-          controller: 'DomainAddController',
-          helpAlias: '域管理'
-        })
         .when('/domain/info/:id', {
           templateUrl: 'views/domain/domain-info.html',
           controller: 'DomainInfoController',
@@ -137,7 +132,7 @@ define('drApp', ['angular', 'ngResource', "ngRoute", "ngCookies", "ngDialog", 'n
         })
         .when('/domain/:domainId', {
           templateUrl: 'views/domain/domain-details.html',
-          controller: 'DomainController',
+          controller: 'DomainDetailController',
           helpAlias: '域详情'
         })
         .when('/domain/:domainId/management', {
