@@ -42,9 +42,9 @@ define(['utils/Constant','utils/Utils'], function (Constant, Utils) {
       }
 
       $scope.confirmEnvAdd = function () {
-
+            $scope.domainEnvEntity.domainId = $scope.paramDomainId;
             $scope.envSubmiting = true;
-            DomainSvc.addDomain($scope.domainEnvEntity, function (resp) {
+            DomainSvc.addEnvDomain($scope.domainEnvEntity, function (resp) {
               $scope.envSubmiting = false;
               var result = Constant.transformResponse(resp);
               if (!result) {
@@ -53,6 +53,9 @@ define(['utils/Constant','utils/Utils'], function (Constant, Utils) {
               }
               $scope.addEnvErrorMsg = '';
               $scope.addInstanceDialog.close();
+              if(!$scope.domainDetail.envs){
+                $scope.domainDetail.envs = [];
+              }
               $scope.domainDetail.envs.push(result);
             }, function (resp) {
               $scope.envSubmiting = false;

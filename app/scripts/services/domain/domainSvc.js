@@ -23,6 +23,15 @@ define(['utils/Constant'], function (Constant) {
         isArray: false,
         timeout: Constant.reqTimeout
       },
+      addEnvDomain: {
+        method: 'POST',
+        params: {
+          domainId: '@domainId',
+          catalog: 'env'
+        },
+        isArray: false,
+        timeout: Constant.reqTimeout
+      },
       addDomain: {
         method: 'PUT',
         isArray: false,
