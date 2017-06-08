@@ -1,4 +1,4 @@
-'use strict';
+
 /**
  * Module representing a shirt.
  * @module controllers/login
@@ -8,6 +8,7 @@ define(function () {
     apiBase: "http://localhost:8081",
     // 40 seconds Time out
     reqTimeout: 40000,
+    logLevels: ['Debug', 'Info', 'Log', 'Warning', 'Error'],
     pageSize: 50,
     hackMaxPageSize: 5e7,
     transformResponse: function (resp) {

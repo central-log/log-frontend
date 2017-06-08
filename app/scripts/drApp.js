@@ -98,7 +98,7 @@ define('drApp', ['angular', 'ngResource', "ngRoute", "ngCookies", "ngDialog", 'n
         .when('/domain', {
           templateUrl: 'views/domain/domain.html',
           controller: 'DomainController',
-          helpAlias: '接入管理'
+          helpAlias: '我的应用'
         })
         .when('/domain/info/:id', {
           templateUrl: 'views/domain/domain-info.html',
@@ -115,31 +115,31 @@ define('drApp', ['angular', 'ngResource', "ngRoute", "ngCookies", "ngDialog", 'n
           controller: 'DomainEditController',
           helpAlias: '域管理'
         })
-        .when('/domain/my', {
-          templateUrl: 'views/domain/domain-my.html',
-          controller: 'DomainMyController',
-          helpAlias: '我的应用'
-        })
-        .when('/domain/my/:domainId', {
-          templateUrl: 'views/domain/domain-details.html',
-          controller: 'DomainMyDetailController',
-          helpAlias: '我的应用'
-        })
-        .when('/domain/mapping', {
-          templateUrl: 'views/domain/domain-mapping.html',
-          controller: 'DomainMappingController',
-          helpAlias: '域管理'
-        })
+        // .when('/domain/my', {
+        //   templateUrl: 'views/domain/domain-my.html',
+        //   controller: 'DomainMyController',
+        //   helpAlias: '我的应用'
+        // })
+        // .when('/domain/my/:domainId', {
+        //   templateUrl: 'views/domain/domain-details.html',
+        //   controller: 'DomainMyDetailController',
+        //   helpAlias: '我的应用'
+        // })
+        // .when('/domain/mapping', {
+        //   templateUrl: 'views/domain/domain-mapping.html',
+        //   controller: 'DomainMappingController',
+        //   helpAlias: '域管理'
+        // })
         .when('/domain/:domainId', {
           templateUrl: 'views/domain/domain-details.html',
           controller: 'DomainDetailController',
           helpAlias: '域详情'
         })
-        .when('/domain/:domainId/management', {
-          templateUrl: 'views/domain/domain-management.html',
-          controller: 'UserBindManagementController',
-          helpAlias: '域详情-添加用户'
-        })
+        // .when('/domain/:domainId/management', {
+        //   templateUrl: 'views/domain/domain-management.html',
+        //   controller: 'UserBindManagementController',
+        //   helpAlias: '域详情-添加用户'
+        // })
         .when('/role', {
           templateUrl: 'views/role/role.html',
           controller: 'RoleController',
