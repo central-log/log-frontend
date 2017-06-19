@@ -44,10 +44,9 @@
   <div>
     <ul class="nav nav-tabs">
       <li ng-click="switchTab('node')" role="presentation" ng-class="{active: currentTab=='node'}"><a>节点状态</a></li>
-      <li ng-click="switchTab('user')" role="presentation" ng-class="{active: currentTab=='user'}"><a>用户</a></li>
-      <li ng-click="switchTab('env')" role="presentation" ng-class="{active: currentTab=='env'}"><a>部署环境</a></li>
+      <li ng-repeat="env in domainDetail.env" ng-click="switchTab('env_'+env.name)" role="presentation" ng-class="{active: currentTab==('env_'+env.name)}"><a ng-bind="env.name"></a></li>
       <li ng-click="switchTab('settings')" role="presentation" ng-class="{active: currentTab=='settings'}"><a>设置</a></li>
-      <li class="actions" style="float:right;"><a class="btn fr btn-default" ng-click="showAddEnvDialog()" role="button">添加部署环境</a></li>
+      <li class="actions" style="float:right;"><a class="btn fr btn-default" ng-click="showAddEnvDialog(false)" role="button">添加部署环境</a></li>
       <!-- <li style="float:right;"><a class="btn btn-default" ng-href="#/role/{{paramRoleId}}/url-management" role="button">添加组</a></li> -->
     </ul>
   </div>
@@ -132,9 +131,64 @@
       <pagination ng-if="domainUsers && domainUsers.length>0" boundary-link-numbers="true" force-ellipses="true" max-size="10" boundary-links="true" ng-change="getUsersByPage()" items-per-page="pagination.pageSize" total-items="pagination.totalCount" ng-model="pagination.curPage" class="pagination-sm fr" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
     </div>
   </div>
-  <div class="panel-body" ng-if="currentTab=='user'">
+  <div class="panel-body" ng-if="currentTab.indexOf('env_')!==-1">
+    <div class="row text-size-s3">
+      <div class="col-md-6">
+        <span class="text-color-c4">当前环境：</span><span ng-bind="envDetails.description"></span>
+      </div>
+    </div>
+    <div class="row text-size-s3">
+      <div class="col-md-6">
+        <span class="text-color-c4">通知邮箱：</span><span ng-bind="envDetails.email"></span>
+      </div>
+      <div class="col-md-6">
+        <a class="btn fr btn-default" ng-click="showAddEnvDialog(true)" role="button">修改配置</a>
+      </div>
+    </div>
+    <div class="row text-size-s3">
+      <div class="col-md-6">
+        <span class="text-color-c4">日志级别：</span><span ng-bind="envDetails.logLevel"></span>
+      </div>
+    </div>
+    <div class="clear"></div>
     <div>
-      <p class="fl pd-lt-0I pd-6-12 text-color-c4">以下列表显示了当前应用的用户访问权限</p>
+      <p class="fl pd-lt-0I pd-6-12">日志处理：邮件触发规则</p>
+      <a class="btn fr btn-default" ng-href="#/domainDetail/{{paramDomainId}}/management" role="button">添加规则</a>
+      <div class="clear"></div>
+    </div>
+    <div>
+      <table class="tl table table-striped">
+        <thead class="text-size-s3 text-color-c4">
+          <tr>
+            <th>序号</th>
+            <th>姓名</th>
+            <th>邮箱</th>
+            <th>权限信息</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody class="text-size-s3 text-color-c6">
+          <tr ng-repeat="u in domainUsers">
+            <td ng-bind="$index+1"></td>
+            <td ng-bind="u.name"></td>
+            <td ng-bind="u.email"></td>
+            <td ng-bind="u.phone"></td>
+            <td ng-bind="u.phone"></td>
+            <td ng-bind="u.phone"></td>
+            <td ng-bind="u.createDate | date: 'yyyy-MM-dd HH:mm'"></td>
+            <td ng-bind="u.groupName"></td>
+            <td ng-bind="roleTypes[u.roleType]"></td>
+            <td><a ng-href="" ng-click="removeDomainUserDialog.open(u.id)">移除</a></td>
+          </tr>
+          <tr ng-if="userLoading!=''">
+            <td colspan="8" class="tc" ng-bind="userLoading"></td>
+          </tr>
+        </tbody>
+      </table>
+      <pagination ng-if="domainUsers && domainUsers.length>0" boundary-link-numbers="true" force-ellipses="true" max-size="10" boundary-links="true" ng-change="getUsersByPage()" items-per-page="pagination.pageSize" total-items="pagination.totalCount" ng-model="pagination.curPage" class="pagination-sm fr" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+    </div>
+    <div>
+      <p class="fl pd-lt-0I pd-6-12">访问控制：用户权限列表</p>
       <a class="btn fr btn-default" ng-href="#/domainDetail/{{paramDomainId}}/management" role="button">添加用户</a>
       <div class="clear"></div>
     </div>

@@ -9,7 +9,7 @@
         aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h4 class="modal-title">添加部署环境</h4>
+        <h4 class="modal-title" ng-bind="isModify?'修改环境配置':'添加部署环境'"></h4>
       </div>
       <div class="modal-body">
         <form class="form-horizontal" name="addForm">

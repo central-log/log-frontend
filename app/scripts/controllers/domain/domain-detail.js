@@ -3,9 +3,14 @@ define(['utils/Constant','utils/Utils'], function (Constant, Utils) {
   var DomainController = function ($scope, DomainSvc, $cookies, $routeParams, UserSvc, CommonSvc, ngDialog) {
 
       $scope.paramDomainId = $routeParams.domainId;
-
+      $scope.envDetails = {};
       $scope.switchTab = function(tab){
         $scope.currentTab = tab;
+        if($scope.domainDetail && $scope.domainDetail.env){
+          $scope.envDetails = $scope.domainDetail.env.filter(function(env){
+            return 'env_'+env.name === tab;
+          })[0];
+        }
       }
       $scope.switchTab('node');
       $scope.removeDomainUserDialog = {
@@ -29,10 +34,20 @@ define(['utils/Constant','utils/Utils'], function (Constant, Utils) {
 
       $scope.logLevels = Constant.logLevels;
 
-      $scope.showAddEnvDialog = function(){
-        $scope.domainEnvEntity = {
-          logLevel: 'Log'
-        };
+      $scope.showAddEnvDialog = function(isModify){
+        $scope.isModify = isModify;
+        if($scope.isModify){
+          $scope.domainEnvEntity = {
+            logLevel: $scope.envDetails.logLevel,
+            description: $scope.envDetails.description,
+            email: $scope.envDetails.email,
+            name: $scope.envDetails.name
+          };
+        }else{
+          $scope.domainEnvEntity = {
+            logLevel: 'Log'
+          };
+        }
         $scope.addEnvErrorMsg = '';
         $scope.addEnvInstanceDialog = ngDialog.open({
           template: './views/domain/domain-env-add.html',
@@ -44,23 +59,43 @@ define(['utils/Constant','utils/Utils'], function (Constant, Utils) {
       $scope.confirmEnvAdd = function () {
             $scope.domainEnvEntity.domainId = $scope.paramDomainId;
             $scope.envSubmiting = true;
-            DomainSvc.addEnvDomain($scope.domainEnvEntity, function (resp) {
-              $scope.envSubmiting = false;
-              var result = Constant.transformResponse(resp);
-              if (!result) {
+            if($scope.isModify){
+              DomainSvc.modifyEnvDomain($scope.domainEnvEntity, function (resp) {
+                $scope.envSubmiting = false;
+                if (resp.errMsg) {
+                  $scope.addEnvErrorMsg = resp.errMsg ? resp.errMsg : Constant.createError;
+                  return;
+                }
+                $scope.addEnvErrorMsg = '';
+                $scope.addEnvInstanceDialog.close();
+                $scope.switchTab('env_'+$scope.domainEnvEntity.name);
+                if(!$scope.domainDetail.env){
+                  $scope.domainDetail.env = [];
+                }
+                $scope.domainDetail.env.push($scope.domainEnvEntity);
+              }, function (resp) {
+                $scope.envSubmiting = false;
                 $scope.addEnvErrorMsg = resp.errMsg ? resp.errMsg : Constant.createError;
-                return;
-              }
-              $scope.addEnvErrorMsg = '';
-              $scope.addInstanceDialog.close();
-              if(!$scope.domainDetail.envs){
-                $scope.domainDetail.envs = [];
-              }
-              $scope.domainDetail.envs.push(result);
-            }, function (resp) {
-              $scope.envSubmiting = false;
-              $scope.addEnvErrorMsg = resp.errMsg ? resp.errMsg : Constant.createError;
-            });
+              });
+            }else{
+              DomainSvc.addEnvDomain($scope.domainEnvEntity, function (resp) {
+                $scope.envSubmiting = false;
+                if (resp.errMsg) {
+                  $scope.addEnvErrorMsg = resp.errMsg ? resp.errMsg : Constant.createError;
+                  return;
+                }
+                $scope.addEnvErrorMsg = '';
+                $scope.addEnvInstanceDialog.close();
+                $scope.switchTab('env_'+$scope.domainEnvEntity.name);
+                if(!$scope.domainDetail.env){
+                  $scope.domainDetail.env = [];
+                }
+                $scope.domainDetail.env.push($scope.domainEnvEntity);
+              }, function (resp) {
+                $scope.envSubmiting = false;
+                $scope.addEnvErrorMsg = resp.errMsg ? resp.errMsg : Constant.createError;
+              });
+            }
       }
 
       $scope.getDetailInfo = function () {
