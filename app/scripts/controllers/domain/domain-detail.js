@@ -58,6 +58,7 @@ define(['utils/Constant','utils/Utils'], function (Constant, Utils) {
 
       $scope.confirmEnvAdd = function () {
             $scope.domainEnvEntity.domainId = $scope.paramDomainId;
+            $scope.domainEnvEntity.beforeName = $scope.envDetails.name;
             $scope.envSubmiting = true;
             if($scope.isModify){
               DomainSvc.modifyEnvDomain($scope.domainEnvEntity, function (resp) {
@@ -68,11 +69,17 @@ define(['utils/Constant','utils/Utils'], function (Constant, Utils) {
                 }
                 $scope.addEnvErrorMsg = '';
                 $scope.addEnvInstanceDialog.close();
-                $scope.switchTab('env_'+$scope.domainEnvEntity.name);
-                if(!$scope.domainDetail.env){
-                  $scope.domainDetail.env = [];
+
+                var index = -1, len;
+
+                for(index = 0, len = $scope.domainDetail.env.length;index<len;index++){
+                  if($scope.domainDetail.env[index].name === $scope.envDetails.name){
+                    break;
+                  }
                 }
-                $scope.domainDetail.env.push($scope.domainEnvEntity);
+                $scope.domainDetail.env.splice(index, 1, $scope.domainEnvEntity);
+                $scope.envDetails = $scope.domainEnvEntity;
+                $scope.switchTab('env_'+$scope.domainEnvEntity.name);
               }, function (resp) {
                 $scope.envSubmiting = false;
                 $scope.addEnvErrorMsg = resp.errMsg ? resp.errMsg : Constant.createError;
@@ -86,11 +93,11 @@ define(['utils/Constant','utils/Utils'], function (Constant, Utils) {
                 }
                 $scope.addEnvErrorMsg = '';
                 $scope.addEnvInstanceDialog.close();
-                $scope.switchTab('env_'+$scope.domainEnvEntity.name);
                 if(!$scope.domainDetail.env){
                   $scope.domainDetail.env = [];
                 }
                 $scope.domainDetail.env.push($scope.domainEnvEntity);
+                $scope.switchTab('env_'+$scope.domainEnvEntity.name);
               }, function (resp) {
                 $scope.envSubmiting = false;
                 $scope.addEnvErrorMsg = resp.errMsg ? resp.errMsg : Constant.createError;
