@@ -82,7 +82,7 @@
         <domain-node></domain-node>
       </div>
       <div class="panel-body" ng-if="currentTab=='user'">
-        <domain-user></domain-user>
+        <domain-user domain-id="paramDomainId" env="envDetails.name"></domain-user>
       </div>
       <dialog dialog="removeDomainUserDialog"></dialog>
     </div>

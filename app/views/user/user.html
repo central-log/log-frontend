@@ -22,7 +22,7 @@
         </div>
         <a class="btn fr btn-default mg-rt-1" ng-click="addUserDialog()" role="button">添加用户</a>
         <div class="clear"></div>
-    </form>
+      </form>
 
       <div>
         <table class="text-left table grey-border table-hover vertical-middle">
@@ -58,8 +58,19 @@
 
           </tbody>
         </table>
-        <pagination ng-if="users && users.length" boundary-link-numbers="true" force-ellipses="true" max-size="10" boundary-links="true" ng-change="queryUser()" items-per-page="pagination.pageSize" total-items="pagination.totalCount" ng-model="pagination.curPage" class="pagination-sm float-right" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
       </div>
+      <pagination ng-if="users && users.length"
+        boundary-link-numbers="true"
+        force-ellipses="true"
+        max-size="10"
+        boundary-links="true"
+        ng-change="queryUser()"
+        items-per-page="pagination.pageSize"
+        total-items="pagination.totalCount"
+        ng-model="pagination.curPage"
+        class="pagination-sm float-right"
+        previous-text="&lsaquo;" next-text="&rsaquo;"
+        first-text="&laquo;" last-text="&raquo;"></pagination>
     </div>
   </div>
 </div>

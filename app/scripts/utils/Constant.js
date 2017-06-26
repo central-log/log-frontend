@@ -9,6 +9,10 @@ define(function () {
     // 40 seconds Time out
     reqTimeout: 40000,
     logLevels: ['Debug', 'Info', 'Log', 'Warning', 'Error'],
+    userTypes: [
+      'Admin',
+      'Normal'
+    ],
     pageSize: 50,
     hackMaxPageSize: 5e7,
     transformResponse: function (resp) {

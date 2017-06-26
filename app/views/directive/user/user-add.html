@@ -1,0 +1,43 @@
+<div>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" ng-click="closeThisDialog()" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">添加角色</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal">
+          <div class="form-group">
+            <label class="col-sm-2 control-label">用户姓名</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" ng-model="newUser.name" placeholder="姓名" required name="name" maxlength="20">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label">用户邮箱</label>
+            <div class="col-sm-10">
+              <input type="email" class="form-control" ng-model="newUser.email" placeholder="邮箱" required name="email" maxlength="40" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label">用户角色</label>
+            <div class="col-sm-10">
+              <select ng-model="newUser.userType" ng-options="t for t in userTypes" class="dropdown">
+              </select>
+            </div>
+          </div>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <span ng-if="submitErrorMsg" ng-bind="submitErrorMsg" class="fl red"></span>
+        <button type="button" ng-click="addNewUser()" ng-disabled="submitDisable()" ng-bind="submiting?'提交中':submitText" class="btn btn-primary"></button>
+        <button type="button" ng-click="closeThisDialog()" class="btn btn-default" data-dismiss="modal">取消</button>
+      </div>
+    </div>
+  </div>
+</div>

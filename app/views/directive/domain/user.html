@@ -1,38 +1,51 @@
 <div>
-  <div>
-    <p class="fl pd-lt-0I pd-6-12 text-color-c4">以下列表显示了当前应用的用户访问权限</p>
-    <a class="btn fr btn-default" ng-href="#/domainDetail/{{paramDomainId}}/management" role="button">添加用户</a>
+  <form class="navbar-form navbar-left full-width pd-lt-0 pd-rt-0" role="search">
+    <div class="input-group fl">
+      <span class="">用户邮箱：</span>
+      <div class="form-group mg-rt-1">
+        <input type="text" class="form-control" placeholder="用户邮箱" ng-model="criteria.email" maxlength="40">
+      </div>
+      <button type="submit" ng-click="queryUser()" class="btn mg-rt-1 btn-default">查询</button>
+      <span class="text-color-c4" ng-if="lastCritria && lastCritria.email">搜索【{{lastCritria.email}}】结果:</span>
+    </div>
+    <a class="btn fr btn-default" ng-click="addUserDialog()" role="button">添加用户</a>
     <div class="clear"></div>
-  </div>
+</form>
+
   <div>
-    <table class="tl table table-striped">
-      <thead class="text-size-s3 text-color-c4">
+    <table class="text-left table table-striped vertical-middle">
+      <thead class="text-color-c4">
         <tr>
           <th>序号</th>
-          <th>姓名</th>
-          <th>邮箱</th>
-          <th>权限信息</th>
-          <th>操作</th>
+          <th>用户</th>
+          <th>角色</th>
+          <th>创建时间</th>
+          <th>修改时间</th>
+          <th>已禁用</th>
+          <th class="tc">操作</th>
         </tr>
       </thead>
-      <tbody class="text-size-s3 text-color-c6">
-        <tr ng-repeat="u in domainUsers">
-          <td ng-bind="$index+1"></td>
-          <td ng-bind="u.name"></td>
-          <td ng-bind="u.email"></td>
-          <td ng-bind="u.phone"></td>
-          <td ng-bind="u.phone"></td>
-          <td ng-bind="u.phone"></td>
-          <td ng-bind="u.createDate | date: 'yyyy-MM-dd HH:mm'"></td>
-          <td ng-bind="u.groupName"></td>
-          <td ng-bind="roleTypes[u.roleType]"></td>
-          <td><a ng-href="" ng-click="removeDomainUserDialog.open(u.id)">移除</a></td>
+      <tbody class="text-color-c6">
+        <tr ng-repeat="d in users">
+          <td>{{$index + 1}}</td>
+          <td ng-bind="d.name+'('+d.email+')'"></td>
+          <td ng-bind="d.userType"></td>
+          <td ng-bind="d.createDate | date: 'yyyy-MM-dd HH:mm'"></td>
+          <td ng-bind="d.lastUpdate | date: 'yyyy-MM-dd HH:mm'"></td>
+          <td ng-bind="d.enabled?'':'否'"></td>
+          <td class="text-color-c9 tc">
+            <a ng-href="#/user/{{d._id}}" target="_blank">编辑</a>
+          </td>
         </tr>
-        <tr ng-if="userLoading!=''">
-          <td colspan="8" class="tc" ng-bind="userLoading"></td>
-        </tr>
+
+        <tbody>
+          <tr ng-if="loadingStatus!=''">
+            <td colspan="6" class="tc" ng-bind="loadingStatus"></td>
+          </tr>
+        </tbody>
+
       </tbody>
     </table>
-    <pagination ng-if="domainUsers && domainUsers.length>0" boundary-link-numbers="true" force-ellipses="true" max-size="10" boundary-links="true" ng-change="getUsersByPage()" items-per-page="pagination.pageSize" total-items="pagination.totalCount" ng-model="pagination.curPage" class="pagination-sm fr" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+    <pagination ng-if="users && users.length" boundary-link-numbers="true" force-ellipses="true" max-size="10" boundary-links="true" ng-change="queryUser()" items-per-page="pagination.pageSize" total-items="pagination.totalCount" ng-model="pagination.curPage" class="pagination-sm float-right" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
   </div>
 </div>
