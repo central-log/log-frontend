@@ -5,28 +5,36 @@
         <button type="button" ng-click="closeThisDialog()" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h4 class="modal-title">添加角色</h4>
+        <h4 class="modal-title" ng-bind="isModify?'修改用户信息':'添加用户'"></h4>
       </div>
       <div class="modal-body">
         <form class="form-horizontal">
           <div class="form-group">
-            <label class="col-sm-2 control-label">用户姓名</label>
+            <label class="col-sm-2 control-label">姓名</label>
             <div class="col-sm-10">
               <input type="text" class="form-control" ng-model="newUser.name" placeholder="姓名" required name="name" maxlength="20">
             </div>
           </div>
 
           <div class="form-group">
-            <label class="col-sm-2 control-label">用户邮箱</label>
+            <label class="col-sm-2 control-label">邮箱</label>
             <div class="col-sm-10">
               <input type="email" class="form-control" ng-model="newUser.email" placeholder="邮箱" required name="email" maxlength="40" />
             </div>
           </div>
 
           <div class="form-group">
-            <label class="col-sm-2 control-label">用户角色</label>
+            <label class="col-sm-2 control-label">角色</label>
             <div class="col-sm-10">
               <select ng-model="newUser.userType" ng-options="t for t in userTypes" class="dropdown">
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label" ng-bind="isModify?'状态':'状态'"></label>
+            <div class="col-sm-10">
+              <select ng-model="newUser.status" ng-options="t for t in ['enabled', 'disabled']" class="dropdown">
               </select>
             </div>
           </div>
@@ -35,6 +43,7 @@
       </div>
       <div class="modal-footer">
         <span ng-if="submitErrorMsg" ng-bind="submitErrorMsg" class="fl red"></span>
+        <button ng-show="isModify" type="button" ng-click="deleteUser()" ng-disabled="duringDelete()" ng-bind="deleting?'删除中':'删除'" class="btn btn-danger"></button>
         <button type="button" ng-click="addNewUser()" ng-disabled="submitDisable()" ng-bind="submiting?'提交中':submitText" class="btn btn-primary"></button>
         <button type="button" ng-click="closeThisDialog()" class="btn btn-default" data-dismiss="modal">取消</button>
       </div>

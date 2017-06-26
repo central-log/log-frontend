@@ -60,11 +60,22 @@ define(['utils/Constant'], function (Constant) {
           $scope.queryUser();
 
           $scope.submitText = '添加';
-          $scope.addUserDialog = function(){
-            $scope.newUser = {
-              enabled: true,
-              userType: 'Normal'
-            };
+          $scope.addModifyUserDialog = function(editUser){
+            $scope.isModify = !!editUser;
+
+            if($scope.isModify){
+              $scope.newUser = {
+                name: editUser.name,
+                email:editUser.email,
+                status: editUser.status,
+                userType: editUser.userType
+              };
+            }else{
+              $scope.newUser = {
+                status: 'enabled',
+                userType: 'Normal'
+              };
+            }
             $scope.submitErrorMsg = '';
             $scope.addInstanceDialog = ngDialog.open({
               template: 'views/directive/user/user-add.html',

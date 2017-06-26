@@ -1,18 +1,28 @@
 define(['utils/Constant','utils/Utils'], function (Constant, Utils) {
-
-  var DomainController = function ($scope, DomainSvc, $cookies, $routeParams, UserSvc, CommonSvc, ngDialog) {
+  var domainSelectedEnvKey ='domain-env-name';
+  var domainSelectedTabKey ='env-tab-name';
+  var DomainController = function (localStorageService, $scope, DomainSvc, $cookies, $routeParams, UserSvc, CommonSvc, ngDialog) {
 
       $scope.paramDomainId = $routeParams.domainId;
       $scope.envDetails = {};
+      $scope.updateSelectedEnv = function (name) {
+        localStorageService.set(domainSelectedEnvKey, name);
+      }
+      $scope.updateSelectedTab = function (tabName) {
+        localStorageService.set(domainSelectedTabKey, tabName);
+      }
       $scope.switchTab = function(tab){
         $scope.currentTab = tab;
-        if($scope.domainDetail && $scope.domainDetail.env){
-          $scope.envDetails = $scope.domainDetail.env.filter(function(env){
-            return 'env_'+env.name === tab;
-          })[0];
-        }
+        $scope.updateSelectedTab(tab);
       }
-      $scope.switchTab('node');
+
+      var selectedTabName = localStorageService.get(domainSelectedTabKey);
+
+      if(selectedTabName && selectedTabName!=='null' && selectedTabName!=='undefined'){
+        $scope.switchTab(selectedTabName);
+      }else{
+        $scope.switchTab('basic');
+      }
       $scope.removeDomainUserDialog = {
         title: '移除用户',
         description: '确定要删除该用户吗？',
@@ -79,7 +89,6 @@ define(['utils/Constant','utils/Utils'], function (Constant, Utils) {
                 }
                 $scope.domainDetail.env.splice(index, 1, $scope.domainEnvEntity);
                 $scope.envDetails = $scope.domainEnvEntity;
-                $scope.switchTab('env_'+$scope.domainEnvEntity.name);
               }, function (resp) {
                 $scope.envSubmiting = false;
                 $scope.addEnvErrorMsg = resp.errMsg ? resp.errMsg : Constant.createError;
@@ -97,7 +106,6 @@ define(['utils/Constant','utils/Utils'], function (Constant, Utils) {
                   $scope.domainDetail.env = [];
                 }
                 $scope.domainDetail.env.push($scope.domainEnvEntity);
-                $scope.switchTab('env_'+$scope.domainEnvEntity.name);
               }, function (resp) {
                 $scope.envSubmiting = false;
                 $scope.addEnvErrorMsg = resp.errMsg ? resp.errMsg : Constant.createError;
@@ -115,6 +123,23 @@ define(['utils/Constant','utils/Utils'], function (Constant, Utils) {
             return;
           }
           $scope.domainDetail = result;
+          if($scope.domainDetail && $scope.domainDetail.env){
+
+            var previousSelectedEnv = localStorageService.get(domainSelectedEnvKey);
+            var isSelectedBefore = previousSelectedEnv && previousSelectedEnv!=='null' && previousSelectedEnv!=='undefined';
+
+            if(isSelectedBefore){
+              $scope.envDetails = $scope.domainDetail.env.find(function(env){
+                return env.name === previousSelectedEnv;
+              });
+            }
+
+            if(!$scope.envDetails || !$scope.envDetails.name){
+              $scope.envDetails = $scope.domainDetail.env[0];
+              $scope.updateSelectedEnv($scope.envDetails.name);
+            }
+
+          }
           $scope.loadingStatus = null;
         }, function () {
           $scope.loadingStatus = Constant.loadError;
@@ -122,59 +147,11 @@ define(['utils/Constant','utils/Utils'], function (Constant, Utils) {
       };
 
       $scope.getDetailInfo();
-
-      // $scope.showAddDialog = function(){
-      //   $scope.domainEntity = {
-      //
-      //   };
-      //   $scope.submitErrorMsg = '';
-      //   $scope.addInstanceDialog = ngDialog.open({
-      //     template: './views/domain/domain-add.html',
-      //     className: 'ngdialog-custom-default',
-      //     scope: $scope
-      //   });
-      // }
-
-      // $scope.confirmAdd = function () {
-      //     $scope.submitErrorMsg = '';
-      //     try{
-      //       $scope.domainEntity.starDateTime = Utils.convertDateStr2Long($scope.range.starDateTime);
-      //       $scope.domainEntity.endDateTime = Utils.convertDateStr2Long($scope.range.endDateTime);
-      //     }catch(e){
-      //       $scope.submitErrorMsg = '请输入有效的日期';
-      //       return;
-      //     }
-      //     if($scope.domainEntity.starDateTime >= $scope.domainEntity.endDateTime){
-      //       $scope.submitErrorMsg = '截止日期需大于开始日期';
-      //       return;
-      //     }
-      //     if($scope.domainEntity.endDateTime < new Date().getTime()){
-      //       $scope.submitErrorMsg = '截止日期需大于当前日期';
-      //       return;
-      //     }
-      //     $scope.submiting = true;
-      //     DomainSvc.addDomain($scope.domainEntity, function (resp) {
-      //       $scope.submiting = false;
-      //       var result = Constant.transformResponse(resp);
-      //       if (!result) {
-      //         $scope.submitErrorMsg = resp.errMsg ? resp.errMsg : Constant.createError;
-      //         return;
-      //       }
-      //       $scope.submitErrorMsg = '';
-      //       $scope.loadingStatus = '';
-      //       $scope.addInstanceDialog.close();
-      //       $scope.domains.unshift(result);
-      //     }, function (resp) {
-      //       $scope.submiting = false;
-      //       $scope.submitErrorMsg = resp.errMsg ? resp.errMsg : Constant.createError;
-      //     });
-      //
-      // };
   };
 
   return {
     name: "DomainDetailController",
-    fn: ["$scope", "DomainSvc", "$cookies", "$routeParams", "UserSvc", "CommonSvc", 'ngDialog', DomainController]
+    fn: ["localStorageService", "$scope", "DomainSvc", "$cookies", "$routeParams", "UserSvc", "CommonSvc", 'ngDialog', DomainController]
   };
 
 
