@@ -21,70 +21,70 @@
     <!-- /.container-fluid -->
   </nav>
 
-<div class="row">
-  <div class="col-md-12" ng-bind="loadingStatus">正在加载</div>
-</div>
-<div ng-if="!loadingStatus">
-  <div class="tl panel">
-    <div class="panel-heading">
-      <p class="text-size-s1 text-color-c6">域信息</p>
-      <div class="row text-size-s3">
-        <div class="col-md-6">
-          <div class="col-md-3 text-color-c4">应用名称：</div>
-          <div class="col-md-9 tl text-color-c6">
-            <span ng-bind="domainDetail.displayName"></span>
-            <a ng-bind="domainDetail.name" ng-href="{{domainDetail.name}}"></a>
+  <div class="row">
+    <div class="col-md-12" ng-bind="loadingStatus">正在加载</div>
+  </div>
+  <div ng-if="!loadingStatus">
+    <div class="tl panel">
+      <div class="panel-heading">
+        <p class="text-size-s1 text-color-c6">域信息</p>
+        <div class="row text-size-s3">
+          <div class="col-md-6">
+            <div class="col-md-3 text-color-c4">应用名称：</div>
+            <div class="col-md-9 tl text-color-c6">
+              <span ng-bind="domainDetail.displayName"></span>
+              <a ng-bind="domainDetail.name" ng-href="{{domainDetail.name}}"></a>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="row text-size-s3">
-        <div class="col-md-6">
-          <div class="col-md-3 text-color-c4">域ID：</div>
-          <div class="col-md-9 tl text-color-c6" ng-bind="domainDetail.id"></div>
+        <div class="row text-size-s3">
+          <div class="col-md-6">
+            <div class="col-md-3 text-color-c4">域ID：</div>
+            <div class="col-md-9 tl text-color-c6" ng-bind="domainDetail.id"></div>
+          </div>
+          <div class="col-md-6">
+            <div class="col-md-3 text-color-c4">域Key：</div>
+            <div class="col-md-9 tl text-color-c6" ng-bind="domainDetail.id"></div>
+          </div>
         </div>
-        <div class="col-md-6">
-          <div class="col-md-3 text-color-c4">域Key：</div>
-          <div class="col-md-9 tl text-color-c6" ng-bind="domainDetail.id"></div>
+        <div class="row text-size-s3">
+          <div class="col-md-6">
+            <div class="col-md-3 text-color-c4">日志级别：</div>
+            <div class="col-md-9 tl text-color-c6" ng-bind="domainDetail.key"></div>
+          </div>
+          <div class="col-md-6">
+            <div class="col-md-3 text-color-c4">联系邮箱：</div>
+            <div class="col-md-9 tl text-color-c6" ng-bind="domainDetail.key"></div>
+          </div>
+        </div>
+        <div class="row text-size-s3">
+          <div class="col-md-3 text-color-c4">描述信息：</div>
+          <div class="col-md-9 tl text-color-c6" ng-bind="domainDetail.description"></div>
         </div>
       </div>
-      <div class="row text-size-s3">
-        <div class="col-md-6">
-          <div class="col-md-3 text-color-c4">日志级别：</div>
-          <div class="col-md-9 tl text-color-c6" ng-bind="domainDetail.key"></div>
-        </div>
-        <div class="col-md-6">
-          <div class="col-md-3 text-color-c4">联系邮箱：</div>
-          <div class="col-md-9 tl text-color-c6" ng-bind="domainDetail.key"></div>
-        </div>
+      <hr/>
+      <div>
+        <ul class="nav nav-tabs">
+          <li ng-click="switchTab('basic')" role="presentation" ng-class="{active: currentTab=='basic'}"><a>基本信息</a></li>
+          <li ng-click="switchTab('rule')" role="presentation" ng-class="{active: currentTab=='rule'}"><a>邮件规则</a></li>
+          <li ng-click="switchTab('node')" role="presentation" ng-class="{active: currentTab=='node'}"><a>节点状态</a></li>
+          <li ng-click="switchTab('user')" role="presentation" ng-class="{active: currentTab=='user'}"><a>用户权限</a></li>
+          <!-- <li style="float:right;"><a class="btn btn-default" ng-href="#/role/{{paramRoleId}}/url-management" role="button">添加组</a></li> -->
+        </ul>
       </div>
-      <div class="row text-size-s3">
-        <div class="col-md-3 text-color-c4">描述信息：</div>
-        <div class="col-md-9 tl text-color-c6" ng-bind="domainDetail.description"></div>
+      <div class="panel-body" ng-if="currentTab=='basic'">
+        <domain-basic env-details="envDetails" domain-id="paramDomainId"></domain-basic>
       </div>
+      <div class="panel-body" ng-if="currentTab=='rule'">
+        <domain-rule></domain-rule>
+      </div>
+      <div class="panel-body" ng-if="currentTab=='node'">
+        <domain-node></domain-node>
+      </div>
+      <div class="panel-body" ng-if="currentTab=='user'">
+        <domain-user></domain-user>
+      </div>
+      <dialog dialog="removeDomainUserDialog"></dialog>
     </div>
-    <hr/>
-    <div>
-      <ul class="nav nav-tabs">
-        <li ng-click="switchTab('basic')" role="presentation" ng-class="{active: currentTab=='basic'}"><a>基本信息</a></li>
-        <li ng-click="switchTab('rule')" role="presentation" ng-class="{active: currentTab=='rule'}"><a>邮件规则</a></li>
-        <li ng-click="switchTab('node')" role="presentation" ng-class="{active: currentTab=='node'}"><a>节点状态</a></li>
-        <li ng-click="switchTab('user')" role="presentation" ng-class="{active: currentTab=='user'}"><a>用户权限</a></li>
-        <!-- <li style="float:right;"><a class="btn btn-default" ng-href="#/role/{{paramRoleId}}/url-management" role="button">添加组</a></li> -->
-      </ul>
-    </div>
-    <div class="panel-body" ng-if="currentTab=='basic'">
-      <domain-basic></domain-basic>
-    </div>
-    <div class="panel-body" ng-if="currentTab=='rule'">
-      <domain-rule></domain-rule>
-    </div>
-    <div class="panel-body" ng-if="currentTab=='node'">
-      <domain-node></domain-node>
-    </div>
-    <div class="panel-body" ng-if="currentTab=='user'">
-      <domain-user></domain-user>
-    </div>
-    <dialog dialog="removeDomainUserDialog"></dialog>
   </div>
-</div>
 </div>

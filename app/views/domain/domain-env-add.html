@@ -9,7 +9,7 @@
         aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h4 class="modal-title" ng-bind="isModify?'修改环境配置':'添加部署环境'"></h4>
+        <h4 class="modal-title" ng-bind="isModify?'修改环境配置信息':'添加部署环境'"></h4>
       </div>
       <div class="modal-body">
         <form class="form-horizontal" name="addForm">
@@ -22,7 +22,12 @@
               required maxlength="40">
             </div>
           </div>
-
+          <div class="form-group">
+            <label for="" class="col-sm-3 control-label">描述信息</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" ng-model="domainEnvEntity.description" placeholder="备注信息等" required maxlength="200" />
+            </div>
+          </div>
           <div class="form-group">
             <label for="" class="col-sm-3 control-label">通知邮箱</label>
             <div class="col-sm-9">
@@ -39,12 +44,7 @@
               </select>
             </div>
           </div>
-          <div class="form-group">
-            <label for="" class="col-sm-3 control-label">描述信息</label>
-            <div class="col-sm-9">
-              <input type="text" class="form-control" ng-model="domainEnvEntity.description" placeholder="备注信息等" required maxlength="200" />
-            </div>
-          </div>
+
         </form>
       </div>
       <div class="modal-footer">
