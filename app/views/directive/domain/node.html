@@ -1,0 +1,43 @@
+<div>
+  <div>
+    <p class="fl pd-lt-0I pd-6-12 text-color-c4">以下列表显示了当前应用部署环境的节点状态</p>
+    <a class="btn fr btn-default" ng-href="#/domainDetail/{{paramDomainId}}/management" role="button">添加用户</a>
+    <div class="clear"></div>
+  </div>
+  <div>
+    <table class="tl table table-striped">
+      <thead class="text-size-s3 text-color-c4">
+        <tr>
+          <th>序号</th>
+          <th>当前环境</th>
+          <th>节点</th>
+          <th>类型</th>
+          <th>状态</th>
+          <th>平均错误量/周</th>
+          <th>平均日志流量/日</th>
+          <th>平均错误量/周</th>
+          <th>平均日志流量/日</th>
+          <th>详情</th>
+        </tr>
+      </thead>
+      <tbody class="text-size-s3 text-color-c6">
+        <tr ng-repeat="u in domainUsers">
+          <td ng-bind="$index+1"></td>
+          <td ng-bind="u.name"></td>
+          <td ng-bind="u.email"></td>
+          <td ng-bind="u.phone"></td>
+          <td ng-bind="u.phone"></td>
+          <td ng-bind="u.phone"></td>
+          <td ng-bind="u.createDate | date: 'yyyy-MM-dd HH:mm'"></td>
+          <td ng-bind="u.groupName"></td>
+          <td ng-bind="roleTypes[u.roleType]"></td>
+          <td><a ng-href="" ng-click="removeDomainUserDialog.open(u.id)">移除</a></td>
+        </tr>
+        <tr ng-if="userLoading!=''">
+          <td colspan="8" class="tc" ng-bind="userLoading"></td>
+        </tr>
+      </tbody>
+    </table>
+    <pagination ng-if="domainUsers && domainUsers.length>0" boundary-link-numbers="true" force-ellipses="true" max-size="10" boundary-links="true" ng-change="getUsersByPage()" items-per-page="pagination.pageSize" total-items="pagination.totalCount" ng-model="pagination.curPage" class="pagination-sm fr" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+  </div>
+</div>

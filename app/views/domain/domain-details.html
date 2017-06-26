@@ -1,267 +1,90 @@
+<div>
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#/domain">日志集成管理系统</a>
+      </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse">
+        <select ng-model="envDetails" ng-options="env.name for env in domainDetail.env" class="dropdown env-menu">
+        </select>
+        <ul class="nav navbar-nav navbar-right">
+          <li class="actions"><a class="btn btn-default" ng-click="showAddEnvDialog(false)" role="button">添加部署环境</a></li>
+          <li><a href="#">当前用户：<span ng-bind="getUserName()"></span></a></li>
+          <li><a href="" ng-click="logout()">安全退出</a></li>
+          <li><a href="" ng-click="setting()">设置</a></li>
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+  </nav>
+
 <div class="row">
   <div class="col-md-12" ng-bind="loadingStatus">正在加载</div>
 </div>
 <div ng-if="!loadingStatus">
-<div class="tl panel">
-  <div class="panel-heading">
-    <p class="text-size-s1 text-color-c6">域信息</p>
-    <div class="row text-size-s3">
-      <div class="col-md-6">
-        <div class="col-md-3 text-color-c4">应用名称：</div>
-        <div class="col-md-9 tl text-color-c6">
-          <span ng-bind="domainDetail.displayName"></span>
-          <a ng-bind="domainDetail.name" ng-href="{{domainDetail.name}}"></a>
+  <div class="tl panel">
+    <div class="panel-heading">
+      <p class="text-size-s1 text-color-c6">域信息</p>
+      <div class="row text-size-s3">
+        <div class="col-md-6">
+          <div class="col-md-3 text-color-c4">应用名称：</div>
+          <div class="col-md-9 tl text-color-c6">
+            <span ng-bind="domainDetail.displayName"></span>
+            <a ng-bind="domainDetail.name" ng-href="{{domainDetail.name}}"></a>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="row text-size-s3">
-      <div class="col-md-6">
-        <div class="col-md-3 text-color-c4">域ID：</div>
-        <div class="col-md-9 tl text-color-c6" ng-bind="domainDetail.id"></div>
+      <div class="row text-size-s3">
+        <div class="col-md-6">
+          <div class="col-md-3 text-color-c4">域ID：</div>
+          <div class="col-md-9 tl text-color-c6" ng-bind="domainDetail.id"></div>
+        </div>
+        <div class="col-md-6">
+          <div class="col-md-3 text-color-c4">域Key：</div>
+          <div class="col-md-9 tl text-color-c6" ng-bind="domainDetail.id"></div>
+        </div>
       </div>
-      <div class="col-md-6">
-        <div class="col-md-3 text-color-c4">域Key：</div>
-        <div class="col-md-9 tl text-color-c6" ng-bind="domainDetail.id"></div>
+      <div class="row text-size-s3">
+        <div class="col-md-6">
+          <div class="col-md-3 text-color-c4">日志级别：</div>
+          <div class="col-md-9 tl text-color-c6" ng-bind="domainDetail.key"></div>
+        </div>
+        <div class="col-md-6">
+          <div class="col-md-3 text-color-c4">联系邮箱：</div>
+          <div class="col-md-9 tl text-color-c6" ng-bind="domainDetail.key"></div>
+        </div>
+      </div>
+      <div class="row text-size-s3">
+        <div class="col-md-3 text-color-c4">描述信息：</div>
+        <div class="col-md-9 tl text-color-c6" ng-bind="domainDetail.description"></div>
       </div>
     </div>
-    <div class="row text-size-s3">
-      <div class="col-md-6">
-        <div class="col-md-3 text-color-c4">日志级别：</div>
-        <div class="col-md-9 tl text-color-c6" ng-bind="domainDetail.key"></div>
-      </div>
-      <div class="col-md-6">
-        <div class="col-md-3 text-color-c4">联系邮箱：</div>
-        <div class="col-md-9 tl text-color-c6" ng-bind="domainDetail.key"></div>
-      </div>
+    <hr/>
+    <div>
+      <ul class="nav nav-tabs">
+        <li ng-click="switchTab('basic')" role="presentation" ng-class="{active: currentTab=='basic'}"><a>基本信息</a></li>
+        <li ng-click="switchTab('rule')" role="presentation" ng-class="{active: currentTab=='rule'}"><a>邮件规则</a></li>
+        <li ng-click="switchTab('node')" role="presentation" ng-class="{active: currentTab=='node'}"><a>节点状态</a></li>
+        <li ng-click="switchTab('user')" role="presentation" ng-class="{active: currentTab=='user'}"><a>用户权限</a></li>
+        <!-- <li style="float:right;"><a class="btn btn-default" ng-href="#/role/{{paramRoleId}}/url-management" role="button">添加组</a></li> -->
+      </ul>
     </div>
-    <div class="row text-size-s3">
-      <div class="col-md-3 text-color-c4">描述信息：</div>
-      <div class="col-md-9 tl text-color-c6" ng-bind="domainDetail.description"></div>
+    <div class="panel-body" ng-if="currentTab=='basic'">
+      <domain-basic></domain-basic>
     </div>
-    <!-- <a class="btn fr btn-default" ng-href="#/domainDetail/{{paramDomainId}}/management" role="button">修改</a> -->
+    <div class="panel-body" ng-if="currentTab=='rule'">
+      <domain-rule></domain-rule>
+    </div>
+    <div class="panel-body" ng-if="currentTab=='node'">
+      <domain-node></domain-node>
+    </div>
+    <div class="panel-body" ng-if="currentTab=='user'">
+      <domain-user></domain-user>
+    </div>
+    <dialog dialog="removeDomainUserDialog"></dialog>
   </div>
-  <hr/>
-  <div>
-    <ul class="nav nav-tabs">
-      <li ng-click="switchTab('node')" role="presentation" ng-class="{active: currentTab=='node'}"><a>节点状态</a></li>
-      <li ng-repeat="env in domainDetail.env" ng-click="switchTab('env_'+env.name)" role="presentation" ng-class="{active: currentTab==('env_'+env.name)}"><a ng-bind="env.name"></a></li>
-      <li ng-click="switchTab('settings')" role="presentation" ng-class="{active: currentTab=='settings'}"><a>设置</a></li>
-      <li class="actions" style="float:right;"><a class="btn fr btn-default" ng-click="showAddEnvDialog(false)" role="button">添加部署环境</a></li>
-      <!-- <li style="float:right;"><a class="btn btn-default" ng-href="#/role/{{paramRoleId}}/url-management" role="button">添加组</a></li> -->
-    </ul>
-  </div>
-  <div class="panel-body" ng-if="currentTab=='node'">
-    <div>
-      <p class="fl pd-lt-0I pd-6-12 text-color-c4">以下列表显示了当前应用部署环境的节点状态</p>
-      <a class="btn fr btn-default" ng-href="#/domainDetail/{{paramDomainId}}/management" role="button">添加用户</a>
-      <div class="clear"></div>
-    </div>
-    <div>
-      <table class="tl table table-striped">
-        <thead class="text-size-s3 text-color-c4">
-          <tr>
-            <th>序号</th>
-            <th>当前环境</th>
-            <th>节点</th>
-            <th>类型</th>
-            <th>状态</th>
-            <th>平均错误量/周</th>
-            <th>平均日志流量/日</th>
-            <th>平均错误量/周</th>
-            <th>平均日志流量/日</th>
-            <th>详情</th>
-          </tr>
-        </thead>
-        <tbody class="text-size-s3 text-color-c6">
-          <tr ng-repeat="u in domainUsers">
-            <td ng-bind="$index+1"></td>
-            <td ng-bind="u.name"></td>
-            <td ng-bind="u.email"></td>
-            <td ng-bind="u.phone"></td>
-            <td ng-bind="u.phone"></td>
-            <td ng-bind="u.phone"></td>
-            <td ng-bind="u.createDate | date: 'yyyy-MM-dd HH:mm'"></td>
-            <td ng-bind="u.groupName"></td>
-            <td ng-bind="roleTypes[u.roleType]"></td>
-            <td><a ng-href="" ng-click="removeDomainUserDialog.open(u.id)">移除</a></td>
-          </tr>
-          <tr ng-if="userLoading!=''">
-            <td colspan="8" class="tc" ng-bind="userLoading"></td>
-          </tr>
-        </tbody>
-      </table>
-      <pagination ng-if="domainUsers && domainUsers.length>0" boundary-link-numbers="true" force-ellipses="true" max-size="10" boundary-links="true" ng-change="getUsersByPage()" items-per-page="pagination.pageSize" total-items="pagination.totalCount" ng-model="pagination.curPage" class="pagination-sm fr" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
-    </div>
-  </div>
-  <div class="panel-body" ng-if="currentTab=='settings'">
-    <div>
-      <p class="fl pd-lt-0I pd-6-12 text-color-c4">以下列表显示了当前应用的用户访问权限</p>
-      <a class="btn fr btn-default" ng-href="#/domainDetail/{{paramDomainId}}/management" role="button">添加用户</a>
-      <div class="clear"></div>
-    </div>
-    <div>
-      <table class="tl table table-striped">
-        <thead class="text-size-s3 text-color-c4">
-          <tr>
-            <th>序号</th>
-            <th>姓名</th>
-            <th>邮箱</th>
-            <th>权限信息</th>
-            <th>操作</th>
-          </tr>
-        </thead>
-        <tbody class="text-size-s3 text-color-c6">
-          <tr ng-repeat="u in domainUsers">
-            <td ng-bind="$index+1"></td>
-            <td ng-bind="u.name"></td>
-            <td ng-bind="u.email"></td>
-            <td ng-bind="u.phone"></td>
-            <td ng-bind="u.phone"></td>
-            <td ng-bind="u.phone"></td>
-            <td ng-bind="u.createDate | date: 'yyyy-MM-dd HH:mm'"></td>
-            <td ng-bind="u.groupName"></td>
-            <td ng-bind="roleTypes[u.roleType]"></td>
-            <td><a ng-href="" ng-click="removeDomainUserDialog.open(u.id)">移除</a></td>
-          </tr>
-          <tr ng-if="userLoading!=''">
-            <td colspan="8" class="tc" ng-bind="userLoading"></td>
-          </tr>
-        </tbody>
-      </table>
-      <pagination ng-if="domainUsers && domainUsers.length>0" boundary-link-numbers="true" force-ellipses="true" max-size="10" boundary-links="true" ng-change="getUsersByPage()" items-per-page="pagination.pageSize" total-items="pagination.totalCount" ng-model="pagination.curPage" class="pagination-sm fr" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
-    </div>
-  </div>
-  <div class="panel-body" ng-if="currentTab.indexOf('env_')!==-1">
-    <div class="row text-size-s3">
-      <div class="col-md-6">
-        <span class="text-color-c4">当前环境：</span><span ng-bind="envDetails.description"></span>
-      </div>
-    </div>
-    <div class="row text-size-s3">
-      <div class="col-md-6">
-        <span class="text-color-c4">通知邮箱：</span><span ng-bind="envDetails.email"></span>
-      </div>
-      <div class="col-md-6">
-        <a class="btn fr btn-default" ng-click="showAddEnvDialog(true)" role="button">修改配置</a>
-      </div>
-    </div>
-    <div class="row text-size-s3">
-      <div class="col-md-6">
-        <span class="text-color-c4">日志级别：</span><span ng-bind="envDetails.logLevel"></span>
-      </div>
-    </div>
-    <div class="clear"></div>
-    <div>
-      <p class="fl pd-lt-0I pd-6-12">日志处理：邮件触发规则</p>
-      <a class="btn fr btn-default" ng-href="#/domainDetail/{{paramDomainId}}/management" role="button">添加规则</a>
-      <div class="clear"></div>
-    </div>
-    <div>
-      <table class="tl table table-striped">
-        <thead class="text-size-s3 text-color-c4">
-          <tr>
-            <th>序号</th>
-            <th>姓名</th>
-            <th>邮箱</th>
-            <th>权限信息</th>
-            <th>操作</th>
-          </tr>
-        </thead>
-        <tbody class="text-size-s3 text-color-c6">
-          <tr ng-repeat="u in domainUsers">
-            <td ng-bind="$index+1"></td>
-            <td ng-bind="u.name"></td>
-            <td ng-bind="u.email"></td>
-            <td ng-bind="u.phone"></td>
-            <td ng-bind="u.phone"></td>
-            <td ng-bind="u.phone"></td>
-            <td ng-bind="u.createDate | date: 'yyyy-MM-dd HH:mm'"></td>
-            <td ng-bind="u.groupName"></td>
-            <td ng-bind="roleTypes[u.roleType]"></td>
-            <td><a ng-href="" ng-click="removeDomainUserDialog.open(u.id)">移除</a></td>
-          </tr>
-          <tr ng-if="userLoading!=''">
-            <td colspan="8" class="tc" ng-bind="userLoading"></td>
-          </tr>
-        </tbody>
-      </table>
-      <pagination ng-if="domainUsers && domainUsers.length>0" boundary-link-numbers="true" force-ellipses="true" max-size="10" boundary-links="true" ng-change="getUsersByPage()" items-per-page="pagination.pageSize" total-items="pagination.totalCount" ng-model="pagination.curPage" class="pagination-sm fr" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
-    </div>
-    <div>
-      <p class="fl pd-lt-0I pd-6-12">访问控制：用户权限列表</p>
-      <a class="btn fr btn-default" ng-href="#/domainDetail/{{paramDomainId}}/management" role="button">添加用户</a>
-      <div class="clear"></div>
-    </div>
-    <div>
-      <table class="tl table table-striped">
-        <thead class="text-size-s3 text-color-c4">
-          <tr>
-            <th>序号</th>
-            <th>姓名</th>
-            <th>邮箱</th>
-            <th>权限信息</th>
-            <th>操作</th>
-          </tr>
-        </thead>
-        <tbody class="text-size-s3 text-color-c6">
-          <tr ng-repeat="u in domainUsers">
-            <td ng-bind="$index+1"></td>
-            <td ng-bind="u.name"></td>
-            <td ng-bind="u.email"></td>
-            <td ng-bind="u.phone"></td>
-            <td ng-bind="u.phone"></td>
-            <td ng-bind="u.phone"></td>
-            <td ng-bind="u.createDate | date: 'yyyy-MM-dd HH:mm'"></td>
-            <td ng-bind="u.groupName"></td>
-            <td ng-bind="roleTypes[u.roleType]"></td>
-            <td><a ng-href="" ng-click="removeDomainUserDialog.open(u.id)">移除</a></td>
-          </tr>
-          <tr ng-if="userLoading!=''">
-            <td colspan="8" class="tc" ng-bind="userLoading"></td>
-          </tr>
-        </tbody>
-      </table>
-      <pagination ng-if="domainUsers && domainUsers.length>0" boundary-link-numbers="true" force-ellipses="true" max-size="10" boundary-links="true" ng-change="getUsersByPage()" items-per-page="pagination.pageSize" total-items="pagination.totalCount" ng-model="pagination.curPage" class="pagination-sm fr" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
-    </div>
-  </div>
-  <div class="panel-body" ng-if="currentTab=='env'">
-    <div>
-      <p class="fl pd-lt-0I pd-6-12 text-color-c4">以下列表显示了当前应用的部署环境</p>
-      <a class="btn fr btn-default" ng-href="#/domainDetail/{{paramDomainId}}/management" role="button">添加用户</a>
-      <div class="clear"></div>
-    </div>
-    <div>
-      <table class="tl table table-striped">
-        <thead class="text-size-s3 text-color-c4">
-          <tr>
-            <th>序号</th>
-            <th>名称</th>
-            <th>日志级别</th>
-            <th>权限信息</th>
-            <th>操作</th>
-          </tr>
-        </thead>
-        <tbody class="text-size-s3 text-color-c6">
-          <tr ng-repeat="u in domainUsers">
-            <td ng-bind="$index+1"></td>
-            <td ng-bind="u.name"></td>
-            <td ng-bind="u.email"></td>
-            <td ng-bind="u.phone"></td>
-            <td ng-bind="u.phone"></td>
-            <td ng-bind="u.phone"></td>
-            <td ng-bind="u.createDate | date: 'yyyy-MM-dd HH:mm'"></td>
-            <td ng-bind="u.groupName"></td>
-            <td ng-bind="roleTypes[u.roleType]"></td>
-            <td><a ng-href="" ng-click="removeDomainUserDialog.open(u.id)">移除</a></td>
-          </tr>
-          <tr ng-if="userLoading!=''">
-            <td colspan="8" class="tc" ng-bind="userLoading"></td>
-          </tr>
-        </tbody>
-      </table>
-      <pagination ng-if="domainUsers && domainUsers.length>0" boundary-link-numbers="true" force-ellipses="true" max-size="10" boundary-links="true" ng-change="getUsersByPage()" items-per-page="pagination.pageSize" total-items="pagination.totalCount" ng-model="pagination.curPage" class="pagination-sm fr" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
-    </div>
-  </div>
-
-  <dialog dialog="removeDomainUserDialog"></dialog>
+</div>
 </div>

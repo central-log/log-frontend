@@ -1,0 +1,20 @@
+<div>
+  <div class="row text-size-s3">
+    <div class="col-md-6">
+      <span class="text-color-c4">当前环境：</span><span ng-bind="envDetails.description"></span>
+    </div>
+  </div>
+  <div class="row text-size-s3">
+    <div class="col-md-6">
+      <span class="text-color-c4">通知邮箱：</span><span ng-bind="envDetails.email"></span>
+    </div>
+    <div class="col-md-6">
+      <a class="btn fr btn-default" ng-click="showAddEnvDialog(true)" role="button">修改配置</a>
+    </div>
+  </div>
+  <div class="row text-size-s3">
+    <div class="col-md-6">
+      <span class="text-color-c4">日志级别：</span><span ng-bind="envDetails.logLevel"></span>
+    </div>
+  </div>
+</div>

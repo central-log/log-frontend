@@ -107,3 +107,10 @@ select.dropdown {
   line-height: 34px;
   border-radius: 4px;
 }
+
+select.dropdown.env-menu{
+  position: absolute;
+  left: 170px;
+  top:8px;
+  max-width:170px;
+}
