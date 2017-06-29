@@ -34,24 +34,17 @@ define(['utils/Constant'], function (Constant) {
               $scope.loadingStatus = Constant.loading;
               $scope.users = [];
               UserSvc.getUsers(searchCriteria, function (resp) {
-                var result = Constant.transformResponse(resp);
-                if (result === undefined) {
-                  $scope.loadingStatus = Constant.loadError;
-                  $scope.users = [];
-                  return;
-                }
-                // No Pagination
-                if (!result || !result.data || !result.data.length) {
+                if (!resp || !resp.data || !resp.data.length) {
                   $scope.users = [];
                   $scope.loadingStatus = Constant.loadEmpty;
                   return;
                 }
                 $scope.loadingStatus = '';
-                $scope.users = result.data;
+                $scope.users = resp.data;
 
-                $scope.pagination.curPage = result.page;
-                $scope.pagination.totalCount = result.totalCount;
-                $scope.pagination.pageSize = result.pageSize;
+                $scope.pagination.curPage = resp.page;
+                $scope.pagination.totalCount = resp.totalCount;
+                $scope.pagination.pageSize = resp.pageSize;
               }, function () {
                 $scope.loadingStatus = Constant.loadError;
               });
@@ -59,7 +52,6 @@ define(['utils/Constant'], function (Constant) {
 
           $scope.queryUser();
 
-          $scope.submitText = '添加';
           $scope.addModifyUserDialog = function(editUser){
             $scope.isModify = !!editUser;
 
@@ -68,10 +60,14 @@ define(['utils/Constant'], function (Constant) {
                 name: editUser.name,
                 email:editUser.email,
                 status: editUser.status,
-                userType: editUser.userType
+                userType: editUser.userType,
+                domainId:$scope.domainId,
+                env:$scope.env
               };
             }else{
               $scope.newUser = {
+                domainId:$scope.domainId,
+                env:$scope.env,
                 status: 'enabled',
                 userType: 'Normal'
               };
@@ -85,7 +81,7 @@ define(['utils/Constant'], function (Constant) {
           }
 
           $scope.submitDisable = function(){
-            if (!$scope.newUser.name || !$scope.newUser.email) {
+            if (!$scope.newUser.name || !$scope.newUser.status || !$scope.newUser.userType || !$scope.newUser.email) {
               return true;
             }
             if($scope.submiting){
@@ -94,35 +90,25 @@ define(['utils/Constant'], function (Constant) {
             return false;
           }
 
-          $scope.addNewUser = function () {
-
+          $scope.addModifyNewUser = function (isModifyUser, isDelete) {
               $scope.submitErrorMsg = '';
               if (!$scope.newUser.name || !$scope.newUser.email) {
                 return;
               }
               $scope.submiting = true;
+              var serviceName = isDelete?'deleteUser':(isModifyUser?'editUser':'addUser');
 
-              $scope.newUser.domainId=$scope.domainId;
-              $scope.newUser.env=$scope.env;
-
-              UserSvc.addUser($scope.newUser, function (resp) {
+              UserSvc[serviceName]($scope.newUser, function (resp) {
                 $scope.submiting = false;
-                var result = Constant.transformResponse(resp);
-                if (!result) {
-                  $scope.submitErrorMsg = resp.errMsg ? resp.errMsg : Constant.createError;
-                  return;
-                }
                 $scope.submitErrorMsg = '';
-                // console.log($scope);
-                $scope.users.unshift(result);
                 $scope.loadingStatus = '';
                 $scope.addInstanceDialog.close();
-                // $location.url('/role/' + result);
-              }, function (resp) {
+                $scope.queryUser();
+              }, function (error) {
+                var resp = (error && error.data) || {};
                 $scope.submiting = false;
                 $scope.submitErrorMsg = resp.errMsg ? resp.errMsg : Constant.createError;
               });
-
           };
       }
     };

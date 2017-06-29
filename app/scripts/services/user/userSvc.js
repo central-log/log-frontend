@@ -1,126 +1,40 @@
-'use strict';
-/**
- * Module representing a shirt.
- * @module controllers/login
- */
 define(['utils/Constant'], function (Constant) {
-  /**
-   * A module representing a login controller.
-   * @exports controllers/login
-   */
   var Service = function ($resource) {
-    /*
-      Get     /user/:id
-      Put     /user/:id/user/:ids
-      delete  /user/:id/user/:id
-      Get     /user/:id/menu
-      Get     /user/:id/url
-     */
-    var svc = $resource(Constant.apiBase + '/user/:method/:id/:role/:roleId', null, {
-      /*
-         /user
-      */
+    var svc = $resource(Constant.apiBase + '/domain/:domainId/env/:env/user', null, {
       getUsers: {
-        method: 'POST',
+        method: 'GET',
         params: {
-          method: 'query'
+          env: '@env',
+          domainId: '@domainId'
         },
         isArray: false,
         timeout: Constant.reqTimeout
       },
       addUser: {
-        method: 'POST',
-        params: {},
-        isArray: false,
-        timeout: Constant.reqTimeout
-      },
-      /*
-         /user/:id
-      */
-      getUserById: {
-        method: 'GET',
+        method: 'PUT',
         params: {
-          id: '@id'
-        },
-        timeout: Constant.reqTimeout
-      },
-      modifyUser: {
-        method: 'POST',
-        params: {
-          method: 'update'
+          env: '@env',
+          domainId: '@domainId'
         },
         isArray: false,
         timeout: Constant.reqTimeout
       },
-      /*
-         /user/:id/role
-      */
-      getRoleOfUser: {
-        method: 'GET',
-        params: {
-          id: '@id',
-          role: 'role'
-        },
-        timeout: Constant.reqTimeout
-      },
-      /*
-         /user/addUserRoles
-      */
-      manageRoleOfUser: {
+      editUser: {
         method: 'POST',
         params: {
-          method: 'addUserRoles'
-        },
-        timeout: Constant.reqTimeout
-      },
-      /*
-        /user/:id/role/:roleId
-      */
-      removeRoleOfUser: {
-        method: 'POST',
-        params: {
-          method: 'rmUserRoles'
+          env: '@env',
+          domainId: '@domainId'
         },
         isArray: false,
         timeout: Constant.reqTimeout
       },
-      /*
-        Get     /user/:id/url
-      */
-      getuserUrls: {
-        method: 'GET',
+      deleteUser: {
+        method: 'DELETE',
         params: {
-          id: '@id',
-          catalog: 'url'
+          env: '@env',
+          domainId: '@domainId'
         },
-        isArray: true,
-        timeout: Constant.reqTimeout
-      },
-      getProvince: {
-        method: 'GET',
-        params: {
-          id: '@id',
-          catalog: 'url'
-        },
-        isArray: true,
-        timeout: Constant.reqTimeout
-      },
-      getDistrictByProId: {
-        method: 'GET',
-        params: {
-          id: '@id',
-          catalog: 'url'
-        },
-        isArray: true,
-        timeout: Constant.reqTimeout
-      },
-      getCityByDistrictId: {
-        method: 'GET',
-        params: {
-          id: '@id',
-          catalog: 'url'
-        },
-        isArray: true,
+        isArray: false,
         timeout: Constant.reqTimeout
       }
     });
@@ -131,6 +45,4 @@ define(['utils/Constant'], function (Constant) {
     name: "UserSvc",
     svc: ["$resource", Service]
   };
-
-
 });

@@ -19,7 +19,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label">邮箱</label>
             <div class="col-sm-10">
-              <input type="email" class="form-control" ng-model="newUser.email" placeholder="邮箱" required name="email" maxlength="40" />
+              <input  ng-readonly="isModify" type="email" class="form-control" ng-model="newUser.email" placeholder="邮箱" required name="email" maxlength="40" />
             </div>
           </div>
 
@@ -43,8 +43,8 @@
       </div>
       <div class="modal-footer">
         <span ng-if="submitErrorMsg" ng-bind="submitErrorMsg" class="fl red"></span>
-        <button ng-show="isModify" type="button" ng-click="deleteUser()" ng-disabled="duringDelete()" ng-bind="deleting?'删除中':'删除'" class="btn btn-danger"></button>
-        <button type="button" ng-click="addNewUser()" ng-disabled="submitDisable()" ng-bind="submiting?'提交中':submitText" class="btn btn-primary"></button>
+        <button ng-show="isModify" type="button" ng-click="addModifyNewUser(null, true)" ng-disabled="submiting" ng-bind="submiting?'删除中':'删除'" class="btn btn-danger"></button>
+        <button type="button" ng-click="addModifyNewUser(isModify)" ng-disabled="submitDisable()" ng-bind="submiting?'提交中':(isModify?'修改':'添加')" class="btn btn-primary"></button>
         <button type="button" ng-click="closeThisDialog()" class="btn btn-default" data-dismiss="modal">取消</button>
       </div>
     </div>

@@ -21,18 +21,18 @@
           <th>角色</th>
           <th>创建时间</th>
           <th>修改时间</th>
-          <th>已禁用</th>
+          <th>状态</th>
           <th class="tc">操作</th>
         </tr>
       </thead>
       <tbody class="text-color-c6">
-        <tr ng-repeat="d in users">
+        <tr ng-repeat="d in users" ng-class="{'text-color-c4':(d.status==='disabled')}">
           <td>{{$index + 1}}</td>
           <td ng-bind="d.name+'('+d.email+')'"></td>
           <td ng-bind="d.userType"></td>
           <td ng-bind="d.createDate | date: 'yyyy-MM-dd HH:mm'"></td>
           <td ng-bind="d.lastUpdate | date: 'yyyy-MM-dd HH:mm'"></td>
-          <td ng-bind="d.enabled?'':'否'"></td>
+          <td ng-bind="d.status==='disabled'?'已禁用':''"></td>
           <td class="text-color-c9 tc">
             <a ng-click="addModifyUserDialog(d)" target="_blank">编辑</a>
           </td>
@@ -46,6 +46,6 @@
 
       </tbody>
     </table>
-    <pagination ng-if="users && users.length" boundary-link-numbers="true" force-ellipses="true" max-size="10" boundary-links="true" ng-change="queryUser()" items-per-page="pagination.pageSize" total-items="pagination.totalCount" ng-model="pagination.curPage" class="pagination-sm float-right" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+    <div uib-pagination ng-if="users && users.length" boundary-link-numbers="true" force-ellipses="true" max-size="10" boundary-links="true" ng-change="queryUser()" items-per-page="pagination.pageSize" total-items="pagination.totalCount" ng-model="pagination.curPage" class="pagination-sm float-right" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></div>
   </div>
 </div>
