@@ -1,7 +1,5 @@
 {
   "extends": "react-app",
   "globals": {
-      define,
-      require
   }
 }

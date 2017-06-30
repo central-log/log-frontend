@@ -7,7 +7,7 @@
       </div>
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse">
-        <select ng-model="envDetails" ng-change="updateSelectedEnv(envDetails.name)" ng-options="env.name for env in domainDetail.env" class="dropdown env-menu">
+        <select ng-model="envDetails" ng-change="updateSelectedEnv(envDetails.name, true)" ng-options="env.name for env in domainDetail.env" class="dropdown env-menu">
         </select>
         <ul class="nav navbar-nav navbar-right">
           <li class="actions"><a class="btn btn-default" ng-click="showAddEnvDialog(false)" role="button">添加部署环境</a></li>
@@ -82,9 +82,8 @@
         <domain-node></domain-node>
       </div>
       <div class="panel-body" ng-if="currentTab=='user'">
-        <domain-user domain-id="paramDomainId" env="envDetails.name"></domain-user>
+        <domain-user domain-id="paramDomainId" env="envDetails.id"></domain-user>
       </div>
-      <dialog dialog="removeDomainUserDialog"></dialog>
     </div>
   </div>
 </div>
