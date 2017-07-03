@@ -1,6 +1,6 @@
 define(['utils/Constant'], function (Constant) {
   var Service = function ($resource) {
-    var svc = $resource(Constant.apiBase + '/domain/:domainId/:catalog', null, {
+    var svc = $resource(Constant.apiBase + '/domain/:domainId/:catalog/:envId', null, {
 
       queryDomain: {
         method: 'GET',
@@ -12,6 +12,16 @@ define(['utils/Constant'], function (Constant) {
         params: {
           domainId: '@domainId',
           catalog: 'env'
+        },
+        isArray: false,
+        timeout: Constant.reqTimeout
+      },
+      modifyEnvDomain: {
+        method: 'POST',
+        params: {
+          domainId: '@domainId',
+          catalog: 'env',
+          envId: '@envId'
         },
         isArray: false,
         timeout: Constant.reqTimeout

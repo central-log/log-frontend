@@ -114,3 +114,8 @@ select.dropdown.env-menu{
   top:8px;
   max-width:170px;
 }
+
+#addHeaderEnv{
+  position: relative;
+  top:8px;
+}

@@ -7,10 +7,13 @@
       </div>
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse">
-        <select ng-model="envDetails" ng-change="updateSelectedEnv(envDetails.name, true)" ng-options="env.name for env in domainDetail.env" class="dropdown env-menu">
+        <select ng-show="domainDetail.env && domainDetail.env.length"
+          ng-model="envDetails"
+          ng-change="updateSelectedEnv(envDetails.name, true)"
+          ng-options="env.name for env in domainDetail.env" class="dropdown env-menu">
         </select>
         <ul class="nav navbar-nav navbar-right">
-          <li class="actions"><a class="btn btn-default" ng-click="showAddEnvDialog(false)" role="button">添加部署环境</a></li>
+          <li class="actions"><button id="addHeaderEnv" class="btn btn-primary" ng-click="showAddEnvDialog(false)">添加部署环境</button></li>
           <li><a href="#">当前用户：<span ng-bind="getUserName()"></span></a></li>
           <li><a href="" ng-click="logout()">安全退出</a></li>
           <li><a href="" ng-click="setting()">设置</a></li>
@@ -62,27 +65,29 @@
           <div class="col-md-9 tl text-color-c6" ng-bind="domainDetail.description"></div>
         </div>
       </div>
-      <hr/>
-      <div>
-        <ul class="nav nav-tabs">
-          <li ng-click="switchTab('basic')" role="presentation" ng-class="{active: currentTab=='basic'}"><a>基本信息</a></li>
-          <li ng-click="switchTab('rule')" role="presentation" ng-class="{active: currentTab=='rule'}"><a>邮件规则</a></li>
-          <li ng-click="switchTab('node')" role="presentation" ng-class="{active: currentTab=='node'}"><a>节点状态</a></li>
-          <li ng-click="switchTab('user')" role="presentation" ng-class="{active: currentTab=='user'}"><a>用户权限</a></li>
-          <!-- <li style="float:right;"><a class="btn btn-default" ng-href="#/role/{{paramRoleId}}/url-management" role="button">添加组</a></li> -->
-        </ul>
-      </div>
-      <div class="panel-body" ng-if="currentTab=='basic'">
-        <domain-basic env-details="envDetails" domain-id="paramDomainId"></domain-basic>
-      </div>
-      <div class="panel-body" ng-if="currentTab=='rule'">
-        <domain-rule></domain-rule>
-      </div>
-      <div class="panel-body" ng-if="currentTab=='node'">
-        <domain-node></domain-node>
-      </div>
-      <div class="panel-body" ng-if="currentTab=='user'">
-        <domain-user domain-id="paramDomainId" env="envDetails.id"></domain-user>
+      <div ng-show="envDetails.name">
+        <hr/>
+        <div>
+          <ul class="nav nav-tabs">
+            <li ng-click="switchTab('basic')" role="presentation" ng-class="{active: currentTab=='basic'}"><a>基本信息</a></li>
+            <li ng-click="switchTab('rule')" role="presentation" ng-class="{active: currentTab=='rule'}"><a>邮件规则</a></li>
+            <li ng-click="switchTab('node')" role="presentation" ng-class="{active: currentTab=='node'}"><a>节点状态</a></li>
+            <li ng-click="switchTab('user')" role="presentation" ng-class="{active: currentTab=='user'}"><a>用户权限</a></li>
+            <!-- <li style="float:right;"><a class="btn btn-default" ng-href="#/role/{{paramRoleId}}/url-management" role="button">添加组</a></li> -->
+          </ul>
+        </div>
+        <div class="panel-body" ng-if="currentTab=='basic'">
+          <domain-basic env-details="envDetails" domain-id="paramDomainId"></domain-basic>
+        </div>
+        <div class="panel-body" ng-if="currentTab=='rule'">
+          <domain-rule></domain-rule>
+        </div>
+        <div class="panel-body" ng-if="currentTab=='node'">
+          <domain-node></domain-node>
+        </div>
+        <div class="panel-body" ng-if="currentTab=='user'">
+          <domain-user domain-id="paramDomainId" env="envDetails.id"></domain-user>
+        </div>
       </div>
     </div>
   </div>
