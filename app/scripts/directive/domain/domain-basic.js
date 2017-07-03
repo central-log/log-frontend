@@ -10,11 +10,16 @@ define(['utils/Constant'], function (Constant) {
             link: function ($scope) {
                 $scope.logLevels = Constant.logLevels;
 
-                $scope.confirmEnvAdd = function () {
+                $scope.confirmEnvAction = function (isDelete) {
                     $scope.domainEnvEntity.domainId = $scope.domainId;
                     $scope.envSubmiting = true;
 
-                    DomainSvc.modifyEnvDomain($scope.domainEnvEntity, function () {
+                    var serviceName = isDelete ? 'deleteDomainEnv' : 'modifyEnvDomain';
+
+                    DomainSvc[serviceName](isDelete ? {
+                        domainId: $scope.domainId,
+                        envId: $scope.domainEnvEntity.envId
+                    } : $scope.domainEnvEntity, function () {
                         $scope.envSubmiting = false;
                         $scope.addEnvErrorMsg = '';
                         $scope.addEnvInstanceDialog.close();

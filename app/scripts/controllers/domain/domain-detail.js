@@ -44,7 +44,7 @@ define(['utils/Constant'], function (Constant) {
             });
         };
 
-        $scope.confirmEnvAdd = function () {
+        $scope.confirmEnvAction = function () {
             $scope.domainEnvEntity.domainId = $scope.paramDomainId;
             $scope.envSubmiting = true;
 

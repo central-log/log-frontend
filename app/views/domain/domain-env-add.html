@@ -49,7 +49,8 @@
       </div>
       <div class="modal-footer">
         <span ng-if="addEnvErrorMsg" ng-bind="addEnvErrorMsg" class="fl red"></span>
-        <button type="button" ng-click="confirmEnvAdd()" ng-disabled="addForm.$invalid || envSubmiting" ng-bind="envSubmiting?'提交中':(isModify?'确认修改':'添加')" class="btn btn-primary"></button>
+        <button ng-show="isModify" type="button" ng-click="confirmEnvAction(true)" ng-disabled="addForm.$invalid || envSubmiting" ng-bind="envSubmiting?'提交中':'删除'" class="btn btn-danger"></button>
+        <button type="button" ng-click="confirmEnvAction()" ng-disabled="addForm.$invalid || envSubmiting" ng-bind="envSubmiting?'提交中':(isModify?'确认修改':'添加')" class="btn btn-primary"></button>
         <button type="button" ng-click="closeThisDialog()" class="btn btn-default" data-dismiss="modal">取消</button>
       </div>
     </div>

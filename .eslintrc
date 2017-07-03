@@ -71,6 +71,7 @@
     "extends": "eslint:recommended",
 
     "globals": {
-        API_URL
+        API_URL,
+        define
     }
 }
