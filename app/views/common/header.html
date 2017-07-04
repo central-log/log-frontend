@@ -7,9 +7,6 @@
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse">
-      <select ng-model="envDetails" ng-options="env.name for env in domainDetail.env" class="dropdown">
-      </select>
-
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#">当前用户：<span ng-bind="getUserName()"></span></a></li>
         <li><a href="" ng-click="logout()">安全退出</a></li>
