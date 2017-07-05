@@ -3,31 +3,60 @@
  * A module representing a shirt.
  * @exports drApp
  */
-define('drApp', ['angular', 'ngResource', 'ngRoute', 'ngCookies', 'ngDialog', 'ngDatePicker',
+define('drApp', ['utils/Constant', 'angular', 'ngResource', 'ngRoute', 'ngCookies', 'ngDialog', 'ngDatePicker',
     'controllers/MainController', 'directive/directive', 'angular.ui.bootstrap', 'ngLocalStorage'
 ],
-  function (angular, ngResource, ngRoute, ngCookies, ngDialog, ngDatePicker, mainController, directive) {
+  function (Constant, angular, ngResource, ngRoute, ngCookies, ngDialog, ngDatePicker, mainController, directive) {
       var appName = 'DRApp';
       var app = angular.module(appName, ['ngResource', 'ngRoute', 'ngCookies', 'ngDialog', 'ui.bootstrap', 'LocalStorageModule', '720kb.datepicker']);
 
       app.controller(mainController.name, mainController.fn);
       app.directive(directive.name, directive.fn);
       app.bootstrap = function () {
-          angular.bootstrap(document, [appName]);
+
+          var initInjector = angular.injector(['ng']);
+          var $http = initInjector.get('$http');
+
+          $http.defaults.useXDomain = true;
+          $http.defaults.withCredentials = true;
+          $http({
+              method: 'GET',
+              url: Constant.apiBase + '/actor'
+          }).then(function (response) {
+
+              app.constant('UserInfo', response.data);
+              angular.element(window.document).ready(function () {
+                  angular.bootstrap(window.document, [app.name]);
+              });
+          }, function () {
+              app.constant('UserInfo', {});
+              angular.element(window.document).ready(function () {
+                  angular.bootstrap(window.document, [app.name]);
+              });
+          });
+
       };
-      app.run(['$cookies', '$location', '$rootScope', function ($cookies, $location, $rootScope) {
+
+      app.run(['$cookies', '$location', '$rootScope', 'UserInfo', function ($cookies, $location, $rootScope, UserInfo) {
+
+          if (!$rootScope.userInfo || !$rootScope.userInfo.email) {
+              $rootScope.userInfo = UserInfo;
+          }
 
           $rootScope.$on('$routeChangeSuccess', function (event, routeData) {
               $rootScope.pageTitle = (routeData.helpAlias ? routeData.helpAlias : '首页') + '－日志集成管理系统';
 
-              if (!$rootScope.getCookieUsername() && $location.path().indexOf('/login') !== 0) {
-          // $location.url('/login');
+              var isUserInfoEmpty = !$rootScope.userInfo || !$rootScope.userInfo.email;
+
+              if ($location.path().indexOf('/login') !== 0) {
+                  if (isUserInfoEmpty) {
+                      $location.url('/login');
+                  }
               }
           });
 
           app.config(['ngDialogProvider', function (ngDialogProvider) {
               ngDialogProvider.setDefaults({
-              // className: 'ngdialog-custom-default',
                   showClose: false,
                   closeByEscape: true
               });

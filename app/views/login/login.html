@@ -3,31 +3,24 @@
     <h3>日志集成管理系统</h3>
   </div>
   <div id="login-info">
-    <ng-form name="login" role="form" id="loginForm">
+    <form name="login" role="form" id="loginForm">
       <div class="form-group" style="position: relative;">
-        <input id="username" type="text" name="username" ng-model="username" placeholder="请输入用户名" required class="form-control login-input" ng-class="{true: 'emailInvalid'}[emailInvalid]" ng-keypress="enterEvent($event)">
-        <a ng-class="{true: 'clear'}[hasUsername]" ng-click="usernameClear()">
-        </a>
+        <input type="email" maxlength="40" ng-model="username" placeholder="请输入登录邮箱" required class="form-control login-input" ng-class="{true: 'emailInvalid'}[emailInvalid]">
       </div>
       <div class="form-group" style="position: relative;">
-        <input id="password" type="password" name="password" ng-model="password" placeholder="请输入登录密码" required class="form-control login-input" ng-keypress="enterEvent($event)">
-        <a ng-class="{true: 'clear'}[hasPassword]" ng-click="passwordClear()"></a>
+        <input type="password" maxlength="16" ng-model="password" placeholder="请输入登录密码" required class="form-control login-input">
         <div class="col-md-6 col-lg-6 col-sm-6">
-          <label class="checkbox">
-            <input id="rem-pwd" type="checkbox" ng-model="remPwd">记住我
-          </label>
         </div>
         <div class="col-md-6 col-lg-6 col-sm-6">
           <div class="forget-pwd"><a href="#/login/resetPwd" text-decoration:none;>忘记密码?</a></div>
         </div>
         <div class="col-md-12 col-lg-12 col-sm-12 input-alert">
-          <div ng-show="loginFailed" class="alert-content" ng-bind="loginAlertContent"></div>
+          <div ng-show="loginAlertContent" class="alert-content" ng-bind="loginAlertContent"></div>
         </div>
       </div>
       <div class="form-group">
-        <button id="submit-form" type="button" ng-disabled="isSubmitLoginEnable()" ng-click="submit()" class="btn">登录
-        </button>
+        <button type="submit" ng-click="submit()" class="btn">登录</button>
       </div>
-    </ng-form>
+    </form>
   </div>
 </div>

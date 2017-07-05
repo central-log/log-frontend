@@ -1,38 +1,9 @@
 define(['utils/Constant'], function (Constant) {
-    var LoginController = function ($scope, $log, LoginSvc, CommonSvc, $cookies, $location, $rootScope, $timeout, localStorageService, $interval) {
+    var LoginController = function ($scope, $log, ActorSvc, CommonSvc, $cookies, $location, $rootScope, $timeout, localStorageService, $interval) {
         $scope.apiBase = Constant.apiBase;
-        $log.debug('login( `%s` ) %d', 'hubenlv', 30);
         $scope.name = 'LoginController';
-        $scope.domains = [];
-        $scope.loginTkDomain = $location.search().domain;
-        $scope.loginTkGotoUrl = $location.search().goto;
         $scope.emailCaptchaButtonEnable = true;
         $scope.buttonContent = '获取验证码';
-        if ($scope.loginTkDomain) {
-            LoginSvc.loginTk({
-                domain: $scope.loginTkDomain,
-                gotoUrl: $scope.loginTkGotoUrl
-            }, function (response) {
-                if (response.respCode === '_200') {
-                    window.location = response.result;
-                }
-            }, function () {});
-        } else {
-            CommonSvc.getCurrentUser(function (resp) {
-                var result = Constant.transformResponse(resp);
-
-                if (result && result.email) {
-                    $rootScope.setCookieUsername(result.email);
-                    if ($scope.loginTkGotoUrl) {
-                        window.location = $scope.loginTkGotoUrl;
-                    } else {
-                        $location.url('/domain');
-                    }
-                }
-            }, function () {
-
-            });
-        }
 
         $scope.count = 0;
         $scope.loginFailed = false;
@@ -43,99 +14,32 @@ define(['utils/Constant'], function (Constant) {
         $scope.remPwd = false;
         $scope.resetPwd1 = '';
         $scope.resetPwd2 = '';
-        $scope.password = localStorageService.get('password');
-        $scope.username = localStorageService.get('username');
-
-        $scope.isSubmitLoginEnable = function () {
-            var myRegExp = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-
-            if (!myRegExp.test($scope.username)) {
-                $scope.emailInvalid = true;
-            } else {
-                $scope.emailInvalid = false;
-            }
-            if (!$scope.username) {
-                return true;
-            } else if (!myRegExp.test($scope.username)) {
-                return true;
-            } else if (!$scope.password) {
-                return true;
-            } else {
-                return false;
-            }
-        };
 
         $scope.submit = function () {
-            if ($scope.username.length > 40) {
-                $scope.loginFailed = true;
-                $scope.loginAlertContent = '用户名字符长度超过限制';
+            if (!$scope.username || !$scope.password) {
+                $scope.loginAlertContent = '请输入完整用户名和密码';
                 return;
             }
-            LoginSvc.login({
-                emailOrMobile: $scope.username,
-                password: $scope.password,
-                domain: $scope.selectedDomain.name,
-                gotoUrl: $scope.loginTkGotoUrl
+            ActorSvc.login({
+                username: $scope.username,
+                password: $scope.password
             }, function (response) {
-                if (response.respCode === '_200') {
-                    $rootScope.setCookieUsername($scope.username);
-                    $scope.loginFailed = false;
-                    if ($scope.remPwd) {
-                        localStorageService.set('username', $scope.username);
-                        localStorageService.set('password', $scope.password);
-                    }
-                    if (response.result.status === 'RESET_PWD') {
-                        $location.url('/account');
-                    }
-                } else if (response.respCode === '_302') {
-                    $rootScope.setCookieUsername($scope.username);
-                    $scope.loginFailed = false;
-                    localStorageService.set('username', $scope.username);
-                    if ($scope.remPwd) {
-                        localStorageService.set('password', $scope.password);
-                    }
-                    window.location = response.result.gotoUrl;
-                } else {
-                    $scope.loginFailed = true;
-                    $scope.loginAlertContent = response.errMsg;
-                }
+                $rootScope.userInfo = response;
+                $scope.loginAlertContent = null;
+
+                $location.url('/domain');
             }, function () {
-                $scope.loginFailed = true;
+                $scope.loginAlertContent = '服务器异常';
             });
 
         };
-        $scope.usernameClear = function () {
-            $scope.username = '';
-        };
-        $scope.passwordClear = function () {
-            $scope.password = '';
-        };
-        $scope.$watch('username', function () {
-            if (!$scope.username) {
-                $scope.hasUsername = false;
-            } else {
-                $scope.hasUsername = true;
-            }
-        }, true);
-        $scope.$watch('password', function () {
-            if (!$scope.password) {
-                $scope.hasPassword = false;
-            } else {
-                $scope.hasPassword = true;
-            }
-        }, true);
 
         $scope.resetPwdEmail = '';
         $scope.resetPwdAlertContent = '';
         $scope.resetPwdFailed = false;
 
-        $scope.enterEvent = function (keyEvent) {
-            if (keyEvent.which === 13) {
-                $scope.submit();
-            }
-        };
         $scope.submitResetPwd = function () {
-            LoginSvc.verifyCaptcha({
+            ActorSvc.verifyCaptcha({
                 captcha: $scope.resetPwdCaptcha
             }, function (response) {
                 if (response.respCode === '_200') {
@@ -172,7 +76,7 @@ define(['utils/Constant'], function (Constant) {
 
         $scope.sendEmailCaptchaMsg = '';
         $scope.sendCaptchaToEmail = function () {
-            LoginSvc.sendCaptchaToEmail({
+            ActorSvc.sendCaptchaToEmail({
                 email: $scope.resetPwdEmail
             }, function (result) {
                 if (result && '_200' === result.respCode) {
@@ -218,7 +122,7 @@ define(['utils/Constant'], function (Constant) {
                 $scope.resetPwdFailed = true;
             }
 
-            LoginSvc.verifyEmailCaptcha({
+            ActorSvc.verifyEmailCaptcha({
                 emailCaptcha: $scope.emailCaptcha
             }, function (response) {
                 if (response.respCode === '_200') {
@@ -268,7 +172,7 @@ define(['utils/Constant'], function (Constant) {
                 $scope.resetPwdFailed = true;
             } else {
                 if ($scope.passwordVerify($scope.resetPwd1)) {
-                    LoginSvc.resetPwd({
+                    ActorSvc.resetPwd({
                         emailOrPhone: $scope.resetPwdEmail,
                         newPassword: $scope.resetPwd1
                     }, function (result) {
@@ -302,7 +206,7 @@ define(['utils/Constant'], function (Constant) {
 
     return {
         name: 'LoginController',
-        fn: ['$scope', '$log', 'LoginSvc', 'CommonSvc', '$cookies', '$location', '$rootScope', '$timeout', 'localStorageService', '$interval', LoginController]
+        fn: ['$scope', '$log', 'ActorSvc', 'CommonSvc', '$cookies', '$location', '$rootScope', '$timeout', 'localStorageService', '$interval', LoginController]
     };
 
 
