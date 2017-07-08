@@ -42,9 +42,7 @@
           <tbody class="text-color-c6">
             <tr ng-repeat="d in domains">
               <td ng-bind="d.name"></td>
-              <td>
-                <a ng-href="{{d.email}}" target="_blank" ng-bind="d.email"></a>
-              </td>
+              <td ng-bind="d.email"></td>
               <td ng-bind="d.description"></td>
               <td ng-bind="(d.starDateTime | date:'yyyy-MM-dd') +'至'+ (d.endDateTime | date:'yyyy-MM-dd')"></td>
               <td><a ng-href="#/domain/{{d.id}}" target="_blank">详情</a></td>
