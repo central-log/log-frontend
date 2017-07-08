@@ -42,7 +42,6 @@ define(['utils/Constant'], function (Constant) {
                         }
                         $scope.loadingStatus = '';
                         $scope.users = resp.data;
-
                         $scope.pagination.curPage = resp.page;
                         $scope.pagination.totalCount = resp.totalCount;
                         $scope.pagination.pageSize = resp.pageSize;

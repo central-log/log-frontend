@@ -1,9 +1,9 @@
 <div>
   <form class="navbar-form navbar-left full-width pd-lt-0 pd-rt-0" role="search">
     <div class="input-group fl">
-      <span class="">用户邮箱：</span>
+      <span class="">用户名或邮箱：</span>
       <div class="form-group mg-rt-1">
-        <input type="text" class="form-control" placeholder="用户邮箱" ng-model="criteria.email" maxlength="40">
+        <input type="text" class="form-control" placeholder="用户名或邮箱" ng-model="criteria.email" maxlength="40">
       </div>
       <button type="submit" ng-click="queryUser()" class="btn mg-rt-1 btn-default">查询</button>
       <span class="text-color-c4" ng-if="lastCritria && lastCritria.email">搜索【{{lastCritria.email}}】结果:</span>
@@ -30,9 +30,9 @@
           <td>{{$index + 1}}</td>
           <td ng-bind="d.name+'('+d.email+')'"></td>
           <td ng-bind="d.userType"></td>
-          <td ng-bind="d.createDate | date: 'yyyy-MM-dd HH:mm'"></td>
-          <td ng-bind="d.lastUpdate | date: 'yyyy-MM-dd HH:mm'"></td>
-          <td ng-bind="d.status==='disabled'?'已禁用':''"></td>
+          <td ng-bind="d.createdTime | date: 'yyyy-MM-dd HH:mm'"></td>
+          <td ng-bind="d.updatedTime | date: 'yyyy-MM-dd HH:mm'"></td>
+          <td ng-bind="d.status==='disabled'?'已禁用':'正常'"></td>
           <td class="text-color-c9 tc">
             <a ng-click="addModifyUserDialog(d)" target="_blank">编辑</a>
           </td>
