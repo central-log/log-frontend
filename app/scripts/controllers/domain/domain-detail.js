@@ -47,7 +47,7 @@ define(['utils/Constant'], function (Constant) {
         $scope.confirmEnvAction = function () {
             $scope.domainEnvEntity.domainId = $scope.paramDomainId;
             $scope.envSubmiting = true;
-
+            $scope.addEnvErrorMsg = '';
             DomainSvc.addEnvDomain($scope.domainEnvEntity, function () {
                 $scope.envSubmiting = false;
 
