@@ -47,7 +47,7 @@
               </td>
               <td ng-bind="d.description"></td>
               <td ng-bind="(d.starDateTime | date:'yyyy-MM-dd') +'至'+ (d.endDateTime | date:'yyyy-MM-dd')"></td>
-              <td><a ng-href="#/domain/{{d._id}}" target="_blank">详情</a></td>
+              <td><a ng-href="#/domain/{{d.id}}" target="_blank">详情</a></td>
             </tr>
             <tr ng-if="loadingStatus!=''">
               <td colspan="5" class="tc" ng-bind="loadingStatus"></td>
