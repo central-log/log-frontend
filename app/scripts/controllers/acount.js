@@ -1,13 +1,5 @@
 'use strict';
-/**
- * Module representing a shirt.
- * @module controllers/login
- */
 define(function () {
-  /**
-   * A module representing a login controller.
-   * @exports controllers/login
-   */
     var AccountController = function ($scope, $log, AccountSvc, $cookies, $location, $rootScope) {
     // … other code here
         $scope.title = '修改密码';

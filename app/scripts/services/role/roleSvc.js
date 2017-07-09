@@ -1,13 +1,5 @@
 'use strict';
-/**
- * Module representing a shirt.
- * @module controllers/login
- */
 define(['utils/Constant'], function (Constant) {
-  /**
-   * A module representing a login controller.
-   * @exports controllers/login
-   */
     var Service = function ($resource) {
 
         var svc = $resource(Constant.apiBase + '/role/:catalog/:roleId/:catalogId', null, {
@@ -39,14 +31,15 @@ define(['utils/Constant'], function (Constant) {
                 },
                 timeout: Constant.reqTimeout
             },
-      /*
-         /domain/:domainId/user
-      */
-            getRoleMenus: {
+
+            /*
+               /domain/:domainId/user
+            */
+            getRolePermission: {
                 method: 'GET',
                 params: {
                     roleId: '@roleId',
-                    catalog: 'menu'
+                    catalog: 'permission'
                 },
                 isArray: true,
                 timeout: Constant.reqTimeout

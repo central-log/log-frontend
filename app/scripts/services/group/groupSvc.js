@@ -1,14 +1,6 @@
 'use strict';
-/**
- * Module representing a shirt.
- * @module controllers/login
- */
 define(['utils/Constant'], function (Constant) {
-  /**
-   * A module representing a login controller.
-   * @exports controllers/login
-   */
-  var Service = function ($resource) {
+    var Service = function ($resource) {
     /*
       Get     /group/:groupId
       Put     /group/:groupId/user/:userIds
@@ -16,75 +8,76 @@ define(['utils/Constant'], function (Constant) {
       Get     /group/:groupId/menu
       Get     /group/:groupId/url
      */
-    var svc = $resource(Constant.apiBase + '/group/:method/:groupId/:user', null, {
+        var svc = $resource(Constant.apiBase + '/group/:method/:groupId/:user', null, {
       /*
          /group
       */
-      getGroups: {
-        method: 'POST',
-        params: {
-          method: 'query'
-        },
-        isArray: false,
-        timeout: Constant.reqTimeout
-      },
-      addGroup: {
-        method: 'POST',
-        params: {
-          method: 'create'
-        },
-        isArray: false,
-        timeout: Constant.reqTimeout
-      },
-      addSubGroup: {
-        method: 'POST',
-        params: {
-          method: 'create'
-        },
-        isArray: false,
-        timeout: Constant.reqTimeout
-      },
+            getGroups: {
+                method: 'POST',
+                params: {
+                    method: 'query'
+                },
+                isArray: false,
+                timeout: Constant.reqTimeout
+            },
+            addGroup: {
+                method: 'POST',
+                params: {
+                    method: 'create'
+                },
+                isArray: false,
+                timeout: Constant.reqTimeout
+            },
+            addSubGroup: {
+                method: 'POST',
+                params: {
+                    method: 'create'
+                },
+                isArray: false,
+                timeout: Constant.reqTimeout
+            },
       /*
          /group/:groupId/info
       */
-      getGroupById: {
-        method: 'GET',
-        params: {
-          groupId: '@groupId',
-        },
-        timeout: Constant.reqTimeout
-      },
-      modifyGroup: {
-        method: 'POST',
-        params: {
-          method: 'update'
-        },
-        isArray: false,
-        timeout: Constant.reqTimeout
-      },
+            getGroupById: {
+                method: 'GET',
+                params: {
+                    groupId: '@groupId'
+                },
+                timeout: Constant.reqTimeout
+            },
+            modifyGroup: {
+                method: 'POST',
+                params: {
+                    method: 'update'
+                },
+                isArray: false,
+                timeout: Constant.reqTimeout
+            },
       /*
          /group/:groupId/user
       */
       /*
          /group/:groupId/user/:userIds
       */
-      addgroupUsers: {
-        method: 'PUT',
-        params: {
-          groupId: '@groupId',
-          user: 'user'
-        },
-        isArray: false,
-        timeout: Constant.reqTimeout
-      }
-    });
-    return svc;
-  };
+            addgroupUsers: {
+                method: 'PUT',
+                params: {
+                    groupId: '@groupId',
+                    user: 'user'
+                },
+                isArray: false,
+                timeout: Constant.reqTimeout
+            }
+        });
 
-  return {
-    name: "GroupSvc",
-    svc: ["$resource", Service]
-  };
+        return svc;
+    };
+
+    return {
+        name: 'GroupSvc',
+        svc: ['$resource', Service]
+    };
 
 
 });

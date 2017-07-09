@@ -1,8 +1,4 @@
 'use strict';
-/**
- * Module representing a shirt.
- * @module controllers/login
- */
 define(function () {
     return {
         apiBase: 'http://localhost:8081',

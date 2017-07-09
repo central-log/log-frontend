@@ -1,8 +1,4 @@
 'use strict';
-/**
- * A module representing a shirt.
- * @exports drApp
- */
 define('drApp', ['utils/Constant', 'angular', 'ngResource', 'ngRoute', 'ngCookies', 'ngDialog', 'ngDatePicker',
     'controllers/MainController', 'directive/directive', 'angular.ui.bootstrap', 'ngLocalStorage'
 ],

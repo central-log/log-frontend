@@ -1,9 +1,3 @@
-<style>
-.nav-tabs> li> a {
-  border: 1px solid #ccc;
-}
-
-</style>
 <div ng-include="'views/common/header.html'"></div>
 <div class="tl panel">
   <div class="panel-heading">
@@ -41,44 +35,15 @@
     </div>
   </div>
 
-  <div class="clearfix"></div>
-  <hr />
-  <div>
-    <div class="panel-body">
-      <p class="float-left">权限列表</p>
-      <a class="btn btn-default float-right" ng-href="#/user/{{paraUserId}}/role/add">
-          添加权限
-        </a>
+  <div ng-show="role.name">
+    <hr/>
+    <div>
+      <ul class="nav nav-tabs">
+        <li ng-click="switchTab('permission')" role="presentation" ng-class="{active: currentTab=='permission'}"><a>权限列表</a></li>
+      </ul>
     </div>
-
-    <table class=" table table-striped">
-      <thead class="text-size-s3 text-color-c4">
-        <tr>
-          <th>序号</th>
-          <th>权限名称</th>
-          <th>描述信息</th>
-          <th>创建时间</th>
-          <th>修改时间</th>
-          <th>操作</th>
-        </tr>
-      </thead>
-      <tbody class="text-size-s3 text-color-c6">
-        <tr ng-if="userRoleLoading!=''">
-          <td colspan="6" class="tc" ng-bind="userRoleLoading"></td>
-        </tr>
-
-        <tr ng-repeat="d in roleOfUser">
-          <td>{{$index + 1}}</td>
-          <td ng-bind="d.name"></td>
-          <td ng-bind="d.description"></td>
-          <td ng-bind="d.createDate | date: 'yyyy-MM-dd HH:mm:ss'"></td>
-          <td ng-bind="d.lastUpdate | date: 'yyyy-MM-dd HH:mm:ss'"></td>
-          <td class="text-color-c9"><a href="" ng-click="removeRoleDialog.open(d.id)">移除</a></td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="clear">
-      <span ng-if="removeRoleSuccess === false" class="alert alert-danger">移除用户角色失败，请稍后再试</span>
-      <span ng-if="removeRoleSuccess === true" class="alert alert-success">移除用户角色成功</span>
+    <div class="panel-body" ng-if="currentTab=='permission'">
+        <role-permission id="role.id"></role-permission>
     </div>
   </div>
+</div>

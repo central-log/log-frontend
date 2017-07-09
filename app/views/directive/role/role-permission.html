@@ -1,14 +1,14 @@
 <div>
-  <form class="navbar-form navbar-left full-width pd-lt-0 pd-rt-0" role="search">
+  <form class="navbar-form navbar-left full-width pd-lt-0 pd-rt-0">
     <div class="input-group fl">
-      <span class="">用户名或邮箱：</span>
+      <span class="">权限名称：</span>
       <div class="form-group mg-rt-1">
-        <input type="text" class="form-control" placeholder="用户名或邮箱" ng-model="criteria.email" maxlength="40">
+        <input type="text" class="form-control" placeholder="权限名称" ng-model="criteria.name" maxlength="40">
       </div>
       <button type="submit" ng-click="queryUser()" class="btn mg-rt-1 btn-default">查询</button>
-      <span class="text-color-c4" ng-if="lastCritria && lastCritria.email">搜索【{{lastCritria.email}}】结果:</span>
+      <span class="text-color-c4" ng-if="lastCritria && lastCritria.name">搜索【{{lastCritria.name}}】结果:</span>
     </div>
-    <a class="btn fr btn-default" ng-click="addModifyUserDialog()" role="button">添加用户</a>
+    <a class="btn fr btn-default" ng-click="addModifyUserDialog()" role="button">添加权限</a>
     <div class="clear"></div>
   </form>
 
