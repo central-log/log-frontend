@@ -22,6 +22,12 @@ define(['utils/Constant'], function (Constant) {
             $scope.loadingStatus = Constant.loading;
             $scope.users = [];
             UserSvc.getUsers(searchCriteria, function (result) {
+                if (!result || !result.data || !result.data.length) {
+                    $scope.domains = [];
+                    $scope.loadingStatus = Constant.loadEmpty;
+                    return;
+                }
+
                 $scope.loadingStatus = '';
                 $scope.users = result.data;
 

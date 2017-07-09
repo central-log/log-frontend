@@ -12,16 +12,16 @@
       </div>
     </div>
     <div class="col-md-10 col-sm-9">
-      <form class="navbar-form navbar-left full-width" role="search">
+      <form class="navbar-form pd-lt-0 pd-rt-0 navbar-left full-width" role="search">
         <div class="input-group fl">
-          <span class="">用户邮箱：</span>
+          <span class="">用户名或邮箱：</span>
           <div class="form-group mg-rt-1">
-            <input type="text" class="form-control" placeholder="用户邮箱" ng-model="criteria.email" maxlength="40">
+            <input type="text" class="form-control" placeholder="用户名或邮箱" ng-model="criteria.email" maxlength="40">
           </div>
           <button type="submit" ng-click="queryUser()" class="btn mg-rt-1 btn-default">查询</button>
           <span class="text-color-c4" ng-if="lastCritria && lastCritria.email">搜索【{{lastCritria.email}}】结果:</span>
         </div>
-        <a class="btn fr btn-default mg-rt-1" ng-click="addUserDialog()" role="button">添加用户</a>
+        <a class="btn fr btn-default" ng-click="addUserDialog()" role="button">添加用户</a>
         <div class="clear"></div>
       </form>
 
@@ -34,7 +34,6 @@
               <th>邮箱</th>
               <th>创建时间</th>
               <th>修改时间</th>
-              <th>已禁用</th>
               <th>操作</th>
             </tr>
           </thead>
@@ -43,9 +42,8 @@
               <td>{{$index + 1}}</td>
               <td ng-bind="d.name"></td>
               <td ng-bind="d.email"></td>
-              <td ng-bind="d.createDate | date: 'yyyy-MM-dd HH:mm'"></td>
-              <td ng-bind="d.lastUpdate | date: 'yyyy-MM-dd HH:mm'"></td>
-              <td ng-bind="d.enabled?'':'否'"></td>
+              <td ng-bind="d.createdTime | date: 'yyyy-MM-dd HH:mm'"></td>
+              <td ng-bind="d.updatedTime | date: 'yyyy-MM-dd HH:mm'"></td>
               <td class="text-color-c9">
                 <a ng-href="#/user/{{d._id}}" target="_blank">详情</a>
               </td>
@@ -60,7 +58,7 @@
           </tbody>
         </table>
       </div>
-      <pagination ng-if="users && users.length"
+      <div uib-pagination ng-if="users && users.length"
         boundary-link-numbers="true"
         force-ellipses="true"
         max-size="10"
@@ -71,7 +69,7 @@
         ng-model="pagination.curPage"
         class="pagination-sm float-right"
         previous-text="&lsaquo;" next-text="&rsaquo;"
-        first-text="&laquo;" last-text="&raquo;"></pagination>
+        first-text="&laquo;" last-text="&raquo;"></div>
     </div>
   </div>
 </div>
