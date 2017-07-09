@@ -1,5 +1,13 @@
 'use strict';
+/**
+ * Module representing a shirt.
+ * @module controllers/login
+ */
 define(['utils/Constant'], function (Constant) {
+  /**
+   * A module representing a login controller.
+   * @exports controllers/login
+   */
     var Controller = function ($scope, $routeParams, RoleSvc, UserSvc, MenuSvc, URISvc, $location) {
 
         var paginationInitial = {
@@ -8,6 +16,25 @@ define(['utils/Constant'], function (Constant) {
             totalCount: 0
         };
 
+        $scope.roleTypes = Constant.roleTypesObj;
+        $scope.switchTab = function (tabName) {
+            $scope.currentTab = tabName;
+            switch ($scope.currentTab) {
+                case 'menu':
+                    $scope.pagination = paginationInitial;
+                    $scope.getRoleMenus();
+                    break;
+                case 'url':
+                    $scope.pagination = paginationInitial;
+                    $scope.getRoleURLs();
+                    break;
+                case 'user':
+                    $scope.pagination = paginationInitial;
+                    $scope.getRoleUsers();
+                    break;
+                default:
+            }
+        };
         $scope.paramRoleId = $routeParams.roleId;
         $scope.modifyRole = function () {
             RoleSvc.modifyRole({
@@ -22,6 +49,18 @@ define(['utils/Constant'], function (Constant) {
             }, function () {
                 $scope.modifySuccess = 'failed';
             });
+        };
+        $scope.isPaginationBarShow = function () {
+            switch ($scope.currentTab) {
+                case 'menu':
+                    return $scope.roleMenus && $scope.roleMenus.length;
+                case 'url':
+                    return $scope.roleURLs && $scope.roleURLs.length;
+                case 'user':
+                    return $scope.roleUsers && $scope.roleUsers.length;
+                default:
+                    return false;
+            }
         };
         $scope.getNextData = function () {
 
@@ -131,6 +170,33 @@ define(['utils/Constant'], function (Constant) {
             });
         };
 
+        $scope.disableDialog = {
+            title: '移除菜单',
+            description: '确定要移除该菜单吗？',
+            beforeOpen: function () {
+                if ($scope.role.enabled) {
+                    this.title = '禁用角色';
+                    this.description = '确定要禁用该角色吗？';
+                } else {
+                    this.title = '启用角色';
+                    this.description = '确定要启用该角色吗？';
+                }
+            },
+            requestSender: {
+                method: RoleSvc.modifyRole,
+                params: function () {
+                    return {
+                        id: $routeParams.roleId,
+                        name: $scope.role.name,
+                        description: $scope.role.description,
+                        enabled: !$scope.role.enabled
+                    };
+                },
+                success: function () {
+                    $scope.role.enabled = !$scope.role.enabled;
+                }
+            }
+        };
 
         $scope.menuDialog = {
             title: '移除菜单',
@@ -191,14 +257,27 @@ define(['utils/Constant'], function (Constant) {
         RoleSvc.getRoleById({
             roleId: $routeParams.roleId
         }, function (resp) {
-            $scope.role = resp;
+            var result = Constant.transformResponse(resp);
+
+            if (result === undefined) {
+                $scope.loadingDetailStatus = Constant.loadError;
+                $scope.modifyRoleInfo = $scope.role = null;
+                return;
+            }
+      // No Pagination
+            if (!result) {
+                $scope.loadingDetailStatus = Constant.loadEmpty;
+                $scope.modifyRoleInfo = $scope.role = {};
+                return;
+            }
+            $scope.modifyRoleInfo = $scope.role = result;
             $scope.loadingDetailStatus = '';
         }, function () {
             $scope.loadingDetailStatus = Constant.loadError;
-            $scope.role = null;
+            $scope.modifyRoleInfo = $scope.role = null;
         });
 
-        // $scope.switchTab('menu');
+        $scope.switchTab('menu');
     };
 
     return {

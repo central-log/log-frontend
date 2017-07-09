@@ -4,27 +4,38 @@
 }
 
 </style>
+<div ng-include="'views/common/header.html'"></div>
 <div class="tl panel">
   <div class="panel-heading">
     <p class="text-size-s1 text-color-c6">角色信息</p>
     <div class="row text-size-s3">
-      <div class="col-md-4">
-        <div class="col-md-4 text-color-c4">角色名称：</div>
-        <div class="col-md-8 tl  text-color-c6" ng-bind="role.name"></div>
-      </div>
-      <div class="col-md-4">
-        <div class="col-md-4 text-color-c4">创建时间：</div>
-        <div class="col-md-8 tl text-color-c6" ng-bind="role.createDate|date: 'yyyy-MM-dd HH:mm'"></div>
-      </div>
-      <div class="col-md-4">
-        <div class="col-md-4 text-color-c4">更改时间：</div>
-        <div class="col-md-8 tl text-color-c6" ng-bind="role.lastUpdate|date: 'yyyy-MM-dd HH:mm'"></div>
-      </div>
-    </div>
-    <div class="row text-size-s3">
+
       <div class="col-md-6">
-        <div class="col-md-3 text-color-c4">描述信息：</div>
-        <div class="col-md-9 tl text-color-c6" ng-bind="role.description"></div>
+        <div class="row text-size-s3">
+          <div class="col-md-4 text-color-c4">角色名称：</div>
+          <div class="col-md-8 tl  text-color-c6" ng-bind="role.name"></div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="row text-size-s3">
+          <div class="col-md-4 text-color-c4">描述信息：</div>
+          <div class="col-md-8 tl text-color-c6" ng-bind="role.description"></div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="row text-size-s3">
+          <div class="col-md-4 text-color-c4">创建时间：</div>
+          <div class="col-md-8 tl text-color-c6" ng-bind="role.createdTime|date: 'yyyy-MM-dd HH:mm'"></div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="row text-size-s3">
+          <div class="col-md-4 text-color-c4">更改时间：</div>
+          <div class="col-md-8 tl text-color-c6" ng-bind="role.updatedTime|date: 'yyyy-MM-dd HH:mm'"></div>
+        </div>
       </div>
 
     </div>
@@ -71,8 +82,3 @@
       <span ng-if="removeRoleSuccess === true" class="alert alert-success">移除用户角色成功</span>
     </div>
   </div>
-
-  <dialog dialog="disableDialog"></dialog>
-  <dialog dialog="menuDialog"></dialog>
-  <dialog dialog="urlDialog"></dialog>
-  <dialog dialog="userDialog"></dialog>
