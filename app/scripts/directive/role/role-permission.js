@@ -13,19 +13,11 @@ define(['utils/Constant'], function (Constant) {
                     name: ''
                 };
 
-                $scope.pagination = {
-                    pageSize: Constant.pageSize,
-                    curPage: 1,
-                    totalCount: 0
-                };
-
             // Event listeners
                 $scope.lastCritria = null;
                 $scope.queryUser = function () {
                     var searchCriteria = {
                         name: $scope.criteria.name ? $scope.criteria.name : null,
-                        pageSize: $scope.pagination.pageSize,
-                        page: $scope.pagination.curPage,
                         roleId: $scope.id
                     };
 
@@ -40,14 +32,22 @@ define(['utils/Constant'], function (Constant) {
                         }
                         $scope.loadingStatus = '';
                         $scope.users = resp.data;
-                        $scope.pagination.curPage = resp.page;
-                        $scope.pagination.totalCount = resp.totalCount;
-                        $scope.pagination.pageSize = resp.pageSize;
                     }, function () {
                         $scope.loadingStatus = Constant.loadError;
                     });
                 };
 
+                $scope.deletePermission = function (id) {
+                    RoleSvc.deletePermission({ id: id }, function () {
+                        $scope.queryUser();
+                    }, function (error) {
+                        var resp = (error && error.data) || {};
+
+                        var msg = resp.errMsg ? resp.errMsg : Constant.createError;
+
+                        alert(msg);
+                    });
+                };
                 $scope.$watch('id', function () {
                     if ($scope.id) {
                         $scope.queryUser();

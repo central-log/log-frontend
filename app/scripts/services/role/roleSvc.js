@@ -38,8 +38,8 @@ define(['utils/Constant'], function (Constant) {
             getRolePermission: {
                 method: 'GET',
                 params: {
-                    roleId: '@roleId',
-                    catalog: 'permission'
+                    catalogId: 'permission',
+                    roleId: '@roleId'
                 },
                 isArray: true,
                 timeout: Constant.reqTimeout

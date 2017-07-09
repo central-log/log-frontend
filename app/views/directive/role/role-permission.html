@@ -17,35 +17,28 @@
       <thead class="text-color-c4">
         <tr>
           <th>序号</th>
-          <th>用户</th>
-          <th>角色</th>
-          <th>创建时间</th>
-          <th>修改时间</th>
-          <th>状态</th>
+          <th>名称</th>
+          <th>添加时间</th>
           <th class="tc">操作</th>
         </tr>
       </thead>
       <tbody class="text-color-c6">
         <tr ng-repeat="d in users" ng-class="{'text-color-c4':(d.status==='disabled')}">
           <td>{{$index + 1}}</td>
-          <td ng-bind="d.name+'('+d.email+')'"></td>
-          <td ng-bind="d.userType"></td>
-          <td ng-bind="d.createdTime | date: 'yyyy-MM-dd HH:mm'"></td>
+          <td ng-bind="d.name"></td>
           <td ng-bind="d.updatedTime | date: 'yyyy-MM-dd HH:mm'"></td>
-          <td ng-bind="d.status==='disabled'?'已禁用':'正常'"></td>
           <td class="text-color-c9 tc">
-            <a ng-click="addModifyUserDialog(d)" target="_blank">编辑</a>
+            <a ng-click="deletePermission(d.id)" target="_blank">删除</a>
           </td>
         </tr>
 
         <tbody>
           <tr ng-if="loadingStatus!=''">
-            <td colspan="7" class="tc" ng-bind="loadingStatus"></td>
+            <td colspan="4" class="tc" ng-bind="loadingStatus"></td>
           </tr>
         </tbody>
 
       </tbody>
     </table>
-    <div uib-pagination ng-if="users && users.length" boundary-link-numbers="true" force-ellipses="true" max-size="10" boundary-links="true" ng-change="queryUser()" items-per-page="pagination.pageSize" total-items="pagination.totalCount" ng-model="pagination.curPage" class="pagination-sm float-right" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></div>
   </div>
 </div>
