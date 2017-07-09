@@ -1,3 +1,4 @@
+'use strict';
 define(['utils/Constant', 'utils/Utils'], function (Constant, Utils) {
 
     var DomainController = function ($scope, DomainSvc, $routeParams, ngDialog) {

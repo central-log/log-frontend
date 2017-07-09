@@ -1,3 +1,4 @@
+'use strict';
 define(['utils/Constant'], function (Constant) {
     var domainSelectedEnvKey = 'domain-env-name';
     var domainSelectedTabKey = 'env-tab-name';

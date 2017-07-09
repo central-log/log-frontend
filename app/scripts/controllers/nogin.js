@@ -1,3 +1,4 @@
+'use strict';
 define(['utils/Constant'], function (Constant) {
     var LoginController = function ($scope, $log, ActorSvc, CommonSvc, $cookies, $location, $rootScope, $timeout, localStorageService, $interval) {
         $scope.apiBase = Constant.apiBase;

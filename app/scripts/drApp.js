@@ -1,4 +1,4 @@
-
+'use strict';
 /**
  * A module representing a shirt.
  * @exports drApp

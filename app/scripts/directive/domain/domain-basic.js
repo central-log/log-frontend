@@ -1,3 +1,4 @@
+'use strict';
 define(['utils/Constant'], function (Constant) {
     function fn(DomainSvc, ngDialog) {
         return {

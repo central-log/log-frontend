@@ -1,3 +1,4 @@
+'use strict';
 define(['utils/Constant'], function (Constant) {
     var Service = function ($resource) {
         var svc = $resource(Constant.apiBase + '/actor/:domainId/:catalog/:envId', null, {

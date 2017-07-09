@@ -1,4 +1,4 @@
-
+'use strict';
 require(['drApp',
     'services/domain/domainSvc',
     'services/domain/domainUserSvc',

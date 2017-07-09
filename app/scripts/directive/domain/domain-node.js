@@ -1,19 +1,20 @@
+'use strict';
 define(function () {
-  function fn() {
+    function fn() {
+        return {
+            restrict: 'E',
+            scope: {
+                detail: '='
+            },
+            templateUrl: 'views/directive/domain/node.html',
+            link: function (scope) {
+
+            }
+        };
+    }
+
     return {
-      restrict: 'E',
-      scope: {
-        detail: '='
-      },
-      templateUrl: 'views/directive/domain/node.html',
-      link: function (scope) {
-
-      }
+        name: 'domainNode',
+        directiveFn: [fn]
     };
-  }
-
-  return {
-    name: 'domainNode',
-    directiveFn: [fn]
-  };
 });

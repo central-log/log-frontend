@@ -1,3 +1,4 @@
+'use strict';
 define(['utils/Constant'], function (Constant) {
     var Controller = function ($scope, UserSvc, ngDialog) {
         $scope.criteria = {

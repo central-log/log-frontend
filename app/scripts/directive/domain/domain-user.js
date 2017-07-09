@@ -1,3 +1,4 @@
+'use strict';
 define(['utils/Constant'], function (Constant) {
     function fn($location, DomainUserSvc, GroupSvc, CommonSvc, localStorageService, ngDialog) {
         return {
