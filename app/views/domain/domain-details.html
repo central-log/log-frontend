@@ -14,7 +14,7 @@
         </select>
         <ul class="nav navbar-nav navbar-right">
           <li class="actions"><button id="addHeaderEnv" class="btn btn-primary" ng-click="showAddEnvDialog(false)">添加部署环境</button></li>
-          <li><a href="#">当前用户：<span ng-bind="getUserName()"></span></a></li>
+          <li><a href="#">当前用户：<span ng-bind="userInfo.email"></span></a></li>
           <li><a href="" ng-click="logout()">安全退出</a></li>
           <li><a href="" ng-click="setting()">设置</a></li>
         </ul>
