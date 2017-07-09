@@ -1,6 +1,6 @@
 'use strict';
 define(['utils/Constant'], function (Constant) {
-    var Controller = function ($scope, $window, $routeParams, $filter, UserSvc, GroupSvc, RoleSvc, localStorageService, $location) {
+    var Controller = function ($scope, $window, $routeParams, $filter, UserSvc, GroupSvc, RoleSvc, $location) {
 
         $scope.pagination = {
             pageSize: Constant.pageSize,
@@ -11,28 +11,9 @@ define(['utils/Constant'], function (Constant) {
     // user detail
         if ($routeParams.id) {
             UserSvc.getUserById({
-                id: $routeParams.id
+                userId: $routeParams.id
             }, function (res) {
-                $scope.userDetail = res.result;
-
-                $scope.userDetail.roleTypeText = Constant.roleTypesObj[res.result.roleType];
-                $scope.userDetail.roleTypeText = $scope.userDetail.roleTypeText ? $scope.userDetail.roleTypeText : '';
-                if (angular.isDefined(res.result.groupName)) {
-                    return false;
-                }
-                GroupSvc.getGroups({
-                    page: 1,
-                    pageSize: Constant.hackMaxPageSize
-                }, function (res) {
-                    var data = res.result.data;
-
-                    for (var i in data) {
-                        if (i.id === $scope.userDetail.groupId) {
-                            $scope.userDetail.groupName = i.name;
-                            return false;
-                        }
-                    }
-                });
+                $scope.userDetail = res;
             }, function () {
                 $scope.userDetail = {};
             });
@@ -275,7 +256,7 @@ define(['utils/Constant'], function (Constant) {
 
     return {
         name: 'UserDetailController',
-        fn: ['$scope', '$window', '$routeParams', '$filter', 'UserSvc', 'GroupSvc', 'RoleSvc', 'localStorageService', '$location', Controller]
+        fn: ['$scope', '$window', '$routeParams', '$filter', 'UserSvc', 'GroupSvc', 'RoleSvc', '$location', Controller]
     };
 
 

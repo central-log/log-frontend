@@ -1,9 +1,27 @@
 'use strict';
 define(['utils/Constant'], function (Constant) {
     var Service = function ($resource) {
-        var svc = $resource(Constant.apiBase + '/user/:userId', null, {
+        var svc = $resource(Constant.apiBase + '/user/:category/:userId', null, {
             getUsers: {
                 method: 'GET',
+                isArray: false,
+                timeout: Constant.reqTimeout
+            },
+            getUserById: {
+                method: 'GET',
+                params: {
+                    userId: '@userId',
+                    category: 'detail'
+                },
+                isArray: false,
+                timeout: Constant.reqTimeout
+            },
+            getRoleOfUser: {
+                method: 'GET',
+                params: {
+                    userId: '@userId',
+                    category: 'role'
+                },
                 isArray: false,
                 timeout: Constant.reqTimeout
             },

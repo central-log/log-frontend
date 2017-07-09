@@ -1,140 +1,146 @@
-<div class="panel text-left">
-  <div class="panel-heading">
-    <p class="text-size-s1 text-color-c6">用户信息</p>
-    <div class="row text-size-s3">
-      <div class="col-md-4">
-        <div class="row">
-          <div class="col-md-4 text-color-c4">用户姓名：</div>
-          <div class="col-md-8 text-color-c6" ng-bind="userDetail.name"></div>
+<div>
+  <div ng-include="'views/common/header.html'"></div>
+  <div class="panel text-left">
+    <div class="panel-heading">
+      <p class="text-size-s1 text-color-c6">用户信息</p>
+      <div class="row text-size-s3">
+        <div class="col-md-6">
+          <div class="row text-size-s3">
+            <div class="col-md-4 text-color-c4">用户姓名：</div>
+            <div class="col-md-8 text-color-c6" ng-bind="userDetail.name"></div>
+          </div>
         </div>
-      </div>
-      <div class="col-md-4">
-        <div class="row">
-          <div class="col-md-3 text-color-c4">邮箱：</div>
-          <div class="col-md-9 text-color-c6" ng-bind="userDetail.email"></div>
+        <div class="col-md-6">
+          <div class="row text-size-s3">
+            <div class="col-md-3 text-color-c4">邮箱：</div>
+            <div class="col-md-9 text-color-c6" ng-bind="userDetail.email"></div>
+          </div>
         </div>
-      </div>
-      <div class="col-md-4">
-        <div class="row">
-          <div class="col-md-4 text-color-c4">创建时间：</div>
-          <div class="col-md-8 text-color-c6" ng-bind="userDetail.createDate | date:'yyyy-MM-dd HH:mm:ss'"></div>
+        <div class="col-md-6">
+          <div class="row text-size-s3">
+            <div class="col-md-4 text-color-c4">创建时间：</div>
+            <div class="col-md-8 text-color-c6" ng-bind="userDetail.createdTime | date:'yyyy-MM-dd HH:mm:ss'"></div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="row text-size-s3">
+            <div class="col-md-4 text-color-c4">最近更新时间：</div>
+            <div class="col-md-8 text-color-c6" ng-bind="userDetail.updatedTime | date:'yyyy-MM-dd HH:mm:ss'"></div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="panel-body">
+    <!-- <div class="panel-body">
+      <div>
+        <a class="btn float-right btn-default btn-size-s3 btn-color-c9" role="disableBtn" ng-click="disableDialog.open()">{{userDetail.enabled?'禁用':'启用'}}</a>
+        <a class="btn float-right btn-default btn-size-s3 btn-color-c9" ng-href="#/user/{{paraUserId}}/modify" role="button">修改</a>
+      </div>
+    </div> -->
+    <hr/>
     <div>
-      <a class="btn float-right btn-default btn-size-s3 btn-color-c9" role="disableBtn" ng-click="disableDialog.open()">{{userDetail.enabled?'禁用':'启用'}}</a>
-      <a class="btn float-right btn-default btn-size-s3 btn-color-c9" ng-href="#/user/{{paraUserId}}/modify" role="button">修改</a>
+      <ul class="nav nav-tabs">
+        <li ng-click="switchTab('menu')" role="presentation" ng-class="{active: currentTab=='menu'}"><a>角色</a></li>
+        <li ng-click="switchTab('url')" role="presentation" ng-class="{active: currentTab=='url'}"><a>组</a></li>
+        <li style="float:right;"><a class="btn btn-default" ng-href="#/role/{{paramRoleId}}/user-management" role="button">添加角色</a></li>
+        <li style="float:right;"><a class="btn btn-default" ng-href="#/role/{{paramRoleId}}/url-management" role="button">添加组</a></li>
+      </ul>
+      <table ng-if="currentTab=='menu'" class="tl table table-striped">
+        <thead class="text-size-s3 text-color-c4">
+          <tr>
+            <th>序号</th>
+            <th>所在域</th>
+            <th>父菜单</th>
+            <th>名称</th>
+            <th>URL</th>
+            <th>描述信息</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody class="text-size-s3 text-color-c6">
+          <tr ng-repeat="r in roleMenus">
+            <td ng-bind="$index+1"></td>
+            <td ng-bind="r.domainName"></td>
+            <td ng-bind="r.parentId"></td>
+            <td ng-bind="r.name"></td>
+            <td ng-bind="r.uri"></td>
+            <td ng-bind="r.description"></td>
+            <td><a ng-href="" ng-click="menuDialog.open(r.id)">移除</a></td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr ng-if="loadingStatus!=''">
+            <td colspan="8" class="tc" ng-bind="loadingStatus"></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <table ng-if="currentTab=='url'" class="tl table table-striped">
+        <thead>
+          <tr>
+            <th>序号</th>
+            <th>所在域</th>
+            <th>名称</th>
+            <th>URL/模式</th>
+            <th>方法</th>
+            <th>描述信息</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="r in roleURLs">
+            <td ng-bind="$index+1"></td>
+            <td ng-bind="r.domainName"></td>
+            <td ng-bind="r.name"></td>
+            <td ng-bind="r.uriPattern"></td>
+            <td ng-bind="r.method"></td>
+            <td ng-bind="r.description"></td>
+            <td><a ng-href="" ng-click="urlDialog.open(r.id)">移除</a></td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr ng-if="loadingStatus!=''">
+            <td colspan="8" class="tc" ng-bind="loadingStatus"></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <table ng-if="currentTab=='user'" class="tl table table-striped">
+        <thead>
+          <tr>
+            <th>序号</th>
+            <th>姓名</th>
+            <th>邮箱</th>
+            <th>手机号</th>
+            <th>创建时间</th>
+            <th>地域</th>
+            <th>组</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="r in roleUsers">
+            <td ng-bind="$index+1"></td>
+            <td ng-bind="r.name"></td>
+            <td ng-bind="r.email"></td>
+            <td ng-bind="r.phone"></td>
+            <td ng-bind="r.createDate | date: 'yyyy-MM-dd HH:mm'"></td>
+            <td ng-bind="r.province+'-'+r.city+'-'+r.district"></td>
+            <td ng-bind="r.groupName + roleTypes[r.roleType]"></td>
+            <td><a ng-href="" ng-click="userDialog.open(r.id)">移除</a></td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr ng-if="loadingStatus!=''">
+            <td colspan="8" class="tc" ng-bind="loadingStatus"></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <pagination ng-if="isPaginationBarShow()" boundary-link-numbers="true" force-ellipses="true" max-size="10" boundary-links="true" ng-change="getNextData()" items-per-page="pagination.pageSize" total-items="pagination.totalCount" ng-model="pagination.curPage" class="pagination-sm fr" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+
     </div>
-
-
-
+    <dialog dialog="disableDialog"></dialog>
+    <dialog dialog="removeRoleDialog"></dialog>
   </div>
-  <hr/>
-  <div>
-    <ul class="nav nav-tabs">
-      <li ng-click="switchTab('menu')" role="presentation" ng-class="{active: currentTab=='menu'}"><a>角色</a></li>
-      <li ng-click="switchTab('url')" role="presentation" ng-class="{active: currentTab=='url'}"><a>组</a></li>
-      <li style="float:right;"><a class="btn btn-default" ng-href="#/role/{{paramRoleId}}/user-management" role="button">添加角色</a></li>
-      <li style="float:right;"><a class="btn btn-default" ng-href="#/role/{{paramRoleId}}/url-management" role="button">添加组</a></li>
-    </ul>
-    <table ng-if="currentTab=='menu'" class="tl table table-striped">
-      <thead class="text-size-s3 text-color-c4">
-        <tr>
-          <th>序号</th>
-          <th>所在域</th>
-          <th>父菜单</th>
-          <th>名称</th>
-          <th>URL</th>
-          <th>描述信息</th>
-          <th>操作</th>
-        </tr>
-      </thead>
-      <tbody class="text-size-s3 text-color-c6">
-        <tr ng-repeat="r in roleMenus">
-          <td ng-bind="$index+1"></td>
-          <td ng-bind="r.domainName"></td>
-          <td ng-bind="r.parentId"></td>
-          <td ng-bind="r.name"></td>
-          <td ng-bind="r.uri"></td>
-          <td ng-bind="r.description"></td>
-          <td><a ng-href="" ng-click="menuDialog.open(r.id)">移除</a></td>
-        </tr>
-      </tbody>
-      <tbody>
-        <tr ng-if="loadingStatus!=''">
-          <td colspan="8" class="tc" ng-bind="loadingStatus"></td>
-        </tr>
-      </tbody>
-    </table>
-
-    <table ng-if="currentTab=='url'" class="tl table table-striped">
-      <thead>
-        <tr>
-          <th>序号</th>
-          <th>所在域</th>
-          <th>名称</th>
-          <th>URL/模式</th>
-          <th>方法</th>
-          <th>描述信息</th>
-          <th>操作</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="r in roleURLs">
-          <td ng-bind="$index+1"></td>
-          <td ng-bind="r.domainName"></td>
-          <td ng-bind="r.name"></td>
-          <td ng-bind="r.uriPattern"></td>
-          <td ng-bind="r.method"></td>
-          <td ng-bind="r.description"></td>
-          <td><a ng-href="" ng-click="urlDialog.open(r.id)">移除</a></td>
-        </tr>
-      </tbody>
-      <tbody>
-        <tr ng-if="loadingStatus!=''">
-          <td colspan="8" class="tc" ng-bind="loadingStatus"></td>
-        </tr>
-      </tbody>
-    </table>
-
-    <table ng-if="currentTab=='user'" class="tl table table-striped">
-      <thead>
-        <tr>
-          <th>序号</th>
-          <th>姓名</th>
-          <th>邮箱</th>
-          <th>手机号</th>
-          <th>创建时间</th>
-          <th>地域</th>
-          <th>组</th>
-          <th>操作</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="r in roleUsers">
-          <td ng-bind="$index+1"></td>
-          <td ng-bind="r.name"></td>
-          <td ng-bind="r.email"></td>
-          <td ng-bind="r.phone"></td>
-          <td ng-bind="r.createDate | date: 'yyyy-MM-dd HH:mm'"></td>
-          <td ng-bind="r.province+'-'+r.city+'-'+r.district"></td>
-          <td ng-bind="r.groupName + roleTypes[r.roleType]"></td>
-          <td><a ng-href="" ng-click="userDialog.open(r.id)">移除</a></td>
-        </tr>
-      </tbody>
-      <tbody>
-        <tr ng-if="loadingStatus!=''">
-          <td colspan="8" class="tc" ng-bind="loadingStatus"></td>
-        </tr>
-      </tbody>
-    </table>
-
-    <pagination ng-if="isPaginationBarShow()" boundary-link-numbers="true" force-ellipses="true" max-size="10" boundary-links="true" ng-change="getNextData()" items-per-page="pagination.pageSize" total-items="pagination.totalCount" ng-model="pagination.curPage" class="pagination-sm fr" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
-
-  </div>
-  <dialog dialog="disableDialog"></dialog>
-  <dialog dialog="removeRoleDialog"></dialog>
 </div>
