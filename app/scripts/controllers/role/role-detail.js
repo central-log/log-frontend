@@ -4,8 +4,14 @@ define(['utils/Constant'], function (Constant) {
 
         $scope.switchTab = function (tab) {
             $scope.currentTab = tab;
+            $scope.openAddPermissionTab = false;
         };
         $scope.switchTab('permission');
+
+        $scope.showAddPermission = function () {
+            $scope.openAddPermissionTab = true;
+            $scope.currentTab = 'permission-add';
+        };
 
         RoleSvc.getRoleById({
             roleId: $routeParams.roleId

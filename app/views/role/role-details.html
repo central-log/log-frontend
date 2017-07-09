@@ -39,11 +39,16 @@
     <hr/>
     <div>
       <ul class="nav nav-tabs">
-        <li ng-click="switchTab('permission')" role="presentation" ng-class="{active: currentTab=='permission'}"><a>权限列表</a></li>
+          <li ng-hide="openAddPermissionTab"　ng-click="switchTab('permission')" role="presentation" ng-class="{active: currentTab=='permission'}"><a>权限列表</a></li>
+          <li ng-show="openAddPermissionTab" ng-click="switchTab('permission')" role="presentation" ><a>&lt;&lt;返回权限列表</a></li>
+          <li ng-hide="openAddPermissionTab" class="actions" style="float:right;"><a class="btn btn-default" ng-click="showAddPermission()">添加权限</a></li>
       </ul>
     </div>
     <div class="panel-body" ng-if="currentTab=='permission'">
         <role-permission id="role.id"></role-permission>
+    </div>
+    <div class="panel-body" ng-if="currentTab=='permission-add'">
+        <role-add-permission id="role.id"></role-add-permission>
     </div>
   </div>
 </div>

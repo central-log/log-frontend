@@ -2,7 +2,7 @@
 define(['utils/Constant'], function (Constant) {
     var Service = function ($resource) {
 
-        var svc = $resource(Constant.apiBase + '/role/:catalog/:roleId/:catalogId', null, {
+        var svc = $resource(Constant.apiBase + '/role/:catalog/:roleId/:permissionId', null, {
 
             getRoles: {
                 method: 'GET',
@@ -32,99 +32,34 @@ define(['utils/Constant'], function (Constant) {
                 timeout: Constant.reqTimeout
             },
 
-            /*
-               /domain/:domainId/user
-            */
             getRolePermission: {
                 method: 'GET',
                 params: {
-                    catalogId: 'permission',
+                    catalog: 'permission',
                     roleId: '@roleId'
                 },
                 isArray: true,
                 timeout: Constant.reqTimeout
             },
-      /*
-         /domain/:domainId/user/:userIds
-      */
-            addRoleMenus: {
-                method: 'GET',
+            addPermission: {
+                method: 'PUT',
                 params: {
-                    roleId: '@roleId',
-                    catalog: 'menu'
-                },
-                timeout: Constant.reqTimeout
-            },
-
-            removeRoleMenus: {
-                method: 'DELETE',
-                params: {
-                    roleId: '@roleId',
-                    catalog: 'menu'
-                },
-                isArray: false,
-                timeout: Constant.reqTimeout
-            },
-      /*
-        Get     URL
-      */
-            getRoleURLs: {
-                method: 'GET',
-                params: {
-                    roleId: '@roleId',
-                    catalog: 'url'
+                    catalog: 'permission',
+                    roleId: '@roleId'
                 },
                 isArray: true,
                 timeout: Constant.reqTimeout
             },
-            addRoleURLs: {
-                method: 'GET',
-                params: {
-                    roleId: '@roleId',
-                    catalog: 'uri'
-                },
-                isArray: false,
-                timeout: Constant.reqTimeout
-            },
-
-            removeRoleURLs: {
+            deletePermission: {
                 method: 'DELETE',
                 params: {
+                    catalog: 'permission',
                     roleId: '@roleId',
-                    catalog: 'uri'
+                    permissionId: '@permissionId'
                 },
-                isArray: false,
-                timeout: Constant.reqTimeout
-            },
-      // User
-            getRoleUsers: {
-                method: 'GET',
-                params: {
-                    roleId: '@roleId',
-                    catalog: 'user'
-                },
-                isArray: true,
-                timeout: Constant.reqTimeout
-            },
-            addRoleUsers: {
-                method: 'GET',
-                params: {
-                    roleId: '@roleId',
-                    catalog: 'user'
-                },
-                isArray: false,
-                timeout: Constant.reqTimeout
-            },
-
-            removeRoleUsers: {
-                method: 'DELETE',
-                params: {
-                    roleId: '@roleId',
-                    catalog: 'user'
-                },
-                isArray: false,
                 timeout: Constant.reqTimeout
             }
+
         });
 
         return svc;

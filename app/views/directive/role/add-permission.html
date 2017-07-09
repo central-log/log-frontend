@@ -1,12 +1,23 @@
 <div>
+  <form class="navbar-form navbar-left full-width pd-lt-0 pd-rt-0">
+    <div class="input-group fl">
+      <span class="">权限名称或描述：</span>
+      <div class="form-group mg-rt-1">
+        <input type="text" class="form-control" placeholder="权限名称或描述" ng-model="criteria.name" maxlength="40">
+      </div>
+      <button type="submit" ng-click="getPermissions()" class="btn mg-rt-1 btn-default">查询</button>
+      <span class="text-color-c4" ng-if="lastCritria && lastCritria.name">搜索【{{lastCritria.name}}】结果:</span>
+    </div>
+    <div class="clear"></div>
+  </form>
+
   <div>
     <table class="text-left table table-bordered vertical-middle">
       <thead class="text-color-c4">
         <tr>
-          <th>类别</th>
+          <th style="width: 120px;">类别</th>
           <th>名称</th>
           <th>描述信息</th>
-          <th>添加时间</th>
           <th class="tc">操作</th>
         </tr>
       </thead>
@@ -15,25 +26,23 @@
           <td ng-bind="displayData[t][0].type" rowspan="{{displayData[t].length}}"></td>
           <td ng-bind="displayData[t][0].name"></td>
           <td ng-bind="displayData[t][0].description"></td>
-          <td ng-bind="displayData[t][0].updatedTime | date: 'yyyy-MM-dd HH:mm'"></td>
           <td class="text-color-c9 tc">
-            <a ng-click="deletePermission(displayData[t][0].id)" target="_blank">删除</a>
+            <a ng-click="addPermission(t, 0, displayData[t][0].id)" target="_blank">添加</a>
           </td>
         </tr>
 
         <tr ng-repeat="p in displayData[t]" ng-if="$index!==0">
+          <!-- <td></td> -->
           <td ng-bind="p.name"></td>
           <td ng-bind="p.description"></td>
-          <td ng-bind="p.updatedTime | date: 'yyyy-MM-dd HH:mm'"></td>
           <td class="text-color-c9 tc">
-            <a ng-click="deletePermission(p.id)" target="_blank">删除</a>
+            <a ng-click="addPermission(t, $index, p.id)" target="_blank">添加</a>
           </td>
         </tr>
       </tbody>
-
       <tbody>
         <tr ng-if="loadingStatus!=''">
-          <td colspan="5" class="tc" ng-bind="loadingStatus"></td>
+          <td colspan="4" class="tc" ng-bind="loadingStatus"></td>
         </tr>
       </tbody>
     </table>
