@@ -14,7 +14,6 @@ define(['utils/Constant'], function (Constant) {
         };
 
         $scope.pagination = {
-      // pageSize: 2,
             pageSize: Constant.pageSize,
             curPage: 1,
             totalCount: 0
@@ -38,21 +37,15 @@ define(['utils/Constant'], function (Constant) {
             $scope.submiting = true;
             RoleSvc.addRole($scope.newRole, function (resp) {
                 $scope.submiting = false;
-                var result = Constant.transformResponse(resp);
-
-                if (!result) {
-                    $scope.submitErrorMsg = resp.errMsg ? resp.errMsg : Constant.createError;
-                    return;
-                }
                 $scope.submitErrorMsg = '';
-        // console.log($scope);
-                $scope.roles.unshift(result);
+                $scope.roles.unshift(resp);
                 $scope.loadingStatus = '';
                 $scope.addInstanceDialog.close();
-        // $location.url('/role/' + result);
-            }, function (resp) {
+            }, function (error) {
+                var resp = error.data;
+
                 $scope.submiting = false;
-                $scope.submitErrorMsg = resp.errMsg ? resp.errMsg : Constant.createError;
+                $scope.submitErrorMsg = (resp && resp.errMsg) ? resp.errMsg : Constant.createError;
             });
         };
 
@@ -80,15 +73,7 @@ define(['utils/Constant'], function (Constant) {
             $scope.lastCritria = searchCriteria;
             $scope.loadingStatus = Constant.loading;
             $scope.roles = [];
-            RoleSvc.getRoles(searchCriteria, function (resp) {
-                var result = Constant.transformResponse(resp);
-
-                if (result === undefined) {
-                    $scope.loadingStatus = Constant.loadError;
-                    $scope.roles = [];
-                    return;
-                }
-        // No Pagination
+            RoleSvc.getRoles(searchCriteria, function (result) {
                 if (!result || !result.data || !result.data.length) {
                     $scope.roles = [];
                     $scope.loadingStatus = Constant.loadEmpty;
