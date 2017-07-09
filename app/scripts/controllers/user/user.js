@@ -43,9 +43,7 @@ define(['utils/Constant'], function (Constant) {
 
         $scope.submitText = '添加';
         $scope.addUserDialog = function () {
-            $scope.newUser = {
-                enabled: true
-            };
+            $scope.newUser = {};
             $scope.submitErrorMsg = '';
             $scope.addInstanceDialog = ngDialog.open({
                 template: './views/user/user-add.html',
