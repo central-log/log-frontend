@@ -1,7 +1,7 @@
 define(['utils/Constant'], function (Constant) {
     var domainSelectedEnvKey = 'domain-env-name';
     var domainSelectedTabKey = 'env-tab-name';
-    var DomainController = function (localStorageService, $scope, DomainSvc, $cookies, $routeParams, UserSvc, CommonSvc, ngDialog) {
+    var DomainController = function (localStorageService, $scope, DomainSvc, $routeParams, ngDialog) {
 
         $scope.paramDomainId = $routeParams.domainId;
         $scope.envDetails = {};
@@ -99,7 +99,7 @@ define(['utils/Constant'], function (Constant) {
 
     return {
         name: 'DomainDetailController',
-        fn: ['localStorageService', '$scope', 'DomainSvc', '$cookies', '$routeParams', 'UserSvc', 'CommonSvc', 'ngDialog', DomainController]
+        fn: ['localStorageService', '$scope', 'DomainSvc', '$routeParams', 'ngDialog', DomainController]
     };
 
 

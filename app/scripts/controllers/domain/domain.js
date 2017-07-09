@@ -1,6 +1,6 @@
 define(['utils/Constant', 'utils/Utils'], function (Constant, Utils) {
 
-    var DomainController = function ($scope, DomainSvc, $cookies, $routeParams, UserSvc, CommonSvc, ngDialog) {
+    var DomainController = function ($scope, DomainSvc, $routeParams, ngDialog) {
 
         $scope.criteria = {
             name: ''
@@ -93,6 +93,6 @@ define(['utils/Constant', 'utils/Utils'], function (Constant, Utils) {
 
     return {
         name: 'DomainController',
-        fn: ['$scope', 'DomainSvc', '$cookies', '$routeParams', 'UserSvc', 'CommonSvc', 'ngDialog', DomainController]
+        fn: ['$scope', 'DomainSvc', '$routeParams', 'ngDialog', DomainController]
     };
 });

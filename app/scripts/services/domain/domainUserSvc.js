@@ -1,20 +1,29 @@
 define(['utils/Constant'], function (Constant) {
     var Service = function ($resource) {
-        var svc = $resource(Constant.apiBase + '/user/:userId', null, {
+        var svc = $resource(Constant.apiBase + '/domain/:domainId/env/:env/user', null, {
             getUsers: {
                 method: 'GET',
+                params: {
+                    env: '@env',
+                    domainId: '@domainId'
+                },
                 isArray: false,
                 timeout: Constant.reqTimeout
             },
             addUser: {
                 method: 'PUT',
+                params: {
+                    env: '@env',
+                    domainId: '@domainId'
+                },
                 isArray: false,
                 timeout: Constant.reqTimeout
             },
             editUser: {
                 method: 'POST',
                 params: {
-                    userId: '@userId'
+                    env: '@env',
+                    domainId: '@domainId'
                 },
                 isArray: false,
                 timeout: Constant.reqTimeout
@@ -22,7 +31,8 @@ define(['utils/Constant'], function (Constant) {
             deleteUser: {
                 method: 'DELETE',
                 params: {
-                    userId: '@userId'
+                    env: '@env',
+                    domainId: '@domainId'
                 },
                 isArray: false,
                 timeout: Constant.reqTimeout
@@ -33,7 +43,7 @@ define(['utils/Constant'], function (Constant) {
     };
 
     return {
-        name: 'UserSvc',
+        name: 'DomainUserSvc',
         svc: ['$resource', Service]
     };
 });

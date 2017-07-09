@@ -1,6 +1,7 @@
 
 require(['drApp',
     'services/domain/domainSvc',
+    'services/domain/domainUserSvc',
     'services/user/userSvc',
     'services/common/commonSvc',
     'services/common/common',

@@ -1,5 +1,5 @@
 define(['utils/Constant'], function (Constant) {
-    function fn($location, UserSvc, GroupSvc, CommonSvc, localStorageService, ngDialog) {
+    function fn($location, DomainUserSvc, GroupSvc, CommonSvc, localStorageService, ngDialog) {
         return {
             restrict: 'E',
             scope: {
@@ -34,7 +34,7 @@ define(['utils/Constant'], function (Constant) {
                     $scope.lastCritria = searchCriteria;
                     $scope.loadingStatus = Constant.loading;
                     $scope.users = [];
-                    UserSvc.getUsers(searchCriteria, function (resp) {
+                    DomainUserSvc.getUsers(searchCriteria, function (resp) {
                         if (!resp || !resp.data || !resp.data.length) {
                             $scope.users = [];
                             $scope.loadingStatus = Constant.loadEmpty;
@@ -98,7 +98,7 @@ define(['utils/Constant'], function (Constant) {
                     $scope.submiting = true;
                     var serviceName = isDelete ? 'deleteUser' : (isModifyUser ? 'editUser' : 'addUser');
 
-                    UserSvc[serviceName]($scope.newUser, function () {
+                    DomainUserSvc[serviceName]($scope.newUser, function () {
                         $scope.submiting = false;
                         $scope.submitErrorMsg = '';
                         $scope.loadingStatus = '';
@@ -117,6 +117,6 @@ define(['utils/Constant'], function (Constant) {
 
     return {
         name: 'domainUser',
-        directiveFn: ['$location', 'UserSvc', 'GroupSvc', 'CommonSvc', 'localStorageService', 'ngDialog', fn]
+        directiveFn: ['$location', 'DomainUserSvc', 'GroupSvc', 'CommonSvc', 'localStorageService', 'ngDialog', fn]
     };
 });
