@@ -27,7 +27,8 @@ define(['utils/Constant'], function (Constant) {
             modifyRole: {
                 method: 'POST',
                 params: {
-                    roleId: 'update'
+                    roleId: '@roleId',
+                    catalog: 'detail'
                 },
                 timeout: Constant.reqTimeout
             },
