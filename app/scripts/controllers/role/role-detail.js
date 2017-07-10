@@ -23,8 +23,16 @@ define(['utils/Constant'], function (Constant) {
             $scope.role = null;
         });
 
+        $scope.status = [{
+            'name': '已禁用',
+            'value': 0
+        }, {
+            'name': '正常',
+            'value': 1
+        }];
         $scope.modifyRole = function () {
             $scope.submiting = true;
+            $scope.newRole.enabled = $scope.newRole.enabledOption.value;
             RoleSvc.modifyRole($scope.newRole, function (resp) {
                 $scope.submiting = false;
                 $scope.role.name = resp.name;
@@ -56,7 +64,8 @@ define(['utils/Constant'], function (Constant) {
                 roleId: $routeParams.roleId,
                 name: $scope.role.name,
                 description: $scope.role.description,
-                enabled: $scope.role.enabled
+                enabled: $scope.role.enabled,
+                enabledOption: $scope.status[$scope.role.enabled]
             };
             $scope.instanceDialog = ngDialog.open({
                 template: './views/role/role-modify.html',

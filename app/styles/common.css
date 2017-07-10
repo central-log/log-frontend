@@ -122,3 +122,13 @@ select.dropdown.env-menu{
 span.permissionAdded{
   color: green;
 }
+div.statusEnabled{
+  color: green !important;
+}
+
+div.statusDisabled{
+  color: red !important;
+}
+.statusDisabled table td{
+  color: #b3b3b3 !important;
+}

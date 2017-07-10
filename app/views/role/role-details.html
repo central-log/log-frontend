@@ -35,7 +35,7 @@
       <div class="col-md-6">
         <div class="row text-size-s3">
           <div class="col-md-4 text-color-c4">当前状态：</div>
-          <div class="col-md-8 tl text-color-c6" ng-show="role" ng-bind="role.enabled?'正常':'已禁用'"></div>
+          <div  ng-class="{'statusDisabled':!role.enabled, statusEnabled:role.enabled}" class="col-md-8 tl text-color-c6" ng-show="role" ng-bind="role.enabled?'正常':'已禁用'"></div>
         </div>
       </div>
     </div>
@@ -53,7 +53,7 @@
           <li ng-hide="openAddPermissionTab" class="actions" style="float:right;"><a class="btn btn-default" ng-click="showAddPermission()">添加权限</a></li>
       </ul>
     </div>
-    <div class="panel-body" ng-if="currentTab=='permission'">
+    <div class="panel-body" ng-if="currentTab=='permission'" ng-class="{'statusDisabled':!role.enabled}" >
         <role-permission id="role.id"></role-permission>
     </div>
     <div class="panel-body" ng-if="currentTab=='permission-add'">
