@@ -1,26 +1,13 @@
 'use strict';
 define(['utils/Constant'], function (Constant) {
-    var userSelectedTabKey = 'user-detail-selected';
-    var Controller = function ($scope, $window, $routeParams, $filter, UserSvc, GroupSvc, RoleSvc, $location, localStorageService) {
-
-        $scope.switchTab = function (tab) {
-            $scope.currentTab = tab;
-            localStorageService.set(userSelectedTabKey, tab);
-        };
-
-        var selectedTabName = localStorageService.get(userSelectedTabKey);
-
-        if (selectedTabName && selectedTabName !== 'null' && selectedTabName !== 'undefined' && selectedTabName.indexOf('add') !== 0) {
-            $scope.switchTab(selectedTabName);
-        } else {
-            $scope.switchTab('permission');
-        }
+    var Controller = function ($scope, $window, $routeParams, $filter, UserSvc, GroupSvc, RoleSvc, $location) {
 
         $scope.pagination = {
             pageSize: Constant.pageSize,
             curPage: 1,
             totalCount: 0
         };
+
         $scope.paraUserId = $routeParams.id;
     // user detail
         if ($routeParams.id) {
@@ -270,7 +257,7 @@ define(['utils/Constant'], function (Constant) {
 
     return {
         name: 'UserDetailController',
-        fn: ['$scope', '$window', '$routeParams', '$filter', 'UserSvc', 'GroupSvc', 'RoleSvc', '$location', 'localStorageService', Controller]
+        fn: ['$scope', '$window', '$routeParams', '$filter', 'UserSvc', 'GroupSvc', 'RoleSvc', '$location', Controller]
     };
 
 
