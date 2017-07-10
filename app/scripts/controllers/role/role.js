@@ -1,6 +1,6 @@
 'use strict';
 define(['utils/Constant'], function (Constant) {
-    var Controller = function ($scope, RoleSvc, localStorageService, $location, ngDialog) {
+    var Controller = function ($scope, RoleSvc, ngDialog) {
         $scope.criteria = {
             name: ''
         };
@@ -87,7 +87,7 @@ define(['utils/Constant'], function (Constant) {
 
     return {
         name: 'RoleController',
-        fn: ['$scope', 'RoleSvc', 'localStorageService', '$location', 'ngDialog', Controller]
+        fn: ['$scope', 'RoleSvc', 'ngDialog', Controller]
     };
 
 });

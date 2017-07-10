@@ -1,80 +1,63 @@
 <div>
+  <div ng-include="'views/common/header.html'"></div>
   <div class="row">
     <div class="col-md-2 col-sm-3">
       <div>
-        <ul class="nav nav-pills nav-stacked ">
-          <li role="presentation" class="text-left"><a href="#/domain">域管理</a></li>
-          <li role="presentation" class="text-left"><a href="#/role">角色管理</a></li>
-          <li role="presentation" class="text-left"><a href="#/user">用户管理</a></li>
-          <li role="presentation" class="text-left active"><a href="#/group">组管理</a></li>
+        <ul class="nav nav-pills nav-stacked">
+          <li role="presentation" class="tl"><a href="#/domain">域管理</a></li>
+          <li role="presentation" class="tl"><a href="#/role">角色管理</a></li>
+          <li role="presentation" class="tl"><a href="#/user">用户管理</a></li>
+          <li role="presentation" class="active tl"><a href="#/group">组管理</a></li>
         </ul>
       </div>
     </div>
     <div class="col-md-10 col-sm-9">
-      <form class="navbar-form navbar-left full-width" role="search">
+      <form class="navbar-form pd-lt-0 pd-rt-0 navbar-left full-width" role="search">
         <div class="input-group fl">
-          <span class="">组名称：</span>
-          <div class="form-group">
-            <input ng-model="groupQuery.name" type="text" class="form-control" placeholder="组名称" maxlength="30">
+          <span class="">组名称或描述：</span>
+          <div class="form-group mg-rt-1">
+            <input type="text" ng-model="criteria.name" class="form-control" placeholder="角色名称或描述" maxlength="40">
           </div>
-
-          <!--        <span class="">地域：</span>
-          <location class="form-group" province="groupQuery.province" city="groupQuery.city" district="groupQuery.district"></location> -->
-
-          <span class="">禁用：</span>
-          <dropdown options="disableDropdownList" pattern="name for value" selected-option="groupQuery.status"></dropdown>
-
-          <button ng-click="queryGroup()" class="float-right btn btn-default">查询</button>
+          <button type="submit" ng-click="onsearch()" class="btn mg-rt-1 btn-default">查询</button>
+          <span class="text-color-c4" ng-if="lastCritria && lastCritria.name">搜索【{{lastCritria.name}}】结果:</span>
         </div>
-        <a class="float-right btn btn-default" ng-href="#/group/add" target="_blank" role="button">新增组</a>
-        <!-- /input-group -->
+        <a class="btn fr btn-default" ng-click="addRoleDialog()" target="_blank" role="button">新增组</a>
+        <div class="clear"></div>
 
       </form>
       <div>
         <table class="text-left table table-hover grey-border vertical-middle">
           <thead class="text-color-c4">
             <tr>
+              <th>序号</th>
               <th>组名称</th>
-              <!-- <th>所在地域</th> -->
-              <!-- <th>上级组</th> -->
-              <th>描述信息</th>
-              <th>禁用</th>
-              <!-- <th>组类型</th> -->
-              <!-- <th>操作</th> -->
-              <th>&nbsp;</th>
+              <th>组描述</th>
+              <th>创建时间</th>
+              <th>修改时间</th>
+              <th>当前状态</th>
+              <th>操作</th>
             </tr>
           </thead>
-          <tbody class="text-color-c6" ng-show="groupTypeLoaded">
-
-            <tr ng-repeat="d in groups">
+          <tbody class="text-color-c6">
+            <tr ng-repeat="d in roles" ng-class="{'text-color-c4':!d.enabled}">
+              <td>{{$index + 1}}</td>
               <td ng-bind="d.name"></td>
-              <!-- <td>{{d.province + d.city + d.district}}</td> -->
-              <!--               <td>
-                <span ng-if="!d.parentGroupName">无</span>
-                <a ng-if="d.parentGroupName" ng-href="#/group/{{d.parentGroupId}}" ng-bind="d.parentGroupName"></a>
-              </td> -->
               <td ng-bind="d.description"></td>
-              <td ng-bind="!d.enabled?'是':'否'"></td>
-              <!-- <td ng-bind="groupTypeObj?groupTypeObj[d.groupType]: d.groupType"></td> -->
-              <td class="text-color-c9">
-                <a ng-href="#/group/{{d.id}}" target="_blank" ng-click="storeGroupDetail(d)">详情</a>
-              </td>
-              <!--               <td>
-                <a class="btn btn-default" ng-href="#/group/{{d.id}}/add-sub" target="_blank" ng-click="storeGroupDetail(d)">
-                  新增子组
-                </a>
-              </td> -->
+              <td ng-bind="d.createdTime | date: 'yyyy-MM-dd HH:mm'"></td>
+              <td ng-bind="d.updatedTime | date: 'yyyy-MM-dd HH:mm'"></td>
+              <td ng-bind="d.enabled?'正常':'已禁用'"></td>
+              <td><a ng-href="#/role/{{d.id}}" target="_blank" ng-click="passRoleInfo(d)">详情</a></td>
             </tr>
           </tbody>
           <tbody>
-            <tr ng-if="groupsLoading!='' || !groupTypeLoaded">
-              <td colspan="8" class="tc" ng-bind="groupTypeLoaded? groupsLoading: '正在加载...'"></td>
+            <tr ng-if="loadingStatus!=''">
+              <td colspan="7" class="tc" ng-bind="loadingStatus"></td>
             </tr>
           </tbody>
         </table>
-        <pagination ng-if="groups && groups.length" boundary-link-numbers="true" force-ellipses="true" max-size="10" boundary-links="true" ng-change="queryGroup()" items-per-page="pagination.pageSize" total-items="pagination.totalCount" ng-model="pagination.curPage" class="pagination-sm fr" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+
+        <div uib-pagination ng-if="roles && roles.length>0" boundary-link-numbers="true" force-ellipses="true" max-size="10" boundary-links="true" ng-change="onsearch()" items-per-page="pagination.pageSize" total-items="pagination.totalCount" ng-model="pagination.curPage" class="pagination-sm fr" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></div>
       </div>
     </div>
   </div>
-</div>
 </div>
