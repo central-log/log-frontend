@@ -40,8 +40,8 @@
             <li ng-hide="currentTab.indexOf('add')===0"  ng-class="{active: currentTab==='group'}"><a ng-click="switchTab('group')">所属组</a></li>
             <li ng-show="currentTab==='add-role'" ng-click="switchTab('role')"><a>&lt;&lt;返回</a></li>
             <li ng-show="currentTab==='add-group'" ng-click="switchTab('group')"><a>&lt;&lt;返回</a></li>
-            <li ng-hide="currentTab.indexOf('add')===0" class="actions" style="float:right;"><a class="btn btn-default" ng-click="switchTab('add-role')">添加角色</a></li>
             <li ng-hide="currentTab.indexOf('add')===0" class="actions" style="float:right;"><a class="btn btn-default" ng-click="switchTab('add-group')">添加组</a></li>
+            <li ng-hide="currentTab.indexOf('add')===0" class="actions" style="float:right;"><a class="btn btn-default" ng-click="switchTab('add-role')">添加角色</a></li>
         </ul>
       </div>
       <div class="panel-body" ng-if="currentTab=='permission'">

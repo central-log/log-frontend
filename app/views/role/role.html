@@ -39,7 +39,7 @@
             </tr>
           </thead>
           <tbody class="text-color-c6">
-            <tr ng-repeat="d in roles">
+            <tr ng-repeat="d in roles" ng-class="{'text-color-c4':!d.enabled}">
               <td>{{$index + 1}}</td>
               <td ng-bind="d.name"></td>
               <td ng-bind="d.description"></td>
