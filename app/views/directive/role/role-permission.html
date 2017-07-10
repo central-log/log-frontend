@@ -17,7 +17,7 @@
           <td ng-bind="displayData[t][0].description"></td>
           <td ng-bind="displayData[t][0].updatedTime | date: 'yyyy-MM-dd HH:mm'"></td>
           <td class="text-color-c9 tc">
-            <a ng-click="deletePermission(displayData[t][0].id)" target="_blank">删除</a>
+            <a ng-click="openDeleteDialog(displayData[t][0])" target="_blank">删除</a>
           </td>
         </tr>
 
@@ -26,7 +26,7 @@
           <td ng-bind="p.description"></td>
           <td ng-bind="p.updatedTime | date: 'yyyy-MM-dd HH:mm'"></td>
           <td class="text-color-c9 tc">
-            <a ng-click="deletePermission(p.id)" target="_blank">删除</a>
+            <a ng-click="openDeleteDialog(p)" target="_blank">删除</a>
           </td>
         </tr>
       </tbody>

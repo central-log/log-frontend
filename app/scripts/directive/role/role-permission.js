@@ -1,6 +1,6 @@
 'use strict';
 define(['utils/Constant'], function (Constant) {
-    function fn($location, RoleSvc) {
+    function fn($location, RoleSvc, ngDialog) {
         return {
             restrict: 'E',
             scope: {
@@ -46,16 +46,29 @@ define(['utils/Constant'], function (Constant) {
                 };
 
                 $scope.deletePermission = function (id) {
+                    $scope.submiting = true;
                     RoleSvc.deletePermission({ roleId: $scope.id, permissionId: id }, function () {
+                        $scope.submiting = false;
+                        $scope.deleteInstanceDialog.close();
                         $scope.queryUser();
                     }, function (error) {
+                        $scope.submiting = false;
                         var resp = (error && error.data) || {};
 
-                        var msg = resp.errMsg ? resp.errMsg : Constant.operateError;
-
-                        alert(msg);
+                        $scope.submitErrorMsg = resp.errMsg ? resp.errMsg : Constant.operateError;
                     });
                 };
+
+                $scope.openDeleteDialog = function (p) {
+                    $scope.submitErrorMsg = '';
+                    $scope.selectedPermission = p;
+                    $scope.deleteInstanceDialog = ngDialog.open({
+                        template: './views/directive/role/permission-delete.html',
+                        className: 'ngdialog-custom-default',
+                        scope: $scope
+                    });
+                };
+
                 $scope.$watch('id', function () {
                     if ($scope.id) {
                         $scope.queryUser();
@@ -67,6 +80,6 @@ define(['utils/Constant'], function (Constant) {
 
     return {
         name: 'rolePermission',
-        directiveFn: ['$location', 'RoleSvc', fn]
+        directiveFn: ['$location', 'RoleSvc', 'ngDialog', fn]
     };
 });
