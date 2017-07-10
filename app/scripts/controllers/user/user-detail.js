@@ -3,6 +3,8 @@ define(['utils/Constant'], function (Constant) {
     var userSelectedTabKey = 'user-detail-selected';
     var Controller = function ($scope, $window, $routeParams, $filter, UserSvc, GroupSvc, RoleSvc, $location, localStorageService) {
 
+        $scope.paraUserId = $routeParams.id;
+        
         $scope.switchTab = function (tab) {
             $scope.currentTab = tab;
             localStorageService.set(userSelectedTabKey, tab);
@@ -21,8 +23,8 @@ define(['utils/Constant'], function (Constant) {
             curPage: 1,
             totalCount: 0
         };
-        $scope.paraUserId = $routeParams.id;
     // user detail
+        $scope.userParamEmail = $routeParams.id;
         if ($routeParams.id) {
             UserSvc.getUserById({
                 userId: $routeParams.id
