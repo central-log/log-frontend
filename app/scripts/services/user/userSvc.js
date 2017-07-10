@@ -22,7 +22,7 @@ define(['utils/Constant'], function (Constant) {
                     userId: '@userId',
                     category: 'role'
                 },
-                isArray: false,
+                isArray: true,
                 timeout: Constant.reqTimeout
             },
             deleteRole: {
