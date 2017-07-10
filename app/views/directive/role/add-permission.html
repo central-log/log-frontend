@@ -27,7 +27,8 @@
           <td ng-bind="displayData[t][0].name"></td>
           <td ng-bind="displayData[t][0].description"></td>
           <td class="text-color-c9 tc">
-            <a ng-click="addPermission(t, 0, displayData[t][0].id)" target="_blank">添加</a>
+            <a ng-if="!displayData[t][0].added" ng-click="addPermission(t, 0, displayData[t][0].id)" target="_blank">添加</a>
+            <span class="permissionAdded" ng-bind="displayData[t][0].added ==='added'?'添加成功':'已添加'" ng-if="displayData[t][0].added"></span>
           </td>
         </tr>
 
@@ -36,7 +37,8 @@
           <td ng-bind="p.name"></td>
           <td ng-bind="p.description"></td>
           <td class="text-color-c9 tc">
-            <a ng-click="addPermission(t, $index, p.id)" target="_blank">添加</a>
+            <a ng-if="!p.added" ng-click="addPermission(t, $index, p.id)" target="_blank">添加</a>
+            <span class="permissionAdded" ng-bind="p.added ==='added'?'添加成功':'已添加'" ng-if="p.added"></span>
           </td>
         </tr>
       </tbody>

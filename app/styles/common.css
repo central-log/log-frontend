@@ -119,3 +119,6 @@ select.dropdown.env-menu{
   position: relative;
   top:8px;
 }
+span.permissionAdded{
+  color: green;
+}
