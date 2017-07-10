@@ -66,12 +66,14 @@ define(['utils/Constant'], function (Constant) {
         };
 
         $scope.getDetailInfo = function () {
-            $scope.loadingStatus = Constant.loading;
-
             DomainSvc.getDomainById({ domainId: $scope.paramDomainId }, function (resp) {
                 var previousSelectedEnv, isSelectedBefore;
 
                 $scope.domainDetail = resp;
+                if (!resp.id) {
+                    $scope.notFound = true;
+                    return;
+                }
                 if ($scope.domainDetail && $scope.domainDetail.env) {
 
                     previousSelectedEnv = localStorageService.get(domainSelectedEnvKey);
@@ -89,9 +91,9 @@ define(['utils/Constant'], function (Constant) {
                     }
 
                 }
-                $scope.loadingStatus = null;
             }, function () {
-                $scope.loadingStatus = Constant.loadError;
+                $scope.domainDetail = null;
+                $scope.serverError = true;
             });
         };
 

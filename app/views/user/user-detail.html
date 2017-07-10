@@ -1,6 +1,8 @@
 <div>
   <div ng-include="'views/common/header.html'"></div>
-  <div class="panel text-left">
+  <p class="notFoundOrError" ng-show="notFound">未查询相关信息，该信息很可能已被删除。</p>
+  <p class="notFoundOrError" ng-show="serverError">服务器异常，请稍后再试。</p>
+  <div ng-show="userDetail.name" class="panel text-left">
     <div class="panel-heading">
       <p class="text-size-s1 text-color-c6">用户信息</p>
       <div class="row text-size-s3">

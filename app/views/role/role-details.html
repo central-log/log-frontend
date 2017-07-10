@@ -1,5 +1,7 @@
 <div ng-include="'views/common/header.html'"></div>
-<div class="tl panel">
+<p class="notFoundOrError" ng-show="roleNotFound">未查询相关信息，该信息很可能已被删除。</p>
+<p class="notFoundOrError" ng-show="serverError">服务器异常，请稍后再试。</p>
+<div ng-show="role.name" class="tl panel">
   <div class="panel-heading">
     <p class="text-size-s1 text-color-c6">角色信息</p>
     <div class="row text-size-s3">

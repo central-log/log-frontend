@@ -24,8 +24,12 @@ define(function () {
                 userId: $routeParams.id
             }, function (res) {
                 $scope.userDetail = res;
+                if (!res.email) {
+                    $scope.notFound = true;
+                }
             }, function () {
                 $scope.userDetail = {};
+                $scope.serverError = true;
             });
         }
 

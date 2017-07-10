@@ -132,3 +132,10 @@ div.statusDisabled{
 .statusDisabled table td{
   color: #b3b3b3 !important;
 }
+
+p.notFoundOrError{
+  line-height: 1.5em;
+    margin: 0;
+    padding: 10px;
+    color: #999;
+}

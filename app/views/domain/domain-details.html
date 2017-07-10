@@ -13,7 +13,7 @@
           ng-options="env.name for env in domainDetail.env" class="dropdown env-menu">
         </select>
         <ul class="nav navbar-nav navbar-right">
-          <li class="actions"><button id="addHeaderEnv" class="btn btn-primary" ng-click="showAddEnvDialog(false)">添加部署环境</button></li>
+          <li ng-show="domainDetail.name" class="actions"><button id="addHeaderEnv" class="btn btn-primary" ng-click="showAddEnvDialog(false)">添加部署环境</button></li>
           <li><a onclick="javascript(void:0)">当前用户：<span ng-bind="userInfo.email"></span></a></li>
           <li><a href="" ng-click="logout()">安全退出</a></li>
           <li><a href="" ng-click="setting()">设置</a></li>
@@ -24,10 +24,10 @@
     <!-- /.container-fluid -->
   </nav>
 
-  <div class="row">
-    <div class="col-md-12" ng-bind="loadingStatus">正在加载</div>
-  </div>
-  <div ng-if="!loadingStatus">
+  <p class="notFoundOrError" ng-show="notFound">未查询相关信息，该信息很可能已被删除。</p>
+  <p class="notFoundOrError" ng-show="serverError">服务器异常，请稍后再试。</p>
+
+  <div ng-show="domainDetail.name">
     <div class="tl panel">
       <div class="panel-heading">
         <p class="text-size-s1 text-color-c6">域信息</p>

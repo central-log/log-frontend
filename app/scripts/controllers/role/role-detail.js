@@ -18,9 +18,12 @@ define(['utils/Constant'], function (Constant) {
         }, function (resp) {
             $scope.role = resp;
             $scope.loadingDetailStatus = '';
+            if (!resp.id) {
+                $scope.roleNotFound = true;
+            }
         }, function () {
-            $scope.loadingDetailStatus = Constant.loadError;
             $scope.role = null;
+            $scope.serverError = true;
         });
 
         $scope.status = [{
