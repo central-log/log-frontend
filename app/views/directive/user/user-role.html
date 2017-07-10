@@ -1,0 +1,29 @@
+<table class="text-left table table-hover grey-border vertical-middle">
+  <thead class="text-color-c4">
+    <tr>
+      <th>序号</th>
+      <th>角色名称</th>
+      <th>角色描述</th>
+      <th>创建时间</th>
+      <th>修改时间</th>
+      <th>当前状态</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody class="text-color-c6">
+    <tr ng-repeat="d in roles" ng-class="{'text-color-c4':!d.enabled}">
+      <td>{{$index + 1}}</td>
+      <td ng-bind="d.name"></td>
+      <td ng-bind="d.description"></td>
+      <td ng-bind="d.createdTime | date: 'yyyy-MM-dd HH:mm'"></td>
+      <td ng-bind="d.updatedTime | date: 'yyyy-MM-dd HH:mm'"></td>
+      <td ng-bind="d.enabled?'正常':'已禁用'"></td>
+      <td><a ng-click="openDeleteDialog(d)">删除</a></td>
+    </tr>
+  </tbody>
+  <tbody>
+    <tr ng-if="loadingStatus!=''">
+      <td colspan="7" class="tc" ng-bind="loadingStatus"></td>
+    </tr>
+  </tbody>
+</table>

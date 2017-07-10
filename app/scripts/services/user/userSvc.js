@@ -1,7 +1,7 @@
 'use strict';
 define(['utils/Constant'], function (Constant) {
     var Service = function ($resource) {
-        var svc = $resource(Constant.apiBase + '/user/:category/:userId', null, {
+        var svc = $resource(Constant.apiBase + '/user/:category/:userId/:categoryId', null, {
             getUsers: {
                 method: 'GET',
                 isArray: false,
@@ -25,23 +25,22 @@ define(['utils/Constant'], function (Constant) {
                 isArray: false,
                 timeout: Constant.reqTimeout
             },
-            addUser: {
-                method: 'PUT',
-                isArray: false,
-                timeout: Constant.reqTimeout
-            },
-            editUser: {
-                method: 'POST',
+            deleteRole: {
+                method: 'DELETE',
                 params: {
-                    userId: '@userId'
+                    userId: '@userId',
+                    categoryId: '@categoryId',
+                    category: 'role'
                 },
                 isArray: false,
                 timeout: Constant.reqTimeout
             },
-            deleteUser: {
-                method: 'DELETE',
+            addRole: {
+                method: 'PUT',
                 params: {
-                    userId: '@userId'
+                    userId: '@userId',
+                    categoryId: '@categoryId',
+                    category: 'role'
                 },
                 isArray: false,
                 timeout: Constant.reqTimeout

@@ -57,7 +57,7 @@ define(['utils/Constant'], function (Constant) {
                 };
 
                 $scope.addRole = function (roleId) {
-                    UserSvc.addRole({ roleId: roleId, userId: $scope.id }, function () {
+                    UserSvc.addRole({ categoryId: roleId, userId: $scope.id }, function () {
                     }, function (error) {
                         var resp = (error && error.data) || {};
                         var msg = resp.errMsg ? resp.errMsg : Constant.operateError;

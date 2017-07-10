@@ -1,6 +1,6 @@
 'use strict';
 define(['utils/Constant'], function (Constant) {
-    function fn($location, RoleSvc, ngDialog) {
+    function fn($location, UserSvc, ngDialog) {
         return {
             restrict: 'E',
             scope: {
@@ -9,48 +9,35 @@ define(['utils/Constant'], function (Constant) {
             templateUrl: 'views/directive/user/user-role.html',
             link: function ($scope) {
 
-            // Event listeners
                 $scope.lastCritria = null;
-                $scope.queryUser = function () {
+                $scope.queryRole = function () {
                     var searchCriteria = {
-                        roleId: $scope.id
+                        userId: $scope.id
                     };
-
-                    $scope.displayData = {};
-                    $scope.types = [];
 
                     $scope.lastCritria = searchCriteria;
                     $scope.loadingStatus = Constant.loading;
-                    $scope.users = [];
-                    RoleSvc.getRolePermission(searchCriteria, function (resp) {
+                    $scope.roles = [];
+                    UserSvc.getRoleOfUser(searchCriteria, function (resp) {
                         $scope.loadingStatus = '';
-                        $scope.users = resp;
+                        $scope.roles = resp;
 
                         if (!resp || !resp.length) {
-                            $scope.users = [];
+                            $scope.roles = [];
                             $scope.loadingStatus = Constant.loadEmpty;
                         }
-
-                        $scope.users.forEach(function (p) {
-                            if (!(p.type in $scope.displayData)) {
-                                $scope.displayData[p.type] = [p];
-                            } else {
-                                $scope.displayData[p.type].push(p);
-                            }
-                        });
-                        $scope.types = Object.keys($scope.displayData);
 
                     }, function () {
                         $scope.loadingStatus = Constant.loadError;
                     });
                 };
 
-                $scope.deletePermission = function (id) {
+                $scope.deleteObject = function (id) {
                     $scope.submiting = true;
-                    RoleSvc.deletePermission({ roleId: $scope.id, permissionId: id }, function () {
+                    UserSvc.deleteRole({ userId: $scope.id, categoryId: id }, function () {
                         $scope.submiting = false;
                         $scope.deleteInstanceDialog.close();
-                        $scope.queryUser();
+                        $scope.queryRole();
                     }, function (error) {
                         $scope.submiting = false;
                         var resp = (error && error.data) || {};
@@ -59,11 +46,16 @@ define(['utils/Constant'], function (Constant) {
                     });
                 };
 
-                $scope.openDeleteDialog = function (p) {
+                $scope.openDeleteDialog = function (role) {
                     $scope.submitErrorMsg = '';
-                    $scope.selectedPermission = p;
+                    $scope.selectedObject = {
+                        title: '移除角色',
+                        type: '角色',
+                        name: role.name,
+                        id: role.id
+                    };
                     $scope.deleteInstanceDialog = ngDialog.open({
-                        template: './views/directive/role/permission-delete.html',
+                        template: './views/directive/user/role-confirm-delete.html',
                         className: 'ngdialog-custom-default',
                         scope: $scope
                     });
@@ -71,7 +63,7 @@ define(['utils/Constant'], function (Constant) {
 
                 $scope.$watch('id', function () {
                     if ($scope.id) {
-                        $scope.queryUser();
+                        $scope.queryRole();
                     }
                 });
             }
@@ -80,6 +72,6 @@ define(['utils/Constant'], function (Constant) {
 
     return {
         name: 'userRole',
-        directiveFn: ['$location', 'RoleSvc', 'ngDialog', fn]
+        directiveFn: ['$location', 'UserSvc', 'ngDialog', fn]
     };
 });

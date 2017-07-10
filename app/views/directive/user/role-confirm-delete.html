@@ -1,0 +1,20 @@
+<div>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" ng-click="closeThisDialog()" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" ng-bind="selectedObject.title"></h4>
+      </div>
+      <div class="modal-body">
+        <p>确定从角色中移除{{selectedObject.name.type}}【{{selectedObject.name}}】吗？</p>
+      </div>
+      <div class="modal-footer">
+        <span ng-if="submitErrorMsg" ng-bind="submitErrorMsg" class="fl red"></span>
+        <button type="button" ng-click="deleteObject(selectedObject.id)" ng-disabled="submiting" ng-bind="submiting?'提交中':'确认移除'" class="btn btn-danger"></button>
+        <button type="button" ng-click="closeThisDialog()" class="btn btn-default" data-dismiss="modal">取消</button>
+      </div>
+    </div>
+  </div>
+</div>
