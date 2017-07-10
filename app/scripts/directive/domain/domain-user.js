@@ -51,7 +51,11 @@ define(['utils/Constant'], function (Constant) {
                     });
                 };
 
-                $scope.queryUser();
+                $scope.$watch('env', function () {
+                    if ($scope.env) {
+                        $scope.queryUser();
+                    }
+                });
 
                 $scope.addModifyUserDialog = function (editUser) {
                     $scope.isModify = !!editUser;
