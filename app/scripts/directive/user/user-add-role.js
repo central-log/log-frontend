@@ -15,6 +15,25 @@ define(['utils/Constant'], function (Constant) {
                     }
                 });
 
+                function buildDisplayData(result) {
+                    $scope.roles = result.data;
+
+                    $scope.pagination.curPage = result.page;
+                    $scope.pagination.totalCount = result.totalCount;
+                    $scope.pagination.pageSize = result.pageSize;
+
+                    $scope.addedList.forEach(function (addedR) {
+
+                        $scope.roles.find(function (r) {
+                            if (r.id === addedR.id) {
+                                r.added = true;
+                                return true;
+                            }
+                            return false;
+                        });
+                    });
+
+                }
                 $scope.criteria = {
                     name: ''
                 };
@@ -44,12 +63,23 @@ define(['utils/Constant'], function (Constant) {
                             $scope.loadingStatus = Constant.loadEmpty;
                             return;
                         }
-                        $scope.loadingStatus = '';
-                        $scope.roles = result.data;
 
-                        $scope.pagination.curPage = result.page;
-                        $scope.pagination.totalCount = result.totalCount;
-                        $scope.pagination.pageSize = result.pageSize;
+                        UserSvc.getRoleOfUser({ userId: $scope.id },
+                          function (addedList) {
+                              $scope.loadingStatus = '';
+                              $scope.addedList = addedList;
+
+                              if (!addedList || !addedList.length) {
+                                  $scope.addedList = [];
+                              }
+
+                              buildDisplayData(result);
+
+                          }, function () {
+                              $scope.loadingStatus = '';
+                              $scope.addedList = [];
+                              buildDisplayData(result);
+                          });
 
                     }, function () {
                         $scope.loadingStatus = Constant.loadError;
@@ -58,6 +88,13 @@ define(['utils/Constant'], function (Constant) {
 
                 $scope.addRole = function (roleId) {
                     UserSvc.addRole({ categoryId: roleId, userId: $scope.id }, function () {
+                        $scope.roles.find(function (r) {
+                            if (r.id === roleId) {
+                                r.added = 'added';
+                                return true;
+                            }
+                            return false;
+                        });
                     }, function (error) {
                         var resp = (error && error.data) || {};
                         var msg = resp.errMsg ? resp.errMsg : Constant.operateError;
