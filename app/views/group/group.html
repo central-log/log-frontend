@@ -16,7 +16,7 @@
         <div class="input-group fl">
           <span class="">组名称或描述：</span>
           <div class="form-group mg-rt-1">
-            <input type="text" ng-model="criteria.name" class="form-control" placeholder="角色名称或描述" maxlength="40">
+            <input type="text" ng-model="criteria.name" class="form-control" placeholder="组名称或描述" maxlength="40">
           </div>
           <button type="submit" ng-click="onsearch()" class="btn mg-rt-1 btn-default">查询</button>
           <span class="text-color-c4" ng-if="lastCritria && lastCritria.name">搜索【{{lastCritria.name}}】结果:</span>
@@ -46,7 +46,7 @@
               <td ng-bind="d.createdTime | date: 'yyyy-MM-dd HH:mm'"></td>
               <td ng-bind="d.updatedTime | date: 'yyyy-MM-dd HH:mm'"></td>
               <td ng-bind="d.enabled?'正常':'已禁用'"></td>
-              <td><a ng-href="#/role/{{d.id}}" target="_blank" ng-click="passRoleInfo(d)">详情</a></td>
+              <td><a ng-href="#/group/{{d.id}}" target="_blank" ng-click="passRoleInfo(d)">详情</a></td>
             </tr>
           </tbody>
           <tbody>
