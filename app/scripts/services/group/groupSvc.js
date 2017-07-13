@@ -1,7 +1,7 @@
 'use strict';
 define(['utils/Constant'], function (Constant) {
     var Service = function ($resource) {
-        var svc = $resource(Constant.apiBase + '/group/:category/:groupId', null, {
+        var svc = $resource(Constant.apiBase + '/group/:category/:groupId/:categoryId', null, {
             getGroup: {
                 method: 'GET',
                 isArray: false,
@@ -24,6 +24,23 @@ define(['utils/Constant'], function (Constant) {
                 method: 'POST',
                 params: {
                     category: 'detail',
+                    groupId: '@groupId'
+                },
+                timeout: Constant.reqTimeout
+            },
+            deleteRole: {
+                method: 'DELETE',
+                params: {
+                    category: 'detail',
+                    groupId: '@groupId',
+                    categoryId: '@categoryId'
+                },
+                timeout: Constant.reqTimeout
+            },
+            getRoles: {
+                method: 'GET',
+                params: {
+                    category: 'role',
                     groupId: '@groupId'
                 },
                 timeout: Constant.reqTimeout

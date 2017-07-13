@@ -1,6 +1,6 @@
 'use strict';
 define(['utils/Constant'], function (Constant) {
-    function fn($location, UserSvc, ngDialog) {
+    function fn($location, GroupSvc, ngDialog) {
         return {
             restrict: 'E',
             scope: {
@@ -12,13 +12,13 @@ define(['utils/Constant'], function (Constant) {
                 $scope.lastCritria = null;
                 $scope.queryRole = function () {
                     var searchCriteria = {
-                        userId: $scope.id
+                        groupId: $scope.id
                     };
 
                     $scope.lastCritria = searchCriteria;
                     $scope.loadingStatus = Constant.loading;
                     $scope.roles = [];
-                    UserSvc.getRoleOfUser(searchCriteria, function (resp) {
+                    GroupSvc.getRoles(searchCriteria, function (resp) {
                         $scope.loadingStatus = '';
                         $scope.roles = resp;
 
@@ -34,7 +34,7 @@ define(['utils/Constant'], function (Constant) {
 
                 $scope.deleteObject = function (id) {
                     $scope.submiting = true;
-                    UserSvc.deleteRole({ userId: $scope.id, categoryId: id }, function () {
+                    GroupSvc.deleteRole({ groupId: $scope.id, categoryId: id }, function () {
                         $scope.submiting = false;
                         $scope.deleteInstanceDialog.close();
                         $scope.queryRole();
@@ -72,6 +72,6 @@ define(['utils/Constant'], function (Constant) {
 
     return {
         name: 'groupRole',
-        directiveFn: ['$location', 'UserSvc', 'ngDialog', fn]
+        directiveFn: ['$location', 'GroupSvc', 'ngDialog', fn]
     };
 });

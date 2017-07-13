@@ -2,6 +2,7 @@
 define(['utils/Constant'], function (Constant) {
     var Controller = function ($scope, $routeParams, GroupSvc, ngDialog) {
 
+        $scope.urlGroupId = $routeParams.id;
         $scope.switchTab = function (tab) {
             $scope.currentTab = tab;
             $scope.openAddPermissionTab = false;
