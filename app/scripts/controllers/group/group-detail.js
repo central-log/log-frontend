@@ -1,6 +1,6 @@
 'use strict';
 define(['utils/Constant'], function (Constant) {
-    var Controller = function ($scope, $routeParams, RoleSvc, ngDialog) {
+    var Controller = function ($scope, $routeParams, GroupSvc, ngDialog) {
 
         $scope.switchTab = function (tab) {
             $scope.currentTab = tab;
@@ -13,8 +13,8 @@ define(['utils/Constant'], function (Constant) {
             $scope.currentTab = 'permission-add';
         };
 
-        RoleSvc.getRoleById({
-            roleId: $routeParams.id
+        GroupSvc.getGroupById({
+            groupId: $routeParams.id
         }, function (resp) {
             $scope.role = resp;
             $scope.loadingDetailStatus = '';
@@ -36,7 +36,7 @@ define(['utils/Constant'], function (Constant) {
         $scope.modifyRole = function () {
             $scope.submiting = true;
             $scope.newRole.enabled = $scope.newRole.enabledOption.value;
-            RoleSvc.modifyRole($scope.newRole, function (resp) {
+            GroupSvc.modifyRole($scope.newRole, function (resp) {
                 $scope.submiting = false;
                 $scope.role.name = resp.name;
                 $scope.role.description = resp.description;
@@ -64,14 +64,14 @@ define(['utils/Constant'], function (Constant) {
         $scope.openModifyDialog = function () {
             $scope.submitErrorMsg = '';
             $scope.newRole = {
-                roleId: $routeParams.id,
+                groupId: $routeParams.id,
                 name: $scope.role.name,
                 description: $scope.role.description,
                 enabled: $scope.role.enabled,
                 enabledOption: $scope.status[$scope.role.enabled]
             };
             $scope.instanceDialog = ngDialog.open({
-                template: './views/role/role-modify.html',
+                template: './views/group/group-modify.html',
                 className: 'ngdialog-custom-default',
                 scope: $scope
             });
@@ -81,7 +81,7 @@ define(['utils/Constant'], function (Constant) {
 
     return {
         name: 'GroupDetailController',
-        fn: ['$scope', '$routeParams', 'RoleSvc', 'ngDialog', Controller]
+        fn: ['$scope', '$routeParams', 'GroupSvc', 'ngDialog', Controller]
     };
 
 
