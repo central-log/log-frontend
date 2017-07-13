@@ -1,0 +1,50 @@
+<div>
+  <form class="navbar-form navbar-left full-width pd-lt-0 pd-rt-0">
+    <div class="input-group fl">
+      <span class="">组名称或描述：</span>
+      <div class="form-group mg-rt-1">
+        <input type="text" class="form-control" placeholder="组名称或描述" ng-model="criteria.name" maxlength="40">
+      </div>
+      <button type="submit" ng-click="onsearch()" class="btn mg-rt-1 btn-default">查询</button>
+      <span class="text-color-c4" ng-if="lastCritria && lastCritria.name">搜索【{{lastCritria.name}}】结果:</span>
+    </div>
+    <div class="clear"></div>
+  </form>
+
+  <div>
+    <table class="text-left table table-hover grey-border vertical-middle">
+      <thead class="text-color-c4">
+        <tr>
+          <th>序号</th>
+          <th>组名称</th>
+          <th>组描述</th>
+          <th>创建时间</th>
+          <th>修改时间</th>
+          <th>当前状态</th>
+          <th style="width: 120px;">操作</th>
+        </tr>
+      </thead>
+      <tbody class="text-color-c6">
+        <tr ng-repeat="d in roles" ng-class="{'text-color-c4':!d.enabled}">
+          <td>{{$index + 1}}</td>
+          <td ng-bind="d.name"></td>
+          <td ng-bind="d.description"></td>
+          <td ng-bind="d.createdTime | date: 'yyyy-MM-dd HH:mm'"></td>
+          <td ng-bind="d.updatedTime | date: 'yyyy-MM-dd HH:mm'"></td>
+          <td ng-bind="d.enabled?'正常':'已禁用'"></td>
+          <td>
+            <a ng-if="!d.added" ng-click="addRole(d.id)">添加</a>
+            <span class="permissionAdded" ng-bind="d.added ==='added'?'添加成功':'已添加'" ng-if="d.added"></span>
+          </td>
+        </tr>
+      </tbody>
+      <tbody>
+        <tr ng-if="loadingStatus!=''">
+          <td colspan="7" class="tc" ng-bind="loadingStatus"></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div uib-pagination ng-if="roles && roles.length>0" boundary-link-numbers="true" force-ellipses="true" max-size="10" boundary-links="true" ng-change="onsearch()" items-per-page="pagination.pageSize" total-items="pagination.totalCount" ng-model="pagination.curPage" class="pagination-sm fr" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></div>
+  </div>
+</div>

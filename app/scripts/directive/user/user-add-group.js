@@ -1,6 +1,6 @@
 'use strict';
 define(['utils/Constant'], function (Constant) {
-    function fn($location, RoleSvc, PermissionSvc) {
+    function fn($location, UserSvc, GroupSvc) {
         return {
             restrict: 'E',
             scope: {
@@ -8,77 +8,92 @@ define(['utils/Constant'], function (Constant) {
             },
             templateUrl: 'views/directive/user/user-add-group.html',
             link: function ($scope) {
+                $scope.$watch('id', function () {
+                    if ($scope.id) {
+                        $scope.onsearch();
+                    }
+                });
 
-                function buildDisplayData() {
-                    $scope.users.forEach(function (p) {
-                        if (!(p.type in $scope.displayData)) {
-                            $scope.displayData[p.type] = [p];
-                        } else {
-                            $scope.displayData[p.type].push(p);
-                        }
-                    });
-                    $scope.types = Object.keys($scope.displayData);
+                function buildDisplayData(result) {
+                    $scope.roles = result.data;
 
-                    $scope.addedPermissionList.forEach(function (p) {
-                        var target = $scope.displayData[p.type];
+                    $scope.pagination.curPage = result.page;
+                    $scope.pagination.totalCount = result.totalCount;
+                    $scope.pagination.pageSize = result.pageSize;
 
-                        target.find(function (e) {
-                            if (e.id === p.id) {
-                                e.added = true;
+                    $scope.addedList.forEach(function (addedR) {
+
+                        $scope.roles.find(function (r) {
+                            if (r.id === addedR.id) {
+                                r.added = true;
+                                return true;
                             }
+                            return false;
                         });
                     });
-                    console.log($scope.displayData);
+
                 }
                 $scope.criteria = {
                     name: ''
                 };
-            // Event listeners
+
+                $scope.pagination = {
+                    pageSize: Constant.pageSize,
+                    curPage: 1,
+                    totalCount: 0
+                };
+
+              // Event listeners
                 $scope.lastCritria = null;
-                $scope.getPermissions = function () {
-                    $scope.displayData = {};
-                    $scope.types = [];
+                $scope.onsearch = function () {
                     var searchCriteria = {
-                        name: $scope.criteria.name ? $scope.criteria.name : null
+                        name: $scope.criteria.name ? $scope.criteria.name : null,
+                        pageSize: $scope.pagination.pageSize,
+                        page: $scope.pagination.curPage
                     };
 
                     $scope.lastCritria = searchCriteria;
                     $scope.loadingStatus = Constant.loading;
-                    $scope.users = [];
-                    PermissionSvc.getAllPermission(searchCriteria, function (resp) {
-                        $scope.users = resp;
+                    $scope.roles = [];
+                    GroupSvc.getGroup(searchCriteria, function (result) {
 
-                        if (!$scope.users.length) {
+                        if (!result || !result.data || !result.data.length) {
+                            $scope.roles = [];
                             $scope.loadingStatus = Constant.loadEmpty;
                             return;
                         }
 
-                        RoleSvc.getRolePermission({ roleId: $scope.id },
-                          function (addedPermissionList) {
-                              $scope.loadingStatus = '';
-                              $scope.addedPermissionList = addedPermissionList;
+                        UserSvc.getGroups({ userId: $scope.id },
+                            function (addedList) {
+                                $scope.loadingStatus = '';
+                                $scope.addedList = addedList;
 
-                              if (!addedPermissionList || !addedPermissionList.length) {
-                                  $scope.addedPermissionList = [];
-                              }
+                                if (!addedList || !addedList.length) {
+                                    $scope.addedList = [];
+                                }
 
-                              buildDisplayData();
+                                buildDisplayData(result);
 
-                          }, function () {
-                              $scope.loadingStatus = '';
-                              $scope.addedPermissionList = [];
-                              buildDisplayData();
-                          });
+                            }, function () {
+                                $scope.loadingStatus = '';
+                                $scope.addedList = [];
+                                buildDisplayData(result);
+                            });
 
                     }, function () {
                         $scope.loadingStatus = Constant.loadError;
                     });
                 };
 
-                $scope.addPermission = function (type, index, id) {
-                    RoleSvc.addPermission({ roleId: $scope.id, permissionId: id }, function () {
-                        $scope.displayData[type][index].added = 'added';
-                        console.log($scope.displayData);
+                $scope.addRole = function (roleId) {
+                    GroupSvc.addUser({ categoryId: $scope.id, groupId: roleId }, function () {
+                        $scope.roles.find(function (r) {
+                            if (r.id === roleId) {
+                                r.added = 'added';
+                                return true;
+                            }
+                            return false;
+                        });
                     }, function (error) {
                         var resp = (error && error.data) || {};
                         var msg = resp.errMsg ? resp.errMsg : Constant.operateError;
@@ -86,17 +101,13 @@ define(['utils/Constant'], function (Constant) {
                         alert(msg);
                     });
                 };
-                $scope.$watch('id', function () {
-                    if ($scope.id) {
-                        $scope.getPermissions();
-                    }
-                });
+
             }
         };
     }
 
     return {
         name: 'userAddGroup',
-        directiveFn: ['$location', 'RoleSvc', 'PermissionSvc', fn]
+        directiveFn: ['$location', 'UserSvc', 'GroupSvc', fn]
     };
 });

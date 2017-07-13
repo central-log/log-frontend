@@ -44,6 +44,15 @@ define(['utils/Constant'], function (Constant) {
                 },
                 isArray: false,
                 timeout: Constant.reqTimeout
+            },
+            getGroups: {
+                method: 'GET',
+                params: {
+                    userId: '@userId',
+                    category: 'group'
+                },
+                isArray: false,
+                timeout: Constant.reqTimeout
             }
         });
 
