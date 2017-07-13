@@ -50,16 +50,27 @@
     <hr/>
     <div>
       <ul class="nav nav-tabs">
-          <li ng-hide="openAddPermissionTab"　ng-click="switchTab('permission')" role="presentation" ng-class="{active: currentTab=='permission'}"><a>权限列表</a></li>
-          <li ng-show="openAddPermissionTab" ng-click="switchTab('permission')" role="presentation" ><a>&lt;&lt;返回权限列表</a></li>
-          <li ng-hide="openAddPermissionTab" class="actions" style="float:right;"><a class="btn btn-default" ng-click="showAddPermission()">添加权限</a></li>
+          <li ng-hide="currentTab.indexOf('add')===0" ng-class="{active: currentTab==='role'}"><a ng-click="switchTab('role')">角色列表</a></li>
+          <li ng-hide="currentTab.indexOf('add')===0"  ng-class="{active: currentTab==='user'}"><a ng-click="switchTab('user')">用户列表</a></li>
+          <li ng-show="currentTab==='add-role'" ng-click="switchTab('role')"><a>&lt;&lt;返回</a></li>
+          <li ng-show="currentTab==='add-user'" ng-click="switchTab('user')"><a>&lt;&lt;返回</a></li>
+          <li ng-hide="currentTab.indexOf('add')===0" class="actions" style="float:right;"><a class="btn btn-default" ng-click="switchTab('add-user')">添加用户</a></li>
+          <li ng-hide="currentTab.indexOf('add')===0" class="actions" style="float:right;"><a class="btn btn-default" ng-click="switchTab('add-role')">添加角色</a></li>
       </ul>
     </div>
-    <div class="panel-body" ng-if="currentTab=='permission'" ng-class="{'statusDisabled':!role.enabled}" >
-        <role-permission id="role.id"></role-permission>
+    <div class="panel-body" ng-if="currentTab=='user'">
+        <group-user id="userParamEmail"></group-user>
     </div>
-    <div class="panel-body" ng-if="currentTab=='permission-add'">
-        <role-add-permission id="role.id"></role-add-permission>
+    <div class="panel-body" ng-if="currentTab=='role'">
+        <group-role id="userParamEmail"></group-role>
+    </div>
+    <div class="panel-body" ng-if="currentTab=='add-user'">
+        <group-add-user id="userParamEmail"></group-add-user>
+    </div>
+    <div class="panel-body" ng-if="currentTab=='add-role'">
+        <group-add-role id="userParamEmail"></group-add-role>
     </div>
   </div>
+
+
 </div>
