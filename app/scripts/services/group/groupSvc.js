@@ -37,6 +37,15 @@ define(['utils/Constant'], function (Constant) {
                 },
                 timeout: Constant.reqTimeout
             },
+            deleteUser: {
+                method: 'DELETE',
+                params: {
+                    category: 'user',
+                    groupId: '@groupId',
+                    categoryId: '@categoryId'
+                },
+                timeout: Constant.reqTimeout
+            },
             addRole: {
                 method: 'PUT',
                 params: {
@@ -46,10 +55,27 @@ define(['utils/Constant'], function (Constant) {
                 },
                 timeout: Constant.reqTimeout
             },
+            addUser: {
+                method: 'PUT',
+                params: {
+                    category: 'user',
+                    groupId: '@groupId',
+                    categoryId: '@categoryId'
+                },
+                timeout: Constant.reqTimeout
+            },
             getRoles: {
                 method: 'GET',
                 params: {
                     category: 'role',
+                    groupId: '@groupId'
+                },
+                timeout: Constant.reqTimeout
+            },
+            getUsers: {
+                method: 'GET',
+                params: {
+                    category: 'user',
                     groupId: '@groupId'
                 },
                 timeout: Constant.reqTimeout
