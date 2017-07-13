@@ -42,28 +42,48 @@
         </div>
         <div class="row text-size-s3">
           <div class="col-md-6">
-            <div class="col-md-3 text-color-c4">域ID：</div>
-            <div class="col-md-9 tl text-color-c6" ng-bind="domainDetail.id"></div>
+            <div class="col-md-3 text-color-c4">描述信息：</div>
+            <div class="col-md-9 tl text-color-c6" ng-bind="domainDetail.description"></div>
           </div>
           <div class="col-md-6">
-            <div class="col-md-3 text-color-c4">域Key：</div>
-            <div class="col-md-9 tl text-color-c6" ng-bind="domainDetail.id"></div>
+            <div class="col-md-3 text-color-c4">Secret Key：</div>
+            <div class="col-md-9 tl text-color-c6" ng-bind="domainDetail.secret"></div>
           </div>
         </div>
         <div class="row text-size-s3">
           <div class="col-md-6">
-            <div class="col-md-3 text-color-c4">日志级别：</div>
-            <div class="col-md-9 tl text-color-c6" ng-bind="domainDetail.key"></div>
+            <div class="col-md-3 text-color-c4">开启状态</div>
+            <div ng-class="{'statusDisabled':!domainDetail.enabled, statusEnabled:domainDetail.enabled}"
+              ng-bind="domainDetail.enabled?'正常':'已禁用'"
+              class="col-md-9 tl text-color-c6"></div>
           </div>
           <div class="col-md-6">
             <div class="col-md-3 text-color-c4">联系邮箱：</div>
-            <div class="col-md-9 tl text-color-c6" ng-bind="domainDetail.key"></div>
+            <div class="col-md-9 tl text-color-c6" ng-bind="domainDetail.email"></div>
           </div>
         </div>
+
         <div class="row text-size-s3">
-          <div class="col-md-3 text-color-c4">描述信息：</div>
-          <div class="col-md-9 tl text-color-c6" ng-bind="domainDetail.description"></div>
+          <div class="col-md-6">
+            <div class="col-md-3 text-color-c4">创建日期：</div>
+            <div class="col-md-9 tl text-color-c6" ng-bind="domainDetail.createdTime"></div>
+          </div>
+          <div class="col-md-6">
+            <div class="col-md-3 text-color-c4">最近更新：</div>
+            <div class="col-md-9 tl text-color-c6" ng-bind="domainDetail.updatedTime"></div>
+          </div>
         </div>
+
+        <div class="row text-size-s3">
+          <div class="col-md-6">
+            <div class="col-md-3 text-color-c4">有效期：</div>
+            <div class="col-md-9 tl text-color-c6">
+              <span ng-bind="domainDetail.starDateTime | date:'yyyy-MM-dd hh:mm:ss'"></span>至<span ng-bind="domainDetail.endDateTime | date:'yyyy-MM-dd hh:mm:ss'"></span>
+              <span ng-if="invalidTime" class="red">已过期</span>
+            </div>
+          </div>
+        </div>
+
       </div>
       <div ng-show="envDetails.name">
         <hr/>

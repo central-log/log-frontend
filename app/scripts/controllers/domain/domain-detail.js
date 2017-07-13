@@ -74,6 +74,7 @@ define(['utils/Constant'], function (Constant) {
                     $scope.notFound = true;
                     return;
                 }
+                $scope.invalidTime = new Date().getTime() > $scope.domainDetail.endDateTime;
                 if ($scope.domainDetail && $scope.domainDetail.env) {
 
                     previousSelectedEnv = localStorageService.get(domainSelectedEnvKey);
