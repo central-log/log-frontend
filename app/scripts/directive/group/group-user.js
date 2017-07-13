@@ -16,7 +16,7 @@ define(['utils/Constant'], function (Constant) {
                 };
 
                 $scope.lastCritria = null;
-                $scope.queryRole = function () {
+                $scope.onsearch = function () {
                     var searchCriteria = {
                         groupId: $scope.id,
                         pageSize: $scope.pagination.pageSize,
@@ -49,7 +49,7 @@ define(['utils/Constant'], function (Constant) {
                     GroupSvc.deleteUser({ groupId: $scope.id, categoryId: id }, function () {
                         $scope.submiting = false;
                         $scope.deleteInstanceDialog.close();
-                        $scope.queryRole();
+                        $scope.onsearch();
                     }, function (error) {
                         $scope.submiting = false;
                         var resp = (error && error.data) || {};
@@ -75,7 +75,7 @@ define(['utils/Constant'], function (Constant) {
 
                 $scope.$watch('id', function () {
                     if ($scope.id) {
-                        $scope.queryRole();
+                        $scope.onsearch();
                     }
                 });
 
