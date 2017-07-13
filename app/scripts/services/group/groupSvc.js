@@ -20,7 +20,7 @@ define(['utils/Constant'], function (Constant) {
                 },
                 timeout: Constant.reqTimeout
             },
-            modifyRole: {
+            modifyGroup: {
                 method: 'POST',
                 params: {
                     category: 'detail',
@@ -31,7 +31,16 @@ define(['utils/Constant'], function (Constant) {
             deleteRole: {
                 method: 'DELETE',
                 params: {
-                    category: 'detail',
+                    category: 'role',
+                    groupId: '@groupId',
+                    categoryId: '@categoryId'
+                },
+                timeout: Constant.reqTimeout
+            },
+            addRole: {
+                method: 'PUT',
+                params: {
+                    category: 'role',
                     groupId: '@groupId',
                     categoryId: '@categoryId'
                 },

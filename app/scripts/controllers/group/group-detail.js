@@ -37,7 +37,7 @@ define(['utils/Constant'], function (Constant) {
         $scope.modifyRole = function () {
             $scope.submiting = true;
             $scope.newRole.enabled = $scope.newRole.enabledOption.value;
-            GroupSvc.modifyRole($scope.newRole, function (resp) {
+            GroupSvc.modifyGroup($scope.newRole, function (resp) {
                 $scope.submiting = false;
                 $scope.role.name = resp.name;
                 $scope.role.description = resp.description;

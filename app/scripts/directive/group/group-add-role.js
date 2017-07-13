@@ -1,6 +1,6 @@
 'use strict';
 define(['utils/Constant'], function (Constant) {
-    function fn($location, UserSvc, RoleSvc) {
+    function fn($location, GroupSvc, RoleSvc) {
         return {
             restrict: 'E',
             scope: {
@@ -64,7 +64,7 @@ define(['utils/Constant'], function (Constant) {
                             return;
                         }
 
-                        UserSvc.getRoleOfUser({ userId: $scope.id },
+                        GroupSvc.getRoles({ groupId: $scope.id },
                           function (addedList) {
                               $scope.loadingStatus = '';
                               $scope.addedList = addedList;
@@ -87,7 +87,7 @@ define(['utils/Constant'], function (Constant) {
                 };
 
                 $scope.addRole = function (roleId) {
-                    UserSvc.addRole({ categoryId: roleId, userId: $scope.id }, function () {
+                    GroupSvc.addRole({ categoryId: roleId, groupId: $scope.id }, function () {
                         $scope.roles.find(function (r) {
                             if (r.id === roleId) {
                                 r.added = 'added';
@@ -109,6 +109,6 @@ define(['utils/Constant'], function (Constant) {
 
     return {
         name: 'groupAddRole',
-        directiveFn: ['$location', 'UserSvc', 'RoleSvc', fn]
+        directiveFn: ['$location', 'GroupSvc', 'RoleSvc', fn]
     };
 });
