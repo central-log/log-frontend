@@ -35,6 +35,11 @@ define(['utils/Constant'], function (Constant) {
                 isArray: false,
                 timeout: Constant.reqTimeout
             },
+            addUser: {
+                method: 'PUT',
+                isArray: false,
+                timeout: Constant.reqTimeout
+            },
             addRole: {
                 method: 'PUT',
                 params: {
