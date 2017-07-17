@@ -50,12 +50,12 @@
     <hr/>
     <div>
       <ul class="nav nav-tabs">
-          <li ng-hide="currentTab.indexOf('add')===0" ng-class="{active: currentTab==='role'}"><a ng-click="switchTab('role')">角色列表</a></li>
           <li ng-hide="currentTab.indexOf('add')===0"  ng-class="{active: currentTab==='user'}"><a ng-click="switchTab('user')">用户列表</a></li>
+          <li ng-hide="currentTab.indexOf('add')===0" ng-class="{active: currentTab==='role'}"><a ng-click="switchTab('role')">角色列表</a></li>
           <li ng-show="currentTab==='add-role'" ng-click="switchTab('role')"><a>&lt;&lt;返回</a></li>
           <li ng-show="currentTab==='add-user'" ng-click="switchTab('user')"><a>&lt;&lt;返回</a></li>
-          <li ng-hide="currentTab.indexOf('add')===0" class="actions" style="float:right;"><a class="btn btn-default" ng-click="switchTab('add-user')">添加用户</a></li>
           <li ng-hide="currentTab.indexOf('add')===0" class="actions" style="float:right;"><a class="btn btn-default" ng-click="switchTab('add-role')">添加角色</a></li>
+          <li ng-hide="currentTab.indexOf('add')===0" class="actions" style="float:right;"><a class="btn btn-default" ng-click="switchTab('add-user')">添加用户</a></li>
       </ul>
     </div>
     <div class="panel-body" ng-if="currentTab=='user'">

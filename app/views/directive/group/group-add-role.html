@@ -1,9 +1,9 @@
 <div>
   <form class="navbar-form navbar-left full-width pd-lt-0 pd-rt-0">
     <div class="input-group fl">
-      <span class="">组名称或描述：</span>
+      <span class="">角色名称或描述：</span>
       <div class="form-group mg-rt-1">
-        <input type="text" class="form-control" placeholder="组名称或描述" ng-model="criteria.name" maxlength="40">
+        <input type="text" class="form-control" placeholder="角色名称或描述" ng-model="criteria.name" maxlength="40">
       </div>
       <button type="submit" ng-click="onsearch()" class="btn mg-rt-1 btn-default">查询</button>
       <span class="text-color-c4" ng-if="lastCritria && lastCritria.name">搜索【{{lastCritria.name}}】结果:</span>
@@ -16,8 +16,8 @@
       <thead class="text-color-c4">
         <tr>
           <th>序号</th>
-          <th>组名称</th>
-          <th>组描述</th>
+          <th>角色名称</th>
+          <th>角色描述</th>
           <th>创建时间</th>
           <th>修改时间</th>
           <th>当前状态</th>

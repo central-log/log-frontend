@@ -64,7 +64,7 @@ define(['utils/Constant'], function (Constant) {
                         title: '移除用户',
                         type: '用户',
                         name: role.name + '(' + role.email + ')',
-                        id: role.id
+                        id: role.email
                     };
                     $scope.deleteInstanceDialog = ngDialog.open({
                         template: './views/directive/user/role-confirm-delete.html',

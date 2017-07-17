@@ -70,6 +70,7 @@ define(['utils/Constant'], function (Constant) {
                     category: 'role',
                     groupId: '@groupId'
                 },
+                isArray: true,
                 timeout: Constant.reqTimeout
             },
             getUsers: {
@@ -78,6 +79,7 @@ define(['utils/Constant'], function (Constant) {
                     category: 'user',
                     groupId: '@groupId'
                 },
+                isArray: true,
                 timeout: Constant.reqTimeout
             }
 

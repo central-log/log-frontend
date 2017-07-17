@@ -26,7 +26,7 @@ define(['utils/Constant'], function (Constant) {
                     $scope.addedList.forEach(function (addedR) {
 
                         $scope.roles.find(function (r) {
-                            if (r.id === addedR.id) {
+                            if (r.email === addedR.email) {
                                 r.added = true;
                                 return true;
                             }
@@ -36,7 +36,7 @@ define(['utils/Constant'], function (Constant) {
 
                 }
                 $scope.criteria = {
-                    name: ''
+                    email: ''
                 };
 
                 $scope.pagination = {
@@ -49,7 +49,7 @@ define(['utils/Constant'], function (Constant) {
                 $scope.lastCritria = null;
                 $scope.onsearch = function () {
                     var searchCriteria = {
-                        name: $scope.criteria.name ? $scope.criteria.name : null,
+                        email: $scope.criteria.email ? $scope.criteria.email : null,
                         pageSize: $scope.pagination.pageSize,
                         page: $scope.pagination.curPage
                     };
@@ -90,7 +90,7 @@ define(['utils/Constant'], function (Constant) {
                 $scope.addRole = function (roleId) {
                     GroupSvc.addUser({ categoryId: roleId, groupId: $scope.id }, function () {
                         $scope.roles.find(function (r) {
-                            if (r.id === roleId) {
+                            if (r.email === roleId) {
                                 r.added = 'added';
                                 return true;
                             }

@@ -37,7 +37,7 @@
       <hr/>
       <div>
         <ul class="nav nav-tabs">
-            <li ng-hide="currentTab.indexOf('add')===0" ng-class="{active: currentTab==='permission'}"><a ng-click="switchTab('permission')">权限列表</a></li>
+            <!-- <li ng-hide="currentTab.indexOf('add')===0" ng-class="{active: currentTab==='permission'}"><a ng-click="switchTab('permission')">权限列表</a></li> -->
             <li ng-hide="currentTab.indexOf('add')===0" ng-class="{active: currentTab==='role'}"><a ng-click="switchTab('role')">所属角色</a></li>
             <li ng-hide="currentTab.indexOf('add')===0"  ng-class="{active: currentTab==='group'}"><a ng-click="switchTab('group')">所属组</a></li>
             <li ng-show="currentTab==='add-role'" ng-click="switchTab('role')"><a>&lt;&lt;返回</a></li>
@@ -46,9 +46,9 @@
             <li ng-hide="currentTab.indexOf('add')===0" class="actions" style="float:right;"><a class="btn btn-default" ng-click="switchTab('add-role')">添加角色</a></li>
         </ul>
       </div>
-      <div class="panel-body" ng-if="currentTab=='permission'">
+      <!-- <div class="panel-body" ng-if="currentTab=='permission'">
           <user-permission id="userParamEmail"></user-permission>
-      </div>
+      </div> -->
       <div class="panel-body" ng-if="currentTab=='group'">
           <user-group id="userParamEmail"></user-group>
       </div>

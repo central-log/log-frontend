@@ -7,7 +7,7 @@ define(['utils/Constant'], function (Constant) {
             $scope.currentTab = tab;
             $scope.openAddPermissionTab = false;
         };
-        $scope.switchTab('permission');
+        $scope.switchTab('user');
 
         $scope.showAddPermission = function () {
             $scope.openAddPermissionTab = true;

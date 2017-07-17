@@ -56,7 +56,7 @@ define(['utils/Constant'], function (Constant) {
                     userId: '@userId',
                     category: 'group'
                 },
-                isArray: false,
+                isArray: true,
                 timeout: Constant.reqTimeout
             }
         });

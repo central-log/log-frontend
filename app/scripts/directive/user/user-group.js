@@ -18,7 +18,7 @@ define(['utils/Constant'], function (Constant) {
                 $scope.lastCritria = null;
                 $scope.onsearch = function () {
                     var searchCriteria = {
-                        groupId: $scope.id,
+                        userId: $scope.id,
                         pageSize: $scope.pagination.pageSize,
                         page: $scope.pagination.curPage
                     };
